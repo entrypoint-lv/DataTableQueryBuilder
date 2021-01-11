@@ -27,13 +27,15 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
       
     - name: Publish DataTableQueryBuilder
-      uses: brandedoutcast/publish-nuget@v2.5.2
+      uses: rohith/publish-nuget@v2
       with:
         PROJECT_FILE_PATH: src/DataTableQueryBuilder/DataTableQueryBuilder.csproj
+        PACKAGE_NAME: DataTableQueryBuilder
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
         
     - name: Publish DataTableQueryBuilder.DataTables
-      uses: brandedoutcast/publish-nuget@v2.5.2
+      uses: rohith/publish-nuget@v2
       with:
         PROJECT_FILE_PATH: src/DataTableQueryBuilder.DataTables/DataTableQueryBuilder.DataTables.csproj
+        PACKAGE_NAME: DataTableQueryBuilder.DataTables
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
