@@ -1,85 +1,39 @@
-name: publish to nuget
+name: Auto NuGet
+
 on:
   push:
-    branches:
-      - master # Default release branch
+    branches: [ master ]
+    
 jobs:
-  publish:
-    name: build, pack & publish
+  build:
+    
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v2
-
-      # - name: Setup dotnet
-      #   uses: actions/setup-dotnet@v1
-      #   with:
-      #     dotnet-version: 3.1.200
-
-      # Publish
-      - name: publish on version change
-        id: publish_nuget_datatablequerybuilder
-        uses: rohith/publish-nuget@v2
-        with:
-          # Filepath of the project to be packaged, relative to root of repository
-          PROJECT_FILE_PATH: src/DataTableQueryBuilder/DataTableQueryBuilder.csproj
-          
-          # NuGet package id, used for version detection & defaults to project name
-          PACKAGE_NAME: DataTableQueryBuilder
-          
-          # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
-          VERSION_FILE_PATH: Directory.Build.props
-
-          # Regex pattern to extract version info in a capturing group
-          VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
-          
-          # Useful with external providers like Nerdbank.GitVersioning, ignores VERSION_FILE_PATH & VERSION_REGEX
-          VERSION_STATIC: 1.0.0
-
-          # Flag to toggle git tagging, enabled by default
-          TAG_COMMIT: true
-
-          # Format of the git tag, [*] gets replaced with actual version
-          TAG_FORMAT: v*
-
-          # API key to authenticate with NuGet server
-          NUGET_KEY: oy2mv2vtzjkfxk2p5osq4xloqxmpwb3exa2yrfhpqzhelm
-
-          # NuGet server uri hosting the packages, defaults to https://api.nuget.org
-          NUGET_SOURCE: https://api.nuget.org
-
-          # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
-          INCLUDE_SYMBOLS: false
-          
-      - name: publish on version change
-        id: publish_nuget_publish_nuget_datatablequerybuilder_datatables
-        uses: rohith/publish-nuget@v2
-        with:
-          # Filepath of the project to be packaged, relative to root of repository
-          PROJECT_FILE_PATH: src/DataTableQueryBuilder.DataTables/DataTableQueryBuilder.DataTables.csproj
-          
-          # NuGet package id, used for version detection & defaults to project name
-          PACKAGE_NAME: DataTableQueryBuilder.DataTables
-          
-          # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
-          VERSION_FILE_PATH: Directory.Build.props
-
-          # Regex pattern to extract version info in a capturing group
-          VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
-          
-          # Useful with external providers like Nerdbank.GitVersioning, ignores VERSION_FILE_PATH & VERSION_REGEX
-          VERSION_STATIC: 1.0.0
-
-          # Flag to toggle git tagging, enabled by default
-          TAG_COMMIT: true
-
-          # Format of the git tag, [*] gets replaced with actual version
-          TAG_FORMAT: v*
-
-          # API key to authenticate with NuGet server
-          NUGET_KEY: oy2mv2vtzjkfxk2p5osq4xloqxmpwb3exa2yrfhpqzhelm
-
-          # NuGet server uri hosting the packages, defaults to https://api.nuget.org
-          NUGET_SOURCE: https://api.nuget.org
-
-          # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
-          INCLUDE_SYMBOLS: false
+    - uses: actions/checkout@v2
+      
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.100
+        
+    - name: Install dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+      
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+      
+    - name: Publish DataTableQueryBuilder
+      uses: brandedoutcast/publish-nuget@v2.5.2
+      with:
+        PROJECT_FILE_PATH: src/DataTableQueryBuilder/DataTableQueryBuilder.csproj
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+        
+    - name: Publish DataTableQueryBuilder.DataTables
+      uses: brandedoutcast/publish-nuget@v2.5.2
+      with:
+        PROJECT_FILE_PATH: src/DataTableQueryBuilder.DataTables/DataTableQueryBuilder.DataTables.csproj
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
