@@ -2,7 +2,6 @@
 <package >
 	<metadata>
 		<id>DataTableQueryBuilder</id>
-		<version>1.0.1</version>
 		<title>DataTableQueryBuilder</title>
 		<authors>EntryPoint</authors>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>

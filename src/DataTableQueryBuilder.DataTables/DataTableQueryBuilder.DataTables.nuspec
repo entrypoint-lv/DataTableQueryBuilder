@@ -2,7 +2,6 @@
 <package >
 	<metadata>
 		<id>DataTableQueryBuilder.DataTables</id>
-		<version>1.0.1</version>
 		<title>DataTableQueryBuilder.DataTables</title>
 		<authors>EntryPoint</authors>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -13,7 +12,7 @@
 		<tags>DataTableQueryBuilder.DataTables EntryPoint</tags>
 		<dependencies>
 			<group targetFramework="uap">
-				<dependency id="DataTableQueryBuilder" version="1.0.1" />
+				<dependency id="DataTableQueryBuilder" version="1.0.2" />
 			</group>
 		</dependencies>
 	</metadata>
