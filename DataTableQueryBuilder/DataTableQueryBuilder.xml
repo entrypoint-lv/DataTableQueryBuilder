@@ -1,0 +1,572 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DataTableQueryBuilder</name>
+    </assembly>
+    <members>
+        <member name="T:DataTableQueryBuilder.DataTables.DataTablesQueryBuilder`2">
+            <summary>
+            Builds a query according to the specific DataTable request.
+            </summary>
+            <typeparam name="TDataTableFields">A view model that represents the list of DataTable columns.</typeparam>
+            <typeparam name="TSource">The type of the data returned from the data source.</typeparam>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.DataTablesQueryBuilder`2.#ctor(DataTableQueryBuilder.DataTables.DataTablesRequest)">
+            <summary>
+            Creates a new query builder to be used for specific DataTable request.
+            </summary>
+            <param name="request">DataTables request.</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.DataTablesQueryBuilder`2.#ctor(DataTableQueryBuilder.DataTables.DataTablesRequest,System.Action{DataTableQueryBuilder.QueryBuilderOptions{`0,`1}})">
+            <summary>
+            Creates a new query builder to be used on specific DataTable request.
+            </summary>
+            <param name="request">DataTables request.</param>
+            <param name="optionsAction">An action to configure the QueryBuilderOptions.</param>
+        </member>
+        <member name="T:DataTableQueryBuilder.DataTables.Configuration">
+            <summary>
+            Handles DataTableQueryBuilder.DataTables registration and holds default (global) configuration options.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.Configuration.Options">
+            <summary>
+            Get's DataTableQueryBuilder.DataTables runtime options for server-side processing.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.Configuration.#cctor">
+            <summary>
+            Static constructor.
+            Set's default configuration for DataTableQueryBuilder.DataTables.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.Configuration.RegisterDataTables(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Provides DataTableQueryBuilder.DataTables model binder registration.
+            </summary>
+            <param name="services">Service collection for dependency injection.</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.Configuration.RegisterDataTables(Microsoft.Extensions.DependencyInjection.IServiceCollection,DataTableQueryBuilder.DataTables.Options)">
+            <summary>
+            Provides DataTableQueryBuilder.DataTables model binder registration.
+            </summary>
+            <param name="services">Service collection for dependency injection.</param>
+            <param name="options">DataTableQueryBuilder.DataTables options.</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.Configuration.RegisterDataTables(Microsoft.Extensions.DependencyInjection.IServiceCollection,DataTableQueryBuilder.DataTables.ModelBinder)">
+            <summary>
+            Provides DataTableQueryBuilder.DataTables model binder registration.
+            </summary>
+            <param name="services">Service collection for dependency injection.</param>
+            <param name="requestModelBinder">Request model binder to use when resolving 'DataTablesRequest' models.</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.Configuration.RegisterDataTables(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext,System.Collections.Generic.IDictionary{System.String,System.Object}})">
+            <summary>
+            Provides DataTableQueryBuilder.DataTables model binder registration.
+            </summary>
+            <param name="services">Service collection for dependency injection.</param>
+            <param name="parseRequestAdditionalParameters">Function to evaluante and parse aditional parameters sent within the request (user-defined parameters).</param>
+            <param name="parseResponseAdditionalParameters">Indicates whether response aditional parameters parsing is enabled or not.</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.Configuration.RegisterDataTables(Microsoft.Extensions.DependencyInjection.IServiceCollection,DataTableQueryBuilder.DataTables.Options,DataTableQueryBuilder.DataTables.ModelBinder)">
+            <summary>
+            Provides DataTableQueryBuilder.DataTables model binder registration.
+            </summary>
+            <param name="options">DataTableQueryBuilder.DataTables options.</param>
+            <param name="requestModelBinder">Model binder to use when resolving 'DataTablesRequest' model.</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.Configuration.RegisterDataTables(Microsoft.Extensions.DependencyInjection.IServiceCollection,DataTableQueryBuilder.DataTables.Options,DataTableQueryBuilder.DataTables.ModelBinder,System.Func{Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext,System.Collections.Generic.IDictionary{System.String,System.Object}})">
+            <summary>
+            Provides DataTableQueryBuilder.DataTables model binder registration.
+            </summary>
+            <param name="services">Service collection for dependency injection.</param>
+            <param name="options">DataTableQueryBuilder.DataTables options.</param>
+            <param name="requestModelBinder">Request model binder to use when resolving 'DataTablesRequest' models.</param>
+            <param name="parseRequestAdditionalParameters">Function to evaluate and parse aditional parameters sent within the request (user-defined parameters).</param>
+        </member>
+        <member name="T:DataTableQueryBuilder.DataTables.ModelBinder">
+            <summary>
+            Represents a model binder for DataTables request element.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.ModelBinder.BindModelAsync(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext)">
+            <summary>
+            Binds request data/parameters/values into a 'DataTablesRequest' element.
+            </summary>
+            <param name="bindingContext">Binding context for data/parameters/values.</param>
+            <returns>An DataTablesRequest object or null if binding was not possible.</returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.ModelBinder.BindModel(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext,DataTableQueryBuilder.DataTables.Options,System.Func{Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext,System.Collections.Generic.IDictionary{System.String,System.Object}})">
+            <summary>
+            Binds request data/parameters/values into a 'DataTablesRequest' element.
+            </summary>
+            <param name="controllerContext">Controller context for execution.</param>
+            <param name="bindingContext">Binding context for data/parameters/values.</param>
+            <param name="options">DataTableQueryBuilder.DataTables global options.</param>
+            <returns>An DataTablesRequest object or null if binding was not possible.</returns>
+        </member>
+        <member name="F:DataTableQueryBuilder.DataTables.ModelBinder.ParseAdditionalParameters">
+            <summary>
+            Provides custom aditional parameters processing for your request.
+            You have to implement this to populate 'DataTablesRequest' object with aditional (user-defined) request values.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.ModelBinder.ParseColumns(Microsoft.AspNetCore.Mvc.ModelBinding.IValueProvider,DataTableQueryBuilder.DataTables.RequestNameConvention)">
+            <summary>
+            Parse column collection.
+            </summary>
+            <param name="values">Request parameters.</param>
+            <param name="names">Name convention for request parameters.</param>
+            <returns></returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.ModelBinder.ParseSorting(System.Collections.Generic.IEnumerable{DataTableQueryBuilder.DataTables.Column},Microsoft.AspNetCore.Mvc.ModelBinding.IValueProvider,DataTableQueryBuilder.DataTables.RequestNameConvention)">
+            <summary>
+            Parse sort collection.
+            </summary>
+            <param name="columns">Column collection to use when parsing sort.</param>
+            <param name="values">Request parameters.</param>
+            <param name="names">Name convention for request parameters.</param>
+            <returns></returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.ModelBinder.Parse``1(Microsoft.AspNetCore.Mvc.ModelBinding.ValueProviderResult,``0@)">
+            <summary>
+            Parses a possible raw value and transforms into a strongly-typed result.
+            </summary>
+            <typeparam name="ElementType">The expected type for result.</typeparam>
+            <param name="value">The possible request value.</param>
+            <param name="result">Returns the parsing result or default value for type is parsing failed.</param>
+            <returns>True if parsing succeeded, False otherwise.</returns>
+        </member>
+        <member name="T:DataTableQueryBuilder.DataTables.Options">
+            <summary>
+            Represents a configuration object for DataTableQueryBuilder.DataTables.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.Options.DefaultPageLength">
+            <summary>
+            Gets default page length when parameter is not set.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.Options.IsDrawValidationEnabled">
+            <summary>
+            Gets an indicator if draw parameter should be validated.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.Options.RequestNameConvention">
+            <summary>
+            Gets the request name convention to be used when resolving request parameters.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.Options.ResponseNameConvention">
+            <summary>
+            Gets the response name convention to be used when serializing response elements.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.Options.SetDefaultPageLength(System.Int32)">
+            <summary>
+            Sets the default page length to be used when request parameter is not set.
+            Page length is set to 20 by default.
+            </summary>
+            <param name="defaultPageLength">The new default page length to be used.</param>
+            <returns></returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.Options.EnableDrawValidation">
+            <summary>
+            Enables draw validation.
+            Draw validation is enabled by default.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.Options.DisableDrawValidation">
+            <summary>
+            Disables draw validation.
+            As stated by jQuery DataTables, draw validation should not be disabled unless explicitly required.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.Options.#ctor">
+            <summary>
+            Creates a new 'Option' instance.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.Options.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            Creates a new 'Option' instance.
+            </summary>
+            <param name="defaultPageLength">Default page length to be used.</param>
+            <param name="enableDrawValidation">Indicates if draw validation will be enabled by default or not.</param>
+        </member>
+        <member name="T:DataTableQueryBuilder.DataTables.Column">
+            <summary>
+            Represents a DataTables column.
+            </summary>
+        </member>
+        <member name="T:DataTableQueryBuilder.DataTables.DataTablesRequest">
+            <summary>
+            Represents a DataTables request.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.DataTablesRequest.Draw">
+            <summary>
+            Gets draw counter.
+            This is used by DataTables to ensure that the Ajax returns from server-side procesing request are drawn in sequence by DataTables.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.DataTablesRequest.StartRecordNumber">
+            <summary>
+            Gets paging first record indicator.
+            This is the start point in the current data set (zero index based).
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:DataTableQueryBuilder.DataTables.DataTablesRequest.PageSize" -->
+        <member name="P:DataTableQueryBuilder.DataTables.DataTablesRequest.Search">
+            <summary>
+            Gets global search.
+            To be applied to all searchable columns.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.DataTablesRequest.Columns">
+            <summary>
+            Gets DataTables column collection (from client-side).
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.DataTablesRequest.AdditionalParameters">
+            <summary>
+            Gets the user-defined collection of parameters.
+            </summary>
+        </member>
+        <member name="T:DataTableQueryBuilder.DataTables.RequestNameConvention">
+            <summary>
+            Represents request naming convention.
+            </summary>
+        </member>
+        <member name="T:DataTableQueryBuilder.DataTables.Search">
+            <summary>
+            Represents search/filter definition and value.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.Search.IsRegex">
+            <summary>
+            Gets an indicator if search value is regex or plain text.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.Search.Value">
+            <summary>
+            Gets search value.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.Search.#ctor">
+            <summary>
+            Creates a new search instance.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.Search.#ctor(System.String,System.Boolean)">
+            <summary>
+            Creates a new search instance.
+            </summary>
+            <param name="value">Search value.</param>
+            <param name="isRegex">True if search value is regex, False if search value is plain text.</param>
+        </member>
+        <member name="T:DataTableQueryBuilder.DataTables.DataTablesResponse">
+            <summary>
+            Represents a response for DataTables.
+            </summary>
+        </member>
+        <member name="F:DataTableQueryBuilder.DataTables.DataTablesResponse.ContentType">
+            <summary>
+            Defines the result content type.
+            </summary>
+        </member>
+        <member name="F:DataTableQueryBuilder.DataTables.DataTablesResponse.ContentEncoding">
+            <summary>
+            Defines the result enconding.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.DataTablesResponse.Request">
+            <summary>
+            Gets draw count for validation and async ordering.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.DataTablesResponse.Error">
+            <summary>
+            Gets error message, if not successful.
+            Should only be available for DataTables 1.10 and above.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.DataTablesResponse.TotalRecords">
+            <summary>
+            Gets total record count (total records available on database).
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.DataTablesResponse.TotalRecordsFiltered">
+            <summary>
+            Gets filtered record count (total records available after filtering).
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.DataTablesResponse.Data">
+            <summary>
+            Gets data object (collection).
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.DataTables.DataTablesResponse.AdditionalParameters">
+            <summary>
+            Gets aditional parameters for response.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.DataTablesResponse.#ctor(DataTableQueryBuilder.DataTables.DataTablesRequest,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Creates a new response instance.
+            </summary>
+            <param name="request">DataTables request object.</param>
+            <param name="errorMessage">Error message.</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.DataTablesResponse.#ctor(DataTableQueryBuilder.DataTables.DataTablesRequest,System.Int32,System.Int32,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Creates a new response instance.
+            </summary>
+            <param name="request">DataTables request object.</param>
+            <param name="totalRecords">Total record count (total records available on database).</param>
+            <param name="totalRecordsFiltered">Filtered record count (total records available after filtering).</param>
+            <param name="additionalParameters">Aditional parameters for response.</param>
+            <param name="data">Data object (collection).</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.DataTablesResponse.ToJson">
+            <summary>
+            Converts this object to a Json compatible response using global naming convention for parameters.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DataTableQueryBuilder.DataTables.ResponseNameConvention">
+            <summary>
+            Represents response naming convention.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.FieldOptions`1.SourceProperty">
+            <summary>
+            Gets the Source's property access expression that is used when searching and sorting.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.FieldOptions`1.ValueMatchMethod">
+            <summary>
+            Gets the value match method that is used when searching. Default is String.Contains() for strings and integers, and equals for other value types.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.FieldOptions`1.IsGlobalSearchEnabled">
+            <summary>
+            Checks if global search is enabled on this field.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.FieldOptions`1.SearchExpression">
+            <summary>
+            Gets the search expression that is used when searching.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.FieldOptions`1.SortExpression">
+            <summary>
+            Gets the sort expression that is used when sorting.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.FieldOptions`1.UseSourceProperty``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            Explicitly sets the Source's property to use for searching and sorting.
+            </summary>
+            <typeparam name="TMember"></typeparam>
+            <param name="property"></param>
+        </member>
+        <member name="M:DataTableQueryBuilder.FieldOptions`1.EnableGlobalSearch">
+            <summary>
+            Enables a global search on this field.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.FieldOptions`1.SearchBy(System.Linq.Expressions.Expression{System.Func{`0,System.String,System.Boolean}})">
+            <summary>
+            Explicitly sets the search expression to be used during searching.
+            </summary>
+            <param name="expression"></param>
+        </member>
+        <member name="M:DataTableQueryBuilder.FieldOptions`1.OrderBy(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">
+            <summary>
+            Explicitly sets the sort expression to be used during sorting.
+            </summary>
+            <param name="expression"></param>
+        </member>
+        <member name="M:DataTableQueryBuilder.FieldOptions`1.SetValueMatchMethod(DataTableQueryBuilder.ValueMatchers.ValueMatchMethod)">
+            <summary>
+            Explicitly sets the value match method to be used during searching.
+            </summary>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DataTableQueryBuilder.IDataTableRequest">
+            <summary>
+            Represents a generic data table request.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.IDataTableRequest.StartRecordNumber">
+            <summary>
+            Gets paging first record indicator.
+            This is the start point in the current data set (zero index based).
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.IDataTableRequest.PageSize">
+            <summary>
+            Gets the number of records that the table can display in the current draw.
+            It is expected that the number of records returned will be equal to this number, unless the server has fewer records to return.
+            </summary>
+        </member>
+        <member name="T:DataTableQueryBuilder.IDataTableResponse">
+            <summary>
+            Represents a generic response for data table.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.IDataTableResponse.TotalRecordsFiltered">
+            <summary>
+            Gets filtered record count (total records available after filtering).
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.IDataTableResponse.Data">
+            <summary>
+            Gets data object (collection).
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.IDataTableResponse.AdditionalParameters">
+            <summary>
+            Gets aditional parameters for response.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.BuildResult`2.TotalRecords">
+            <summary>
+            Gets the total number of records without filtering applied.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.BuildResult`2.TotalRecordsFiltered">
+            <summary>
+            Gets the total number of records with filtering applied.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.BuildResult`2.BuildedQuery">
+            <summary>
+            Gets the builded query with specified searching and sorting configuration applied.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.BuildResult`2.MapToResponse(AutoMapper.IMapper)">
+            <summary>
+            Maps builded query to data table response.
+            </summary>
+            <param name="mapper">An AutoMapper instance.</param>
+            <returns>Data table response.</returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.BuildResult`2.MapToResponse(AutoMapper.IMapper,System.Action{AutoMapper.IMappingOperationOptions})">
+            <summary>
+            Maps builded query to data table response.
+            </summary>
+            <param name="mapper">An AutoMapper instance.</param>
+            <param name="mappingOptions">Options for a map operation.</param>
+            <returns>Data table response.</returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.BuildResult`2.MapToResponse(AutoMapper.IMapper,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Maps builded query to data table response.
+            </summary>
+            <param name="mapper">An AutoMapper instance.</param>
+            <param name="responseAdditionalParams">Additional parameters to be added to data table response.</param>
+            <returns>Data table response.</returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.BuildResult`2.MapToResponse(AutoMapper.IMapper,System.Action{AutoMapper.IMappingOperationOptions},System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Maps builded query to data table response.
+            </summary>
+            <param name="mapper">An AutoMapper instance.</param>
+            <param name="mappingOptions">Options for a map operation.</param>
+            <param name="responseAdditionalParams">Additional parameters to be added to data table response.</param>
+            <returns>Data table response.</returns>
+        </member>
+        <member name="T:DataTableQueryBuilder.QueryBuilder`2">
+            <summary>
+            Builds a query according to the specific data table request.
+            </summary>
+            <typeparam name="TDestination">A view model that represents the list of data table fields.</typeparam>
+            <typeparam name="TSource">The type of the data returned from the data source.</typeparam>
+        </member>
+        <member name="P:DataTableQueryBuilder.QueryBuilder`2.Options">
+            <summary>
+            Gets the builder options.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.QueryBuilder`2.#ctor(DataTableQueryBuilder.IDataTableRequest)">
+            <summary>
+            Creates a new query builder to be used for specific data table request.
+            </summary>
+            <param name="request">Data table request.</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.QueryBuilder`2.#ctor(DataTableQueryBuilder.IDataTableRequest,System.Action{DataTableQueryBuilder.QueryBuilderOptions{`0,`1}})">
+            <summary>
+            Creates a new request parser to be used on specific data table request.
+            </summary>
+            <param name="request">Data table request.</param>
+            <param name="optionsAction">An action to configure the QueryBuilderOptions.</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.QueryBuilder`2.Build(System.Linq.IQueryable{`1})">
+            <summary>
+            Builds the query according to the specified data table request and returns the result.
+            </summary>
+            <param name="sourceQuery">The query against a specific data source to which the specified searching and sorting request should be applied.</param>
+            <returns>Build result.</returns>
+        </member>
+        <member name="P:DataTableQueryBuilder.QueryBuilderOptions`2.DateFormat">
+            <summary>
+            Gets or sets date format of searching values.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.QueryBuilderOptions`2.ForField``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Action{DataTableQueryBuilder.FieldOptions{`1}})">
+            <summary>
+            Customizes the options for individual field.
+            </summary>
+            <typeparam name="TMember"></typeparam>
+            <param name="property">Expression to the field</param>
+            <param name="optionsAction">An action to configure the FieldOptions.</param>
+            <returns>Query builder options.</returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.QueryBuilderOptions`2.GetFieldOptions(System.String)">
+            <summary>
+            Gets the options for individual field.
+            </summary>
+            <param name="fieldName">Field name.</param>
+            <returns>Field options.</returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.QueryBuilderOptions`2.Validate">
+            <summary>
+            Validates the query builder options.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.QueryBuilderOptions`2.InitFieldOptions">
+            <summary>
+            Initializes the field options based on the data table request.
+            </summary>
+            <returns>Field options.</returns>
+        </member>
+        <member name="T:DataTableQueryBuilder.Sort">
+            <summary>
+            Represents sort/ordering for a field.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.Sort.Direction">
+            <summary>
+            Gets sort direction.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.Sort.Order">
+            <summary>
+            Gets sort order.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.Sort.#ctor(System.Int32,System.String)">
+            <summary>
+            Creates a new sort instance.
+            </summary>
+            <param name="field">Data field to be bound.</param>
+            <param name="order">Sort order for multi-sorting.</param>
+            <param name="direction">Sort direction.</param>
+        </member>
+    </members>
+</doc>

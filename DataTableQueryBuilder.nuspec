@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package >
 	<metadata>
-		<id>$id$</id>
+		<id>EntryPoint.DataTableQueryBuilder</id>
 		<version>1.0</version>
-		<title>EntryPoint.DataTableQueryBuilder</title>
+		<title>DataTableQueryBuilder</title>
 		<authors>EntryPoint</authors>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<license type="expression">MIT</license>
@@ -21,7 +21,7 @@
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="bin\Release\DataTableQueryBuilder.dll" target="lib\net5.0\DataTableQueryBuilder.dll" />
-		<file src="bin\Release\DataTableQueryBuilder.xml" target="lib\net5.0\DataTableQueryBuilder.xml" />
+		<file src="bin\Release\net5.0\DataTableQueryBuilder.dll" target="lib\net5.0\DataTableQueryBuilder.dll" />
+		<file src="bin\Release\net5.0\DataTableQueryBuilder.xml" target="lib\net5.0\DataTableQueryBuilder.xml" />
 	</files>
 </package>
