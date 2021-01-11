@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+	<metadata>
+		<id>$id$</id>
+		<version>1.0</version>
+		<title>EntryPoint.DataTableQueryBuilder</title>
+		<authors>EntryPoint</authors>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<license type="expression">MIT</license>
+		<description>DataTableQueryBuilder</description>
+		<releaseNotes>Initial</releaseNotes>
+		<copyright>Copyright 2021 (c) EntryPoint. All rights reserved.</copyright>
+		<tags>DataTableQueryBuilder Entrypoint</tags>
+		<dependencies>
+			<group targetFramework="uap">
+				<dependency id="AutoMapper" version="10.1.1" />
+				<dependency id="Microsoft.AspNetCore.Mvc" version="2.2.0" />
+				<dependency id="Microsoft.EntityFrameworkCore.SqlServer" version="5.0.1" />
+				<dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="5.0.0" />
+			</group>
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\Release\DataTableQueryBuilder.dll" target="lib\net5.0\DataTableQueryBuilder.dll" />
+		<file src="bin\Release\DataTableQueryBuilder.xml" target="lib\net5.0\DataTableQueryBuilder.xml" />
+	</files>
+</package>
