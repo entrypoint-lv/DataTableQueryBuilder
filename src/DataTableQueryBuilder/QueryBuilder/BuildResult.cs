@@ -11,17 +11,17 @@ namespace DataTableQueryBuilder
         /// <summary>
         /// Gets the total number of records without filtering applied.
         /// </summary>
-        internal int TotalRecords { get; private set; }
+        protected internal int TotalRecords { get; private set; }
 
         /// <summary>
         /// Gets the total number of records with filtering applied.
         /// </summary>
-        internal int TotalRecordsFiltered { get; private set; }
+        protected internal int TotalRecordsFiltered { get; private set; }
 
         /// <summary>
         /// Gets the builded query with specified searching and sorting configuration applied.
         /// </summary>
-        internal IQueryable<TEntity> BuildedQuery { get; private set; }
+        protected internal IQueryable<TEntity> BuildedQuery { get; private set; }
 
         public BuildResult(int totalRecords, int totalRecordsFiltered, IQueryable<TEntity> buildedQuery)
         {

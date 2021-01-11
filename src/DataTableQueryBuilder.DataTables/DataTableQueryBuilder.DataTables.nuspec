@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+	<metadata>
+		<id>DataTableQueryBuilder.DataTables</id>
+		<version>1.0.1</version>
+		<title>DataTableQueryBuilder.DataTables</title>
+		<authors>EntryPoint</authors>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<license type="expression">MIT</license>
+		<description>DataTableQueryBuilder.DataTables</description>
+		<releaseNotes>Initial</releaseNotes>
+		<copyright>Copyright 2021 (c) EntryPoint. All rights reserved.</copyright>
+		<tags>DataTableQueryBuilder.DataTables EntryPoint</tags>
+		<dependencies>
+			<group targetFramework="uap">
+				<dependency id="DataTableQueryBuilder" version="1.0.1" />
+			</group>
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\Release\net5.0\DataTableQueryBuilder.DataTables.dll" target="lib\net5.0\DataTableQueryBuilder.DataTables.dll" />
+		<file src="bin\Release\net5.0\DataTableQueryBuilder.DataTables.xml" target="lib\net5.0\DataTableQueryBuilder.DataTables.xml" />
+	</files>
+</package>
