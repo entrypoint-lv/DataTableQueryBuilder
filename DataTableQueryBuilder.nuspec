@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package >
 	<metadata>
-		<id>EntryPoint.DataTableQueryBuilder</id>
+		<id>DataTableQueryBuilder</id>
 		<version>1.0</version>
 		<title>DataTableQueryBuilder</title>
 		<authors>EntryPoint</authors>
