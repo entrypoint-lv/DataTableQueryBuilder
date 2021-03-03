@@ -1,4 +1,4 @@
-name: Publish DataTableQueryBuilder
+name: Publish DataTableQueryBuilder.DataTables
 
 on:
   push:
@@ -27,10 +27,10 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal
       
-    - name: Publish DataTableQueryBuilder
+    - name: Publish DataTableQueryBuilder.DataTables
       uses: Rebel028/publish-nuget@2.6.1
       with:
-        PROJECT_FILE_PATH: src/DataTableQueryBuilder/DataTableQueryBuilder.csproj
-        PACKAGE_NAME: DataTableQueryBuilder
+        PROJECT_FILE_PATH: src/DataTableQueryBuilder.DataTables/DataTableQueryBuilder.DataTables.csproj
+        PACKAGE_NAME: DataTableQueryBuilder.DataTables
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
         NUGET_SOURCE: https://nuget.pkg.github.com/entrypoint-lv
