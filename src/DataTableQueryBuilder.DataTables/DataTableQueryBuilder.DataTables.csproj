@@ -8,7 +8,7 @@
   <PropertyGroup>
     <PackageId>DataTableQueryBuilder.DataTables</PackageId>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/entrypoint-lv/DataTableQueryBuilder.DataTables</RepositoryUrl>
+    <RepositoryUrl>https://github.com/entrypoint-lv/DataTableQueryBuilder</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
