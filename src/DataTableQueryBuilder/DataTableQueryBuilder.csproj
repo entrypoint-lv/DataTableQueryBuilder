@@ -5,6 +5,12 @@
 	<Version>1.0.2</Version>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PackageId>DataTableQueryBuilder</PackageId>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/entrypoint-lv/DataTableQueryBuilder</RepositoryUrl>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>DataTableQueryBuilder.xml</DocumentationFile>
   </PropertyGroup>

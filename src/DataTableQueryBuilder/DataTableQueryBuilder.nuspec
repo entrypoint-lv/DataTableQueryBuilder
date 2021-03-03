@@ -7,7 +7,6 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<license type="expression">MIT</license>
 		<description>DataTableQueryBuilder</description>
-		<repository type="git" url="https://github.com/entrypoint-lv/DataTableQueryBuilder">
 		<releaseNotes>Initial</releaseNotes>
 		<copyright>Copyright 2021 (c) EntryPoint. All rights reserved.</copyright>
 		<tags>DataTableQueryBuilder EntryPoint</tags>
