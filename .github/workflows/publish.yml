@@ -33,7 +33,7 @@ jobs:
         PROJECT_FILE_PATH: src/DataTableQueryBuilder/DataTableQueryBuilder.csproj
         PACKAGE_NAME: DataTableQueryBuilder
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-        NUGET_SOURCE: https://nuget.pkg.github.com/entrypoint-lv/index.json
+        NUGET_SOURCE: https://nuget.pkg.github.com/entrypoint-lv
         
     - name: Publish DataTableQueryBuilder.DataTables
       uses: Rebel028/publish-nuget@2.6.1
@@ -41,4 +41,4 @@ jobs:
         PROJECT_FILE_PATH: src/DataTableQueryBuilder.DataTables/DataTableQueryBuilder.DataTables.csproj
         PACKAGE_NAME: DataTableQueryBuilder.DataTables
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-        NUGET_SOURCE: https://nuget.pkg.github.com/entrypoint-lv/index.json
+        NUGET_SOURCE: https://nuget.pkg.github.com/entrypoint-lv
