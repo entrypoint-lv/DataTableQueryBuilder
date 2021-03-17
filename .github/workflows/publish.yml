@@ -33,4 +33,4 @@ jobs:
         PROJECT_FILE_PATH: src/DataTableQueryBuilder/DataTableQueryBuilder.csproj
         PACKAGE_NAME: DataTableQueryBuilder
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-        NUGET_SOURCE: https://nuget.pkg.github.com/entrypoint-lv
+        NUGET_SOURCE: https://nuget.pkg.github.com/EntryPointDev
