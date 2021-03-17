@@ -64,7 +64,7 @@ When user filters on some column, the datatable sends a request to the server th
 
 The task of the query builder is to extend an existing LINQ query with an additional ``Where`` clause to filter the data.
 
-But since ``FullName`` is just the name of a field in the datatable, it needs to know which property in the User entity corresponds to that field.
+But since ``FullName`` is just the name of a field in the front-end datatable, it needs to know which property of the ``User`` entity corresponds to that field.
 
 - By default, the builder assumes that the name of a field matches the name of a property of the ``User`` entity and will extend an existing LINQ query so that resulting query will look like this:
 
