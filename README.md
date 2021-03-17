@@ -137,10 +137,7 @@ The task of the query builder is to extend an existing LINQ query with an additi
 - If field and property names do not match, like with the ``CompanyName`` field, we need to tell the builder which entity's property to use by utilizing the ``UseSourceProperty`` method:
 
   ```c#
-  o.ForField(f => f.CompanyName, o =>
-  {
-      o.UseSourceProperty(u => u.Company!.Name);
-  });
+  o.ForField(f => f.CompanyName, o => o.UseSourceProperty(u => u.Company!.Name));
   ```
 
   With this configuration the resulting LINQ query will look like this:
