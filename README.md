@@ -1,26 +1,36 @@
 # LINQ query builder for front-end datatables
 
- A LINQ query builder that automatically converts AJAX request coming from front-end datatable to LINQ query against the Entity Framework model according to the specified configuration.
+ A LINQ query builder that automatically converts AJAX request coming from front-end datatable to LINQ query against the Entity Framework data model according to the specified configuration.
 
 # Basic usage
 
 Let's assume that we have some front-end datatable that represents a list of users:
 
 ```html
-<my-datatable-component :data-url="/api/userlist" :fields="fields"></my-datatable-component>
+<my-datatable-component :data-url="/api/userlist" :columns="columns"></my-datatable-component>
 
 <script>
-    let fields = [
-        'Id',
-        'FullName',
-        'Email',
-        'CompanyName',
-        'Role'
+    let columns = [
+        { title: 'Id', field: 'id' },
+        { title: 'Full Name', field: 'fullName' },
+        { title: 'Email', field: 'email' },
+        { title: 'Company Name', field: 'companyName' },
+        { title: 'Role', field: 'role' }
     ];
 </script>
 ```
 
-And our Entity Framework data model looks like this:
+A field here is the property name of a row object in a JSON data array returned by server:
+
+```js
+    [
+        { 'id': 1, 'fullName': 'John Smith', 'email': 'john@example.com', 'companyName': '', 'role' : 'User' }
+        { 'id': 2, 'fullName': 'Michael Smith', 'email': 'michael@example.com', 'companyName': 'Apple', 'role' : 'User' }
+        { 'id': 3, 'fullName': 'Mary Smith', 'email': 'mary@example.com', 'companyName': 'Google', 'role' : 'Admin' }
+    ]
+```
+
+Let's assume that our Entity Framework data model looks like this:
 
 ```c#
 public class User
@@ -47,7 +57,7 @@ public class Company
 
 In this case we need to create the following:
 
-1. Create a LINQ query that will be used by query builder to request users from a database:
+1. A LINQ query that will be used by query builder to request users from a database:
 
     ```c#
     public class UserService
@@ -62,7 +72,7 @@ In this case we need to create the following:
     }
     ```
 
-2. Create a view model that represents fields of a front-end datatable. This model will also be used to return data from the server to the datatable:
+2. A view model that represents fields returned by server:
 
     ```c#
     public class UserDataTableFields
@@ -75,7 +85,7 @@ In this case we need to create the following:
     }
     ```
 
-3. Create an action that will receive an AJAX request from front-end datatable, convert it to a LINQ query and return the data:
+3. An action that will receive an AJAX request from front-end datatable, convert it to a LINQ query and return the data:
 
     ```c#
     public IActionResult UserList(DataTablesRequest request)
@@ -99,29 +109,32 @@ In this case we need to create the following:
 
 # Configuring
 
-The front-end datatable knows nothing about the server-side data source - it only knows the list of its fields (columns), represented by ``UserDataTableFields`` model.
+The front-end datatable knows nothing about the Entity Framework data model - it only knows what fields to expect in the data returned by the server.
 
-When user applies search to some column, the datatable sends a request to the server that includes a filtering clause, for example, ``FullName`` = 'some value'.
+So, when user tries to filter or sort some column, the datatable sends a request to the server that includes a filtering and ordering clauses, for example:
+```js
+searchByField: 'fullName'
+searchValue: 'some value'
+sortByField: 'id'
+sortDirection: 'asc'
+```
 
-The task of the query builder is to extend an existing LINQ query with an additional ``Where`` clause to filter the data.
+The task of the query builder is to extend an existing LINQ query with an additional ``Where`` and ``OrderBy`` clauses based on the request.
 
-But since ``FullName`` is just the name of a field in the front-end datatable, it needs to know which property of the ``User`` entity corresponds to that field.
-
-- By default, the builder assumes that the name of a field matches the name of a property of the ``User`` entity and will extend an existing LINQ query so that resulting query will look like this:
+- By default, if no any configuration is provided, the builder will extend an existing query in the following way:
 
   ```c#
   return dataContext.Users
       .Include(u => u.Company)
       .Include(u => u.Roles)
           .ThenInclude(r => r.Role)
-      .Where(u => u.FullName.Contains(val));
+      .Where(u => u.FullName.Contains(val))
+      .OrderBy(u => u.Id);
   ```
 
-  No configuration is required in this case.
+  Here, the property names ``FullName`` and ``Id`` were figured out automatically based on the field names in the request (ignoring the case sensivity).
 
-- Sometimes the field and property names do not match, like with the ``CompanyName`` field.
-
-  In this case, we need to tell the builder which entity's property to use by utilizing the ``UseSourceProperty`` method:
+- If field and property names do not match, like with the ``CompanyName`` field, we need to tell the builder which entity's property to use by utilizing the ``UseSourceProperty`` method:
 
   ```c#
   o.ForField(f => f.CompanyName, o =>
@@ -138,29 +151,34 @@ But since ``FullName`` is just the name of a field in the front-end datatable, i
       .Include(u => u.Roles)
           .ThenInclude(r => r.Role)
       .Where(u => u.Company!.Name.Contains(val));
+      .OrderBy(u => u.Id);
   ```
 
-- Sometimes there is no corresponding property in the entity at all.
+- Sometimes we are unable to filter or sort the data just by matching the property's value.
 
-  In this case, we can specify a LINQ expression that will be used to filter (or sort) on this field by using the ``SearchBy`` and ``OrderBy`` methods:
+  In this case, we can specify a LINQ expressions that will be used to filter/sort the data by using the ``SearchBy`` and ``OrderBy`` methods:
 
   ```c#
-  o.ForField(f => f.Role, o => o.SearchBy((u, val) => u.Roles.Any(r => r.RoleId == int.Parse(val))));
+  o.ForField(f => f.Role, o => {
+      o.SearchBy((u, val) => u.Roles.Any(r => r.Role.Id == int.Parse(val)));
+      o.OrderBy(u => u.Roles.Select(r => r.Role.Name));
+  });
   ```
 
-  This expression will be added to the LINQ query so that resulting query will look like this:
+  Thise expressions will be added to the LINQ query so that the resulting query will look like this:
   
     ```c#
   return dataContext.Users
       .Include(u => u.Company)
       .Include(u => u.Roles)
           .ThenInclude(r => r.Role)
-      .Where(u => u.Roles.Any(r => r.RoleId == int.Parse(val));
+      .Where(u => u.Roles.Any(r => r.RoleId == int.Parse(val))
+      .OrderBy(u => u.Roles.Select(r => r.Role.Name));
   ```
 
 # Executing
 
-After configuration is provided, the query can be builded by calling the ``Build`` method. 
+The query can be builded by calling the ``Build`` method. 
 
 ```c#
 var result = qb.Build(users);
@@ -174,7 +192,7 @@ To execute the query and return the data to the datatable, call the ``MapToRespo
 return result.MapToResponse(mapper);
 ```
 
-This method will use AutoMapper to convert the data returned by LINQ query (``IEnumerable<User>``) to the format expected by datatable (``IEnumerable<UserDataTableFields>``), so don't forget to create a mapping between ``User`` and ``UserDataTableFields``:
+This method will use AutoMapper to convert the data returned by LINQ query (``IEnumerable<User>``) to a JSON data array expected by datatable (``IEnumerable<UserDataTableFields>``), so don't forget to create a mapping between ``User`` and ``UserDataTableFields``:
 
 ```c#
 CreateMap<User, UserDataTableFields>()
