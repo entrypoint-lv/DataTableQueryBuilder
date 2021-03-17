@@ -15,7 +15,7 @@ Let's assume that we have some front-end datatable that represents a list of use
         'FullName',
         'Email',
         'CompanyName',
-        'Role',
+        'Role'
     ];
 </script>
 ```
