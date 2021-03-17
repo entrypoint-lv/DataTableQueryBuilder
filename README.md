@@ -20,7 +20,7 @@ Let's assume that we have some front-end datatable that represents a list of use
 </script>
 ```
 
-A field here is the property name of a row object in a JSON data array returned by server:
+A field value is the property name of a row object in a JSON data array returned by server:
 
 ```js
     [
@@ -165,7 +165,7 @@ The task of the query builder is to extend an existing LINQ query with an additi
   });
   ```
 
-  Thise expressions will be added to the LINQ query so that the resulting query will look like this:
+  These expressions will be added to the LINQ query so that the resulting query will look like this:
   
     ```c#
   return dataContext.Users
