@@ -24,9 +24,9 @@ A field value is the property name of a row object in a JSON data array returned
 
 ```js
     [
-        { 'id': 1, 'fullName': 'John Smith', 'email': 'john@example.com', 'companyName': '', 'role' : 'User' }
-        { 'id': 2, 'fullName': 'Michael Smith', 'email': 'michael@example.com', 'companyName': 'Apple', 'role' : 'User' }
-        { 'id': 3, 'fullName': 'Mary Smith', 'email': 'mary@example.com', 'companyName': 'Google', 'role' : 'Admin' }
+        { 'id': 1, 'fullName': 'John Smith', 'email': 'john@example.com', 'companyName': '', 'role' : 'Coordinator' }
+        { 'id': 2, 'fullName': 'Michael Smith', 'email': 'michael@example.com', 'companyName': 'Apple', 'role' : 'Coordinator, Manager' }
+        { 'id': 3, 'fullName': 'Mary Smith', 'email': 'mary@example.com', 'companyName': 'Google', 'role' : 'Manager, Admin' }
     ]
 ```
 
