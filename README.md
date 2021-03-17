@@ -58,7 +58,7 @@ Let's assume that we have a datatable that represents a list of Users.
 
 # Configuring
 
-The front-end datatable knows nothing about the data source, it only knows the list of its fields (columns).
+The front-end datatable knows nothing about the data source, it only knows the list of its fields (columns), represented by ``UserDataTableFields`` model.
 
 When user filters on some column, the datatable sends a request to the server that includes a filtering clause, for example, ``FullName`` = 'some value'.
 
