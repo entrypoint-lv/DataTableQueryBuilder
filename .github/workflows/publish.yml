@@ -1,4 +1,4 @@
-name: Publish DataTableQueryBuilder
+name: Publish DataTableQueryBuilder to GPR
 
 on:
   push:
