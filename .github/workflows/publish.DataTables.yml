@@ -1,4 +1,5 @@
-name: Publish DataTableQueryBuilder.DataTables
+name: Publish DataTableQueryBuilder.DataTables to GPR
+
 
 on:
   push:
