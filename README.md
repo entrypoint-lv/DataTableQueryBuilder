@@ -4,9 +4,50 @@
 
 # Basic usage
 
-Let's assume that we have a datatable that represents a list of Users.
+Let's assume that we have some front-end datatable that represents a list of users:
 
-1. Create a LINQ query that will be used by query builder to request data from a database:
+```html
+<my-datatable-component :data-url="/api/userlist" :fields="fields" />
+
+<script>
+    let fields = [
+        'Id',
+        'FullName',
+        'Email',
+        'CompanyName',
+        'Role',
+    ];
+</script>
+```
+
+And our Entity Framework data model looks like this:
+
+```c#
+public class User
+{
+    public int Id { get; set; }
+    public string FullName { get; set; } = "";
+    public string Email { get; set; } = "";
+    
+    public int? CompanyId { get; set; }
+    public Company? Company { get; set; }
+
+    public virtual ICollection<UserRole> Roles { get; } = new List<UserRole>();
+}
+
+public class Company
+{
+    public int Id { get; set; }
+
+    public string? Name { get; set; }
+
+    public ICollection<User> Users { get; set; } = new List<User>();
+}
+```
+
+In this case we need to create the following:
+
+1. Create a LINQ query that will be used by query builder to request users from a database:
 
     ```c#
     public class UserService
@@ -21,14 +62,14 @@ Let's assume that we have a datatable that represents a list of Users.
     }
     ```
 
-2. Create a view model that represents fields (columns) of a front-end datatable. This model will also be used to return data from the server to the datatable:
+2. Create a view model that represents fields of a front-end datatable. This model will also be used to return data from the server to the datatable:
 
     ```c#
     public class UserDataTableFields
     {
         public int Id { get; set; }        
-        public string Email { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
         public string CompanyName { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
     }
@@ -37,7 +78,7 @@ Let's assume that we have a datatable that represents a list of Users.
 3. Create an action that will receive an AJAX request from front-end datatable, convert it to a LINQ query and return the data:
 
     ```c#
-    public IActionResult UserListAjax(DataTablesRequest request)
+    public IActionResult UserList(DataTablesRequest request)
     {
         var qb = new DataTablesQueryBuilder<UserDataTableFields, User>(request, o =>
         {
@@ -58,9 +99,9 @@ Let's assume that we have a datatable that represents a list of Users.
 
 # Configuring
 
-The front-end datatable knows nothing about the data source, it only knows the list of its fields (columns), represented by ``UserDataTableFields`` model.
+The front-end datatable knows nothing about the server-side data source - it only knows the list of its fields (columns), represented by ``UserDataTableFields`` model.
 
-When user filters on some column, the datatable sends a request to the server that includes a filtering clause, for example, ``FullName`` = 'some value'.
+When user applies search to some column, the datatable sends a request to the server that includes a filtering clause, for example, ``FullName`` = 'some value'.
 
 The task of the query builder is to extend an existing LINQ query with an additional ``Where`` clause to filter the data.
 
