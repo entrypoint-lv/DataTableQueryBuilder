@@ -92,10 +92,7 @@ In this case we need to create the following:
     {
         var qb = new DataTablesQueryBuilder<UserDataTableFields, User>(request, o =>
         {
-            o.ForField(f => f.CompanyName, o =>
-            {
-                o.UseSourceProperty(u => u.Company!.Name);
-            });
+            o.ForField(f => f.CompanyName, o => o.UseSourceProperty(u => u.Company!.Name));
             o.ForField(f => f.Role, o => o.SearchBy((u, val) => u.Roles.Any(r => r.RoleId == int.Parse(val))));
         });
 
