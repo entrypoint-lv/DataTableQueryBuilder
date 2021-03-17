@@ -7,7 +7,7 @@
 Let's assume that we have some front-end datatable that represents a list of users:
 
 ```html
-<my-datatable-component :data-url="/api/userlist" :fields="fields" />
+<my-datatable-component :data-url="/api/userlist" :fields="fields"></my-datatable-component>
 
 <script>
     let fields = [
