@@ -93,7 +93,15 @@ You need to:
     }
     ```
 
-3. Register model binder to bind the incoming AJAX request from datatable to a DataTablesRequest model:
+3. Create a mapping between ``User`` and ``UserDataTableFields`` that will be used to convert the data returned by LINQ query (``IEnumerable<User>``) to a JSON data array expected by datatable:
+
+    ```c#
+    CreateMap<User, UserDataTableFields>()
+        .ForMember(d => d.CompanyName, o => o.MapFrom(s => s.Company != null ? s.Company.Name : string.Empty))
+        .ForMember(d => d.Posts, o => o.MapFrom(s => s.Posts.Count()));
+    ```
+
+4. Register model binder to bind the incoming AJAX request from datatable to a DataTablesRequest model:
 
    ```c#
    public class Startup
@@ -109,7 +117,7 @@ You need to:
    }
    ```
 
-4. Create an action that will receive a request from datatable, convert it to a LINQ query and return the data:
+5. Create an action that will receive a request from datatable, convert it to a LINQ query and return the data:
 
     ```c#
     public IActionResult UserList(DataTablesRequest request)
@@ -210,10 +218,4 @@ To execute the query and return the data to the datatable, call the ``MapToRespo
 return result.MapToResponse(mapper);
 ```
 
-This method will use AutoMapper to convert the data returned by LINQ query (``IEnumerable<User>``) to a JSON data array expected by datatable (``IEnumerable<UserDataTableFields>``), so don't forget to create a mapping between ``User`` and ``UserDataTableFields``:
-
-```c#
-CreateMap<User, UserDataTableFields>()
-    .ForMember(d => d.CompanyName, o => o.MapFrom(s => s.Company != null ? s.Company.Name : string.Empty))
-    .ForMember(d => d.Role, o => o.MapFrom(s => string.Join(", ", s.Roles.Select(r => r.Name))));
-```
+This method will use AutoMapper to convert the data returned by LINQ query (``IEnumerable<User>``) to a JSON data array expected by datatable (``IEnumerable<UserDataTableFields>``).
