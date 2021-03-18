@@ -1,4 +1,4 @@
-# LINQ query builder for front-end datatables
+# LINQ query builder for JavaScript data tables
 
  A LINQ query builder that automatically converts AJAX request coming from a front-end datatable to LINQ query against the Entity Framework data model according to the specified configuration.
 
@@ -143,7 +143,7 @@ You need to:
 
 The front-end datatable knows nothing about the Entity Framework data model - it only knows what fields to expect in the data returned by the server.
 
-So, when user tries to filter or sort some column, the datatable sends a request to the server that includes a filtering and ordering clauses, for example:
+So, when user tries to filter or sort on some column, the datatable sends a request to the server that includes a filtering and ordering clauses, for example:
 ```js
 searchByField: 'fullName'
 searchValue: 'some value'
