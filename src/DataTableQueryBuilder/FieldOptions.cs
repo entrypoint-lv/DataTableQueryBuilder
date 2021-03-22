@@ -35,7 +35,7 @@ namespace DataTableQueryBuilder
         public FieldOptions(Expression? sourcePropertyAccessExp)
         {
             SourceProperty = sourcePropertyAccessExp;
-            ValueMatchMethod = ValueMatchMethod.StringContains;
+            ValueMatchMethod = ValueMatchMethod.Contains;
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace DataTableQueryBuilder
         /// </summary>
         /// <param name="method"></param>
         /// <returns></returns>
-        public void SetValueMatchMethod(ValueMatchMethod method)
+        public void UseValueMatchMethod(ValueMatchMethod method)
         {
             ValueMatchMethod = method;
         }

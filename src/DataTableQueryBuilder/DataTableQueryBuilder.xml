@@ -53,7 +53,7 @@
             </summary>
             <param name="expression"></param>
         </member>
-        <member name="M:DataTableQueryBuilder.FieldOptions`1.SetValueMatchMethod(DataTableQueryBuilder.ValueMatchers.ValueMatchMethod)">
+        <member name="M:DataTableQueryBuilder.FieldOptions`1.UseValueMatchMethod(DataTableQueryBuilder.ValueMatchers.ValueMatchMethod)">
             <summary>
             Explicitly sets the value match method to be used during searching.
             </summary>
@@ -169,12 +169,12 @@
             <param name="request">Data table request.</param>
             <param name="optionsAction">An action to configure the QueryBuilderOptions.</param>
         </member>
-        <member name="M:DataTableQueryBuilder.QueryBuilder`2.Build(System.Linq.IQueryable{`1})">
+        <member name="M:DataTableQueryBuilder.QueryBuilder`2.BuildQuery(System.Linq.IQueryable{`1})">
             <summary>
             Builds the query according to the specified data table request and returns the result.
             </summary>
             <param name="sourceQuery">The query against a specific data source to which the specified searching and sorting request should be applied.</param>
-            <returns>Build result.</returns>
+            <returns>BuildResult</returns>
         </member>
         <member name="P:DataTableQueryBuilder.QueryBuilderOptions`2.DateFormat">
             <summary>
@@ -207,6 +207,21 @@
             Initializes the field options based on the data table request.
             </summary>
             <returns>Field options.</returns>
+        </member>
+        <member name="P:DataTableQueryBuilder.QueryBuildResult`2.TotalRecords">
+            <summary>
+            Gets the total number of records without filtering applied.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.QueryBuildResult`2.TotalRecordsFiltered">
+            <summary>
+            Gets the total number of records with filtering applied.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.QueryBuildResult`2.BuildedQuery">
+            <summary>
+            Gets the builded query with specified searching and sorting configuration applied.
+            </summary>
         </member>
         <member name="T:DataTableQueryBuilder.Sort">
             <summary>

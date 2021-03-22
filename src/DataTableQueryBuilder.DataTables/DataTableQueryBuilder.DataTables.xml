@@ -4,6 +4,51 @@
         <name>DataTableQueryBuilder.DataTables</name>
     </assembly>
     <members>
+        <member name="M:DataTableQueryBuilder.DataTables.DataTablesBuildResult`2.CreateResponse(AutoMapper.IMapper)">
+            <summary>
+            Creates data table response.
+            </summary>
+            <param name="mapper">An AutoMapper instance.</param>
+            <returns>Data table response.</returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.DataTablesBuildResult`2.CreateResponse(AutoMapper.IMapper,System.Action{AutoMapper.IMappingOperationOptions})">
+            <summary>
+            Creates data table response.
+            </summary>
+            <param name="mapper">An AutoMapper instance.</param>
+            <param name="mappingOptions">Options for a map operation.</param>
+            <returns>Data table response.</returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.DataTablesBuildResult`2.CreateResponse(AutoMapper.IMapper,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Creates data table response.
+            </summary>
+            <param name="mapper">An AutoMapper instance.</param>
+            <param name="responseAdditionalParams">Additional parameters to be added to data table response.</param>
+            <returns>Data table response.</returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.DataTablesBuildResult`2.CreateResponse(AutoMapper.IMapper,System.Action{AutoMapper.IMappingOperationOptions},System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Creates data table response.
+            </summary>
+            <param name="mapper">An AutoMapper instance.</param>
+            <param name="mappingOptions">Options for a map operation.</param>
+            <param name="responseAdditionalParams">Additional parameters to be added to data table response.</param>
+            <returns>Data table response.</returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.DataTablesBuildResult`1.CreateResponse">
+            <summary>
+            Creates data table response.
+            </summary>
+            <returns>Data table response.</returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.DataTablesBuildResult`1.CreateResponse(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Creates data table response.
+            </summary>
+            <param name="responseAdditionalParams">Additional parameters to be added to data table response.</param>
+            <returns>Data table response.</returns>
+        </member>
         <member name="T:DataTableQueryBuilder.DataTables.DataTablesQueryBuilder`2">
             <summary>
             Builds a query according to the specific DataTable request.
@@ -18,6 +63,25 @@
             <param name="request">DataTables request.</param>
         </member>
         <member name="M:DataTableQueryBuilder.DataTables.DataTablesQueryBuilder`2.#ctor(DataTableQueryBuilder.DataTables.DataTablesRequest,System.Action{DataTableQueryBuilder.QueryBuilderOptions{`0,`1}})">
+            <summary>
+            Creates a new query builder to be used on specific DataTable request.
+            </summary>
+            <param name="request">DataTables request.</param>
+            <param name="optionsAction">An action to configure the QueryBuilderOptions.</param>
+        </member>
+        <member name="T:DataTableQueryBuilder.DataTables.DataTablesQueryBuilder`1">
+            <summary>
+            Builds a query according to the specific DataTable request.
+            </summary>
+            <typeparam name="TSource">The type of the data returned from the data source.</typeparam>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.DataTablesQueryBuilder`1.#ctor(DataTableQueryBuilder.DataTables.DataTablesRequest)">
+            <summary>
+            Creates a new query builder to be used for specific DataTable request.
+            </summary>
+            <param name="request">DataTables request.</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.DataTables.DataTablesQueryBuilder`1.#ctor(DataTableQueryBuilder.DataTables.DataTablesRequest,System.Action{DataTableQueryBuilder.QueryBuilderOptions{`0,`0}})">
             <summary>
             Creates a new query builder to be used on specific DataTable request.
             </summary>

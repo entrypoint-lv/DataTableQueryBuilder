@@ -45,8 +45,8 @@ namespace DataTableQueryBuilder
         /// Builds the query according to the specified data table request and returns the result.
         /// </summary>
         /// <param name="sourceQuery">The query against a specific data source to which the specified searching and sorting request should be applied.</param>
-        /// <returns>Build result.</returns>
-        public BuildResult<TDestination, TSource> Build(IQueryable<TSource> sourceQuery)
+        /// <returns>BuildResult</returns>
+        protected QueryBuildResult<TDestination, TSource> BuildQuery(IQueryable<TSource> sourceQuery)
         {
             Options.Validate();
 
@@ -61,10 +61,8 @@ namespace DataTableQueryBuilder
             if (request.PageSize > 0)
                 buildedQuery = buildedQuery.Skip(request.StartRecordNumber).Take(request.PageSize);
 
-            return CreateBuildResult(totalRecords, totalRecordsFiltered, buildedQuery);
+            return new QueryBuildResult<TDestination, TSource>(totalRecords, totalRecordsFiltered, buildedQuery);
         }
-
-        protected abstract BuildResult<TDestination, TSource> CreateBuildResult(int totalRecords, int totalRecordsFiltered, IQueryable<TSource> buildedQuery);
 
         private IQueryable<TSource> ApplySearchExpression(IQueryable<TSource> query)
         {

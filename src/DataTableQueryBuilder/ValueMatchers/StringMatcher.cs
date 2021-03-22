@@ -16,7 +16,7 @@ namespace DataTableQueryBuilder.ValueMatchers
 
         public override Expression Match()
         {
-            if (MatchMethod == ValueMatchMethod.StringSQLServerContainsPhrase || MatchMethod == ValueMatchMethod.StringSQLServerFreeText)
+            if (MatchMethod == ValueMatchMethod.SQLServerContainsPhrase || MatchMethod == ValueMatchMethod.SQLServerFreeText)
                 return GenerateSQLServerFullTextSearchMatchExp();
 
             return GenerateStringMatchExp();
@@ -24,7 +24,7 @@ namespace DataTableQueryBuilder.ValueMatchers
 
         private Expression GenerateStringMatchExp()
         {
-            var methodName = MatchMethod == ValueMatchMethod.StringStartsWith ? "StartsWith" : (MatchMethod == ValueMatchMethod.StringEndsWith ? "EndsWith" : "Contains");
+            var methodName = MatchMethod == ValueMatchMethod.StartsWith ? "StartsWith" : (MatchMethod == ValueMatchMethod.EndsWith ? "EndsWith" : "Contains");
 
             var propertyAsStringExp = Property.Type == typeof(string) ? (Expression)Expression.Coalesce(Property, Expression.Constant(string.Empty)) : Expression.Call(Property, Property.Type.GetMethod("ToString", Type.EmptyTypes));
 
@@ -37,8 +37,8 @@ namespace DataTableQueryBuilder.ValueMatchers
 
         private Expression GenerateSQLServerFullTextSearchMatchExp()
         {
-            var sqlServerMethodName = MatchMethod == ValueMatchMethod.StringSQLServerContainsPhrase ? "Contains" : "FreeText";
-            var valueToMatch = MatchMethod == ValueMatchMethod.StringSQLServerContainsPhrase ? $"\"{ValueToMatch}*\"" : ValueToMatch;
+            var sqlServerMethodName = MatchMethod == ValueMatchMethod.SQLServerContainsPhrase ? "Contains" : "FreeText";
+            var valueToMatch = MatchMethod == ValueMatchMethod.SQLServerContainsPhrase ? $"\"{ValueToMatch}*\"" : ValueToMatch;
 
             var methodInfo = typeof(SqlServerDbFunctionsExtensions).GetMethod(sqlServerMethodName, BindingFlags.Static | BindingFlags.Public, null, new[] { EF.Functions.GetType(), typeof(string), typeof(string) }, null);
 
