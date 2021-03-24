@@ -226,7 +226,7 @@ To execute the query and return the data to the datatable, call the ``CreateResp
 return result.CreateResponse();
 ```
 
-# Advanced usage
+# Advanced filtering
 
 While returning fields directly from base query by using projection is fine for simple use cases, you may find that this approach doesn't allow you to perform a more advanced data filtering.
 
