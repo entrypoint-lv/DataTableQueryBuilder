@@ -32,7 +32,7 @@
    }
    ```
 
-# Basic usage (usage with projection)
+# Datatable and data model setup
 
 Let's assume that we have some front-end datatable that represents a list of users:
 
@@ -51,13 +51,13 @@ Let's assume that we have some front-end datatable that represents a list of use
 </script>
 ```
 
-A field value is the property name of a row object in a JSON data array returned by server:
+A field value is the property name of a row object in a JSON data array returned by server, for example:
 
 ```js
     [
-        { 'id': 1, 'fullName': 'John Smith', 'email': 'john@example.com', 'companyName': '', 'companyId': null, 'posts' : 0, createDate: '2021-01-05T19:38:23.551Z' }
-        { 'id': 2, 'fullName': 'Michael Smith', 'email': 'michael@example.com', 'companyName': 'Apple', 'companyId': 1, 'posts' : 5, createDate: '2021-04-23T18:15:43.511Z' }
-        { 'id': 3, 'fullName': 'Mary Smith', 'email': 'mary@example.com', 'companyName': 'Google', 'companyId': 2, 'posts' : 10, createDate: '2020-09-12T10:11:45.712Z' }
+        { 'id': 1, 'fullName': 'John Smith', 'email': 'john@example.com', 'companyName': '', 'posts' : 0, createDate: '2021-01-05T19:38:23.551Z' }
+        { 'id': 2, 'fullName': 'Michael Smith', 'email': 'michael@example.com', 'companyName': 'Apple', 'posts' : 5, createDate: '2021-04-23T18:15:43.511Z' }
+        { 'id': 3, 'fullName': 'Mary Smith', 'email': 'mary@example.com', 'companyName': 'Google', 'posts' : 10, createDate: '2020-09-12T10:11:45.712Z' }
     ]
 ```
 
@@ -95,7 +95,11 @@ public class Post
 }
 ```
 
-You need to:
+# Basic usage
+
+In a simple cases we can use a data projection to return fields required by datatable directly from a LINQ query.
+
+With this approach you need to:
 
 1. Create a projection model that represents fields returned by server:
 
@@ -111,6 +115,8 @@ You need to:
         public DateTime CreateDate { get; set; }
     }
     ```
+    
+    Note that the CreateDate field will be returned as not formatted - this is intentional, as the formatting must happen in the UI and not in the LINQ query.
 
 2. Create a base LINQ query that will be used by query builder to request users from a database. Use the projection to select the required data:
 
