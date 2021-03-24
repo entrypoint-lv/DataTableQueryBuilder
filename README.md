@@ -51,7 +51,7 @@ Let's assume that we have some front-end datatable that represents a list of use
 </script>
 ```
 
-A field value is the property name of a row object in a JSON data array returned by server, for example:
+A field value is the property name of a row object in a JSON data array returned by the server, for example:
 
 ```js
     [
