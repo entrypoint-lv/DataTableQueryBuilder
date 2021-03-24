@@ -277,6 +277,8 @@ In these cases you should use the builder without projection and introduce a sep
     }
     ```
 
+    > The CreateResponse method will use AutoMapper to convert the data returned by LINQ query (``IEnumerable<User>``) to a JSON data array expected by datatable (``IEnumerable<UserDataTableFields>``).
+
 Let's review an example when datatable sends the following request:
 
 ```js
@@ -312,5 +314,3 @@ With this configuration the resulting LINQ query will look like this:
       .Where(u => u.Posts.Any(p => p.Title.Contains(val))
       .OrderBy(u => u.Posts.Count());
   ```
-
-The MapToResponse method will use AutoMapper to convert the data returned by LINQ query (``IEnumerable<User>``) to a JSON data array expected by datatable (``IEnumerable<UserDataTableFields>``).
