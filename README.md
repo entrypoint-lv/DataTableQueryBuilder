@@ -101,7 +101,7 @@ In a simple cases we can use a data projection to return fields required by data
 
 With this approach you need to:
 
-1. Create a projection model that represents fields returned by server:
+1. Create a projection model that represents the fields returned by server:
 
     ```c#
     public class UserListData
