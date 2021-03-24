@@ -116,7 +116,7 @@ With this approach you need to:
     }
     ```
     
-    Note that the CreateDate field will be returned as not formatted - this is intentional, as the formatting must happen in the UI and not in the LINQ query.
+    Note that the ``CreateDate`` field will be returned as not formatted - this is intentional, as the formatting must happen in the UI and not in the LINQ query.
 
 2. Create a base LINQ query that will be used by query builder to request users from a database. Use the projection to select the required data:
 
