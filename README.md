@@ -167,7 +167,7 @@ sort: [{'posts' : 'asc'}]
 
 The task of the query builder is to extend a base LINQ query with an additional ``Where`` and ``OrderBy`` clauses based on this request.
 
-If no configuration is provided, the builder will automatically determine what match method to use based on the properties' data type, so the base query will be extended in the following way:
+If no configuration is provided, the builder will automatically determine what match methods to use based on the properties' data types, so the base query will be extended in the following way:
 
 ```c#
 //IQueryable<UserListData> users = userService.GetAllForUserList();
