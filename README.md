@@ -116,7 +116,7 @@ With this approach you need to:
     }
     ```
     
-    Note that the ``CreateDate`` field will be returned as not formatted - this is intentional, as the formatting must happen in the UI and not in the LINQ query.
+    > Note that the ``CreateDate`` field will be returned in ISO date format and not as formatted string - this is intentional, as the formatting must happen in the UI and not in the LINQ query.
 
 2. Create a base LINQ query that will be used by query builder to request users from a database. Use the projection to select the required data:
 
@@ -154,6 +154,10 @@ With this approach you need to:
         return result.CreateResponse();
     }
     ```
+    
+    > The Build method returns a BuildResult object that contains a builded query and some other properties, expected by front-end datatable. Please note, that builded query is not executed yet.
+
+    > To execute the query and return the data to the datatable, call the CreateResponse method:
 
 # Configuring
 
