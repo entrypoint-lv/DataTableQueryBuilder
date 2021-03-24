@@ -212,22 +212,6 @@ return dataContext.Users
     .OrderBy(p => p.Posts);
 ```
 
-# Executing
-
-The query can be builded by calling the ``Build`` method. 
-
-```c#
-var result = qb.Build(users);
-```
-
-This method returns a ``BuildResult`` object that contains a builded query and some other properties, expected by front-end datatable. Please note, that builded query is not executed yet.
-
-To execute the query and return the data to the datatable, call the ``CreateResponse`` method:
-
-```c#
-return result.CreateResponse();
-```
-
 # Advanced filtering
 
 While returning fields directly from base query by using projection is fine for simple use cases, you may find that this approach doesn't allow you to perform a more advanced data filtering.
