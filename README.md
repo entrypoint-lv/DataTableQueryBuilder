@@ -182,7 +182,9 @@ return dataContext.Users
     .OrderBy(p => p.Posts);
 ```
 
-Sometimes you may want to filter data in a column based on some other field's data. A common example would be a ``<select>`` element that allows to filter by specific company and uses company's Id as selected value. In this case, you can use the ``SearchBy`` method to specify a LINQ expressions that should be used when filtering by this field:
+Sometimes you may want to filter data in a column based on some other field's data. A common example would be a ``<select>`` element that allows to filter by specific company and uses company's Id as selected value.
+
+In this case, you can use the ``SearchBy`` method to specify a LINQ expressions that should be used when filtering by this field:
 
 ```c#
 var qb = new DataTablesQueryBuilder<UserListData>(request, o =>
@@ -193,7 +195,7 @@ var qb = new DataTablesQueryBuilder<UserListData>(request, o =>
 });
 ```
 
-In this case the resulting query will look like this:
+With this configuration the resulting query will look like this:
 
 ```c#
 //IQueryable<UserListData> users = userService.GetAllForUserList();
