@@ -155,9 +155,7 @@ With this approach you need to:
     }
     ```
     
-    > The Build method returns a BuildResult object that contains a builded query and some other properties, expected by front-end datatable. Please note, that builded query is not executed yet.
-
-    > To execute the query and return the data to the datatable, call the CreateResponse method:
+    > The Build method returns a BuildResult object that contains a builded query and some other properties, expected by front-end datatable. Please note that this method doesn't execute the query. To execute the query and return the data to the datatable, call the CreateResponse method.
 
 # Configuring
 
