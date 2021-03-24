@@ -145,12 +145,7 @@ With this approach you need to:
     ```c#
     public IActionResult UserList(DataTablesRequest request)
     {
-        var qb = new DataTablesQueryBuilder<UserListData>(request, o =>
-        {
-            o.ForField(f => f.CompanyName, o => {
-                o.SearchBy((u, val) => u.CompanyId.HasValue && u.CompanyId == int.Parse(val));
-            });
-        });
+        var qb = new DataTablesQueryBuilder<UserListData>(request);
 
         var users = userService.GetAllForUserList();
 
@@ -190,11 +185,14 @@ return dataContext.Users
 Sometimes you may want to filter data in a column based on some other field's data. A common example would be a ``<select>`` element that allows to filter by specific company and uses company's Id as selected value. In this case, you can use the ``SearchBy`` method to specify a LINQ expressions that should be used when filtering by this field:
 
 ```c#
-o.ForField(f => f.CompanyName, o => {
-    o.SearchBy((u, val) => u.CompanyId.HasValue && u.CompanyId == int.Parse(val));
+var qb = new DataTablesQueryBuilder<UserListData>(request, o =>
+{
+    o.ForField(f => f.CompanyName, o => {
+        o.SearchBy((u, val) => u.CompanyId.HasValue && u.CompanyId == int.Parse(val));
+    });
 });
 ```
-  
+
 In this case the resulting query will look like this:
 
 ```c#
