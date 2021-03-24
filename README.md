@@ -6,15 +6,15 @@
 
 1. If you're using DataTables JS component, install the following NuGet package:
 
-  ```console
-  dotnet add package DataTableQueryBuilder.DataTables
-  ```
+   ```console
+   dotnet add package DataTableQueryBuilder.DataTables
+   ```
   
-  For other datatable components, install the basic package instead:
+   For other datatable components, install the basic package instead:
   
-  ```console
-  dotnet add package DataTableQueryBuilder
-  ```
+   ```console
+   dotnet add package DataTableQueryBuilder
+   ```
 
 2. Register model binder to bind the incoming AJAX request from datatable to a DataTablesRequest model:
 
