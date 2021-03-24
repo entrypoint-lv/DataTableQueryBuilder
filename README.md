@@ -156,14 +156,12 @@ You need to:
 
 # Configuring
 
-The front-end datatable knows nothing about the Entity Framework data model - it only knows what fields to expect in the data returned by the server.
-
-So, when user applies filtering or sorting to some columns, the datatable sends a request to the server that includes a filtering and ordering clauses.
+When user applies filtering or sorting to some columns, the datatable sends a request to the server that includes a filtering and ordering clauses.
 
 For example, the request could look something like this:
 ```js
 search: [{'fullName' : 'John'}, {'companyName': 'Goo'}]
-sort: [{'id' : 'asc'}]
+sort: [{'posts' : 'asc'}]
 ```
 
 The task of the query builder is to extend a base LINQ query with an additional ``Where`` and ``OrderBy`` clauses based on this request.
@@ -180,7 +178,7 @@ return dataContext.Users
     })
     .Where(p => p.FullName.Contains(val))
     .Where(p => p.CompanyName.Contains(val))
-    .OrderBy(p => p.Id);
+    .OrderBy(p => p.Posts);
 ```
 
 Sometimes you may want to filter data in a column based on some other field's data. A common example would be a ``<select>`` element that allows to filter by specific company and uses company's Id as selected value. In this case, you can use the ``SearchBy`` method to specify a LINQ expressions that should be used when filtering by this field:
@@ -203,7 +201,7 @@ return dataContext.Users
     })
     .Where(p => p.FullName.Contains(val))
     .Where(p => p.CompanyId.HasValue && p.CompanyId == int.Parse(val))
-    .OrderBy(p => p.Id);
+    .OrderBy(p => p.Posts);
 ```
 
 # Executing
@@ -226,11 +224,11 @@ return result.CreateResponse();
 
 While returning fields directly from base query by using projection is fine for simple use cases, you may find that this approach doesn't allow you to perform a more advanced data filtering.
 
+An example would be to show only those users that have a posts with a title that matches some value.
+
 In these cases you should use the builder without projection and introduce a separate view model instead.
 
-An example would be to show only those users that have a post with a title that matches some value.
-
-1. Create a LINQ query that will be used by query builder to request users from a database:
+1. Create a base LINQ query that will be used by query builder to request users from a database:
 
     ```c#
     public class UserService
@@ -288,14 +286,15 @@ An example would be to show only those users that have a post with a title that 
     ```
 
 Let's review an example when datatable sends the following request:
+
 ```js
 search: [{'fullName' : 'John'}, {'companyName': 'Goo'}, {'posts': 'Title'}]
-sort: [{'id' : 'asc'}]
+sort: [{'posts' : 'asc'}]
 ```
 
 Here, the entity's property names ``FullName`` and ``Id`` will be figured out automatically based on the field names in the request (ignoring the case sensivity).
 
-If field and property names do not match, like with the ``CompanyName`` field, we need to tell the builder which entity's property to use by utilizing the ``UseSourceProperty`` method:
+If field name and entity's property name don't match, like with our ``CompanyName`` field, we need to tell the builder which entity's property to use by utilizing the ``UseSourceProperty`` method:
 
 ```c#
 o.ForField(f => f.CompanyName, o => o.UseSourceProperty(u => u.Company!.Name));
@@ -316,9 +315,10 @@ With this configuration the resulting LINQ query will look like this:
   //IQueryable<User> users = userService.GetAllWithCompaniesAndPosts();
 
   return users
+      .Where(u => u.FullName.Contains(val))
       .Where(u => u.Company!.Name.Contains(val))
       .Where(u => u.Posts.Any(p => p.Title.Contains(val))
-      .OrderBy(u => u.Id);
+      .OrderBy(u => u.Posts.Count());
   ```
 
 The MapToResponse method will use AutoMapper to convert the data returned by LINQ query (``IEnumerable<User>``) to a JSON data array expected by datatable (``IEnumerable<UserDataTableFields>``).
