@@ -2,7 +2,7 @@
 
  A LINQ query builder that automatically converts AJAX request coming from a front-end datatable to a LINQ query against the Entity Framework data model according to the specified configuration.
 
-# Install
+## Install
 
 1. If you're using DataTables JS component, install the following NuGet package:
 
@@ -32,7 +32,7 @@
    }
    ```
 
-# Datatable and data model setup
+## Datatable and data model setup
 
 Let's assume that we have some front-end datatable that represents a list of users:
 
@@ -95,7 +95,7 @@ public class Post
 }
 ```
 
-# Basic usage
+## Basic usage
 
 In a simple cases we can use a data projection to return fields required by datatable directly from a LINQ query.
 
@@ -157,7 +157,7 @@ With this approach you need to:
     
     > The Build method returns a BuildResult object that contains a builded query and some other properties, expected by front-end datatable. Please note that this method doesn't execute the query. To execute the query and return the data to the datatable, call the CreateResponse method.
 
-# Configuring
+## Configuring
 
 When user applies filtering or sorting to some columns, the datatable sends a request to the server that includes a filtering and ordering clauses.
 
@@ -212,7 +212,7 @@ return dataContext.Users
     .OrderBy(p => p.Posts);
 ```
 
-# Advanced filtering
+## Advanced filtering
 
 While returning fields directly from base query by using projection is fine for simple use cases, you may find that this approach doesn't allow you to perform a more advanced data filtering.
 
