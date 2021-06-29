@@ -4,7 +4,7 @@
 
 ## Install
 
-1. If you're using DataTables JS component, install the following NuGet package:
+1. If you're using https://datatables.net, install the following NuGet package:
 
    ```console
    dotnet add package DataTableQueryBuilder.DataTables
