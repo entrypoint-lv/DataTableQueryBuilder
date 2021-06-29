@@ -4,19 +4,15 @@
 
 ## Install
 
-1. If you're using https://datatables.net, install the following NuGet package:
+### DataTables.net
+
+If you're using https://datatables.net, install the following NuGet package:
 
    ```console
    dotnet add package DataTableQueryBuilder.DataTables
    ```
-  
-   For other datatable components, install the basic package instead:
-  
-   ```console
-   dotnet add package DataTableQueryBuilder
-   ```
 
-2. Register model binder to bind the incoming AJAX request from datatable to a DataTablesRequest model:
+Then register the model binder to bind incoming AJAX requests from DataTables to a DataTablesRequest model:
 
    ```c#
    public class Startup
@@ -32,7 +28,15 @@
    }
    ```
 
-## Datatable and data model setup
+### Other datatable components
+
+For other datatable components, simply install the basic package instead:
+
+```console
+dotnet add package DataTableQueryBuilder
+```
+
+## Example setup
 
 Let's assume that we have some front-end datatable that represents a list of users:
 
@@ -51,7 +55,7 @@ Let's assume that we have some front-end datatable that represents a list of use
 </script>
 ```
 
-A field value is the property name of a row object in a JSON data array returned by the server, for example:
+Here, a field value is the property name of a row object in a JSON data array returned by the server, for example:
 
 ```js
     [
@@ -97,7 +101,7 @@ public class Post
 
 ## Basic usage
 
-In a simple cases we can use a data projection to return fields required by datatable directly from a LINQ query.
+In simple cases you can use LINQ projection to return fields required by datatable directly from a LINQ query.
 
 With this approach you need to:
 
@@ -157,7 +161,7 @@ With this approach you need to:
     
     > The Build method returns a BuildResult object that contains a builded query and some other properties, expected by front-end datatable. Please note that this method doesn't execute the query. To execute the query and return the data to the datatable, call the CreateResponse method.
 
-## Configuring
+## How it works
 
 When user applies filtering or sorting to some columns, the datatable sends a request to the server that includes a filtering and ordering clauses.
 
