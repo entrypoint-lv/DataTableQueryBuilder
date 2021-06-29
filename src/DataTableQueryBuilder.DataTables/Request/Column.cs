@@ -5,14 +5,14 @@
     /// </summary>
     public class Column
     {
-        public string Field { get; private set; }
+        public string? Field { get; private set; }
         public string? Name { get; private set; }
         public Search? Search { get; private set; }
         public bool IsSearchable { get; private set; }
         public Sort? Sort { get; private set; }
         public bool IsSortable { get; private set; }
 
-        public Column(string? name, string field, bool searchable, bool sortable, Search? search)
+        public Column(string? name, string? field, bool searchable, bool sortable, Search? search)
         {
             Name = name;
             Field = field;
