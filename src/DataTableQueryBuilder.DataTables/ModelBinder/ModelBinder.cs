@@ -94,13 +94,12 @@ namespace DataTableQueryBuilder.DataTables
 
             while (true)
             {
-                try {
-                    // Parses Name value.
-                    if (!Parse(values.GetValue(String.Format(names.ColumnName, counter)), out string? columnName))
-                        break;
+                // Parses Name value.
+                if (!Parse(values.GetValue(String.Format(names.ColumnName, counter)), out string? columnName))
+                    break;
 
-                    // Parses Field value.
-                    Parse(values.GetValue(String.Format(names.ColumnField, counter)), out string? columnField);
+                // Parses Field value.
+                Parse(values.GetValue(String.Format(names.ColumnField, counter)), out string? columnField);
 
                     // Parses Orderable value.
                     bool columnSortable = true;
