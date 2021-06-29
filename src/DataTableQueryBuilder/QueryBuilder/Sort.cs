@@ -9,6 +9,7 @@
         /// Gets sort direction.
         /// </summary>
         public SortDirection Direction { get; private set; }
+
         /// <summary>
         /// Gets sort order.
         /// </summary>
@@ -17,7 +18,6 @@
         /// <summary>
         /// Creates a new sort instance.
         /// </summary>
-        /// <param name="field">Data field to be bound.</param>
         /// <param name="order">Sort order for multi-sorting.</param>
         /// <param name="direction">Sort direction.</param>
         public Sort(int order, string direction)
@@ -29,9 +29,19 @@
         }
     }
 
+    /// <summary>
+    /// Sort direction enum.
+    /// </summary>
     public enum SortDirection
     {
+        /// <summary>
+        /// Ascending direction.
+        /// </summary>
         Ascending = 0,
+
+        /// <summary>
+        /// Descending direction.
+        /// </summary>
         Descending = 1
     }
 }

@@ -6,6 +6,9 @@ using System.Reflection;
 
 namespace DataTableQueryBuilder
 {
+    /// <summary>
+    /// Expression helper.
+    /// </summary>
     public static class ExpressionHelper
     {
         private class ReplaceVisitor : ExpressionVisitor
@@ -44,6 +47,14 @@ namespace DataTableQueryBuilder
             }
         }
 
+        /// <summary>
+        /// Adds Where expression to query.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="expression"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public static IQueryable<T> AddWhere<T>(IQueryable<T> query, Expression? expression, ParameterExpression target)
         {
             var whereExp = Expression.Call(
@@ -56,6 +67,14 @@ namespace DataTableQueryBuilder
             return query.Provider.CreateQuery<T>(whereExp);
         }
 
+        /// <summary>
+        /// Adds OrderBy expression to query.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="expression"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public static IQueryable<T> AddOrderBy<T>(IQueryable<T> query, Expression expression, ParameterExpression target)
         {
             var orderBy = Expression.Call(
@@ -68,6 +87,14 @@ namespace DataTableQueryBuilder
             return query.Provider.CreateQuery<T>(orderBy);
         }
 
+        /// <summary>
+        /// Adds OrderByDescending expression to query.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="expression"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public static IQueryable<T> AddOrderByDescending<T>(IQueryable<T> query, Expression expression, ParameterExpression target)
         {
             var orderBy = Expression.Call(
@@ -80,6 +107,14 @@ namespace DataTableQueryBuilder
             return query.Provider.CreateQuery<T>(orderBy);
         }
 
+        /// <summary>
+        /// Adds AddThenBy expression to query.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="expression"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public static IQueryable<T> AddThenBy<T>(IQueryable<T> query, Expression expression, ParameterExpression target)
         {
             var orderBy = Expression.Call(
@@ -92,6 +127,14 @@ namespace DataTableQueryBuilder
             return query.Provider.CreateQuery<T>(orderBy);
         }
 
+        /// <summary>
+        /// Adds AddThenByDescending expression to query.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="expression"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public static IQueryable<T> AddThenByDescending<T>(IQueryable<T> query, Expression expression, ParameterExpression target)
         {
             var orderBy = Expression.Call(
@@ -104,11 +147,24 @@ namespace DataTableQueryBuilder
             return query.Provider.CreateQuery<T>(orderBy);
         }
 
+        /// <summary>
+        /// Replaces expression parameters
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="searchEx"></param>
+        /// <param name="replaceEx"></param>
+        /// <returns></returns>
         public static Expression Replace(Expression expression, Expression searchEx, Expression replaceEx)
         {
             return new ReplaceVisitor(searchEx, replaceEx).Visit(expression);
         }
 
+        /// <summary>
+        /// Finds parameter in expression body.
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
         public static bool FindParameter(Expression expression, ParameterExpression parameter)
         {
             var finder = new ParameterFinder(parameter);
@@ -118,6 +174,12 @@ namespace DataTableQueryBuilder
             return finder.Found;
         }
 
+        /// <summary>
+        /// Extracts property chain.
+        /// </summary>
+        /// <param name="targetProperty"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public static MemberExpression ExtractPropertyChain(Expression targetProperty, ParameterExpression target)
         {
             var propertyChainExp = ExtractPropertyInfoChain(targetProperty);

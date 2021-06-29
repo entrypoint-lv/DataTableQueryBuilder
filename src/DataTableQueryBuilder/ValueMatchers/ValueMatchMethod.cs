@@ -4,7 +4,7 @@ namespace DataTableQueryBuilder.ValueMatchers
 {
     public enum ValueMatchMethod
     {
-        Equals,
+        //Equals,
         Contains,
         StartsWith,
         EndsWith,

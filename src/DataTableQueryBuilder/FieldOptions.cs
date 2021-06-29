@@ -13,11 +13,6 @@ namespace DataTableQueryBuilder
         internal Expression? SourceProperty { get; private set; }
 
         /// <summary>
-        /// Gets the value match method that is used when searching. Default is String.Contains() for strings and integers, and equals for other value types.
-        /// </summary>
-        internal ValueMatchMethod ValueMatchMethod { get; private set; }
-
-        /// <summary>
         /// Checks if global search is enabled on this field.
         /// </summary>
         internal bool IsGlobalSearchEnabled { get; private set; }
@@ -32,10 +27,14 @@ namespace DataTableQueryBuilder
         /// </summary>
         internal Expression<Func<T, object>>? SortExpression { get; private set; }
 
-        public FieldOptions(Expression? sourcePropertyAccessExp)
+        protected FieldOptions(Expression? sourcePropertyAccessExp)
         {
             SourceProperty = sourcePropertyAccessExp;
-            ValueMatchMethod = ValueMatchMethod.Contains;
+        }
+
+        public static FieldOptions<T> Create(Expression? sourcePropertyAccessExp)
+        {
+            return new FieldOptions<T>(sourcePropertyAccessExp);
         }
 
         /// <summary>
@@ -72,16 +71,6 @@ namespace DataTableQueryBuilder
         public void OrderBy(Expression<Func<T, object>> expression)
         {
             SortExpression = expression;
-        }
-
-        /// <summary>
-        /// Explicitly sets the value match method to be used during searching.
-        /// </summary>
-        /// <param name="method"></param>
-        /// <returns></returns>
-        public void UseValueMatchMethod(ValueMatchMethod method)
-        {
-            ValueMatchMethod = method;
         }
     }
 }

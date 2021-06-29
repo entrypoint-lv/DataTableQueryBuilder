@@ -19,10 +19,19 @@ namespace DataTableQueryBuilder
         /// </summary>
         public int PageSize { get; }
 
-        public string? GlobalSearchValue { get; }
+        /// <summary>
+        /// Gets the search value to be applied to all columns that have global search enabled.
+        /// </summary>
+        public string? SearchValue { get; }
 
+        /// <summary>
+        /// Gets searchable fields.
+        /// </summary>
         public Dictionary<string, string> SearchableFields { get; }
 
+        /// <summary>
+        /// Gets sortable value.
+        /// </summary>
         public Dictionary<string, Sort> SortableFields { get; }
     }
 }

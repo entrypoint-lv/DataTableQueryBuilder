@@ -108,7 +108,7 @@ namespace DataTableQueryBuilder
                 }
                 else
                 {
-                    matchExp = BuildMatchExpression(opt.SourceProperty, field.Value, opt.ValueMatchMethod, target);
+                    matchExp = BuildMatchExpression(opt.SourceProperty, field.Value, opt, target);
                 }
 
                 if (matchExp != null)
@@ -120,7 +120,7 @@ namespace DataTableQueryBuilder
 
         private Expression? BuildGlobalSearchExpression(ParameterExpression target)
         {
-            if (string.IsNullOrEmpty(request.GlobalSearchValue))
+            if (string.IsNullOrEmpty(request.SearchValue))
                 return null;
 
             Expression? exp = null;
@@ -142,11 +142,11 @@ namespace DataTableQueryBuilder
                 {
                     //replace expression parameters
                     matchExp = ExpressionHelper.Replace(opt.SearchExpression.Body, opt.SearchExpression.Parameters[0], target);
-                    matchExp = ExpressionHelper.Replace(matchExp, opt.SearchExpression.Parameters[1], Expression.Constant(request.GlobalSearchValue));
+                    matchExp = ExpressionHelper.Replace(matchExp, opt.SearchExpression.Parameters[1], Expression.Constant(request.SearchValue));
                 }
                 else
                 {
-                    matchExp = BuildMatchExpression(opt.SourceProperty, request.GlobalSearchValue, opt.ValueMatchMethod, target);
+                    matchExp = BuildMatchExpression(opt.SourceProperty, request.SearchValue, opt, target);
                 }
 
                 if (matchExp != null)
@@ -156,7 +156,7 @@ namespace DataTableQueryBuilder
             return exp;
         }
 
-        private Expression? BuildMatchExpression(Expression? targetProperty, string propertyValue, ValueMatchMethod valueMatchMethod, ParameterExpression target)
+        private Expression? BuildMatchExpression(Expression? targetProperty, string propertyValue, FieldOptions<TSource> fieldOptions, ParameterExpression target)
         {
             if (targetProperty == null)
                 return null;
@@ -166,7 +166,33 @@ namespace DataTableQueryBuilder
 
             var propertyExp = ExpressionHelper.ExtractPropertyChain(targetProperty, target);
 
-            return ValueMatcher.Create(propertyExp, propertyValue, valueMatchMethod, Options.DateFormat).Match();
+            var valueMatcher = GetValueMatcher(propertyExp, propertyValue, fieldOptions);
+
+            return valueMatcher.Match();
+        }
+
+        private ValueMatcher GetValueMatcher(Expression property, string propertyValue, FieldOptions<TSource> fieldOptions)
+        {
+            var type = property.Type;
+
+            if (TypeHelper.IsInteger(type))
+            {
+                //if (valueMatchMethod == ValueMatchMethod.Equals)
+                return new IntegerMatcher(property, propertyValue);
+
+                //return new StringMatcher(property, valueToMatch, valueMatchMethod);
+            }
+
+            if (TypeHelper.IsBoolean(type))
+                return new BooleanMatcher(property, propertyValue);
+
+            if (TypeHelper.IsEnum(type))
+                return new EnumMatcher(property, propertyValue);
+
+            if (TypeHelper.IsDateTime(type))
+                return new DateMatcher(property, propertyValue, Options.DateFormat);
+
+            return new StringMatcher(property, propertyValue, ValueMatchMethod.Contains);
         }
 
         private IQueryable<TSource> ApplySortExpression(IQueryable<TSource> query)

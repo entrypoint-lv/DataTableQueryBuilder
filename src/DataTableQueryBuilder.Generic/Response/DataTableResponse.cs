@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 
 using Newtonsoft.Json;
 
-namespace DataTableQueryBuilder.DataTables
+namespace DataTableQueryBuilder.Generic
 {
     /// <summary>
-    /// Represents a response for DataTables.
+    /// Represents a Generic response.
     /// </summary>
-    public class DataTablesResponse : IDataTableResponse
+    public class DataTableResponse : IDataTableResponse
     {
         /// <summary>
         /// Defines the result content type.
@@ -26,11 +26,11 @@ namespace DataTableQueryBuilder.DataTables
         /// <summary>
         /// Gets request for validation.
         /// </summary>
-        public DataTablesRequest Request { get; protected set; }
-        
+        public DataTableRequest Request { get; protected set; }
+
         /// <summary>
         /// Gets error message, if not successful.
-        /// Should only be available for DataTables 1.10 and above.
+        /// Should only be available for Generic 1.10 and above.
         /// </summary>
         public string? Error { get; protected set; }
 
@@ -57,9 +57,9 @@ namespace DataTableQueryBuilder.DataTables
         /// <summary>
         /// Creates a new response instance.
         /// </summary>
-        /// <param name="request">DataTables request object.</param>
+        /// <param name="request">Generic request object.</param>
         /// <param name="errorMessage">Error message.</param>
-        protected DataTablesResponse(DataTablesRequest request, string errorMessage, IDictionary<string, object>? additionalParameters)
+        protected DataTableResponse(DataTableRequest request, string errorMessage, IDictionary<string, object>? additionalParameters)
         {
             Request = request;
             Error = errorMessage;
@@ -69,12 +69,12 @@ namespace DataTableQueryBuilder.DataTables
         /// <summary>
         /// Creates a new response instance.
         /// </summary>
-        /// <param name="request">DataTables request object.</param>
+        /// <param name="request">Generic request object.</param>
         /// <param name="totalRecords">Total record count (total records available on database).</param>
         /// <param name="totalRecordsFiltered">Filtered record count (total records available after filtering).</param>
         /// <param name="additionalParameters">Aditional parameters for response.</param>
         /// <param name="data">Data object (collection).</param>
-        public DataTablesResponse(DataTablesRequest request, int totalRecords, int totalRecordsFiltered, object data, IDictionary<string, object>? additionalParameters)
+        public DataTableResponse(DataTableRequest request, int totalRecords, int totalRecordsFiltered, object data, IDictionary<string, object>? additionalParameters)
         {
             Request = request;
             TotalRecords = totalRecords;
@@ -105,42 +105,28 @@ namespace DataTableQueryBuilder.DataTables
             if (Request == null)
                 return "";
 
-            if (Configuration.Options.IsDrawValidationEnabled)
-            {
-                // When draw validation is in place, response must have a draw value equals to or greater than 1.
-                // Any other value besides that represents an invalid draw request and response should be empty.
-                if (Request.Draw < 1)
-                    return "";
-            }
-
             using var stringWriter = new System.IO.StringWriter();
             using var jsonWriter = new JsonTextWriter(stringWriter);
 
             jsonWriter.WriteStartObject();
 
-            var names = Configuration.Options.ResponseNameConvention;
-
-            // Draw
-            jsonWriter.WritePropertyName(names.Draw, true);
-            jsonWriter.WriteValue(Request.Draw);
-
             if (IsSuccessResponse())
             {
                 // TotalRecords
-                jsonWriter.WritePropertyName(names.TotalRecords, true);
+                jsonWriter.WritePropertyName(ResponseNameConvention.TotalRecords, true);
                 jsonWriter.WriteValue(TotalRecords);
 
                 // TotalRecordsFiltered
-                jsonWriter.WritePropertyName(names.TotalRecordsFiltered, true);
+                jsonWriter.WritePropertyName(ResponseNameConvention.TotalRecordsFiltered, true);
                 jsonWriter.WriteValue(TotalRecordsFiltered);
 
                 // Data
-                jsonWriter.WritePropertyName(names.Data, true);
+                jsonWriter.WritePropertyName(ResponseNameConvention.Data, true);
                 jsonWriter.WriteRawValue(DataToJson());
             }
             else
             {
-                jsonWriter.WritePropertyName(names.Error, true);
+                jsonWriter.WritePropertyName(ResponseNameConvention.Error, true);
                 jsonWriter.WriteValue(Error);
             }
 

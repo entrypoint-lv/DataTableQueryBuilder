@@ -1,0 +1,252 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DataTableQueryBuilder.Generic</name>
+    </assembly>
+    <members>
+        <member name="T:DataTableQueryBuilder.Generic.DataTableBuildResult`2">
+            <summary>
+            Represents a DataTable build result.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.Generic.DataTableBuildResult`2.#ctor(System.Int32,System.Int32,System.Linq.IQueryable{`1},DataTableQueryBuilder.Generic.DataTableRequest)">
+            <summary>
+            Creates a new DataTable build result.
+            </summary>
+            <param name="totalRecords">Total records in the data source.</param>
+            <param name="totalRecordsFiltered">Total records filtered from the data source.</param>
+            <param name="buildedQuery">Builded LINQ query.</param>
+            <param name="request">DataTables request.</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.Generic.DataTableBuildResult`2.CreateResponse(AutoMapper.IMapper)">
+            <summary>
+            Creates data table response.
+            </summary>
+            <param name="mapper">An AutoMapper instance.</param>
+            <returns>Data table response.</returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.Generic.DataTableBuildResult`2.CreateResponse(AutoMapper.IMapper,System.Action{AutoMapper.IMappingOperationOptions})">
+            <summary>
+            Creates data table response.
+            </summary>
+            <param name="mapper">An AutoMapper instance.</param>
+            <param name="mappingOptions">Options for a map operation.</param>
+            <returns>Data table response.</returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.Generic.DataTableBuildResult`2.CreateResponse(AutoMapper.IMapper,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Creates data table response.
+            </summary>
+            <param name="mapper">An AutoMapper instance.</param>
+            <param name="responseAdditionalParams">Additional parameters to be added to data table response.</param>
+            <returns>Data table response.</returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.Generic.DataTableBuildResult`2.CreateResponse(AutoMapper.IMapper,System.Action{AutoMapper.IMappingOperationOptions},System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Creates data table response.
+            </summary>
+            <param name="mapper">An AutoMapper instance.</param>
+            <param name="mappingOptions">Options for a map operation.</param>
+            <param name="responseAdditionalParams">Additional parameters to be added to data table response.</param>
+            <returns>Data table response.</returns>
+        </member>
+        <member name="T:DataTableQueryBuilder.Generic.DataTableBuildResult`1">
+            <summary>
+            Represents a DataTable build result.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.Generic.DataTableBuildResult`1.#ctor(System.Int32,System.Int32,System.Linq.IQueryable{`0},DataTableQueryBuilder.Generic.DataTableRequest)">
+            <summary>
+            Creates a new DataTable build result.
+            </summary>
+            <param name="totalRecords">Total records in the data source.</param>
+            <param name="totalRecordsFiltered">Total records filtered from the data source.</param>
+            <param name="buildedQuery">Builded LINQ query.</param>
+            <param name="request">DataTables request.</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.Generic.DataTableBuildResult`1.CreateResponse">
+            <summary>
+            Creates data table response.
+            </summary>
+            <returns>Data table response.</returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.Generic.DataTableBuildResult`1.CreateResponse(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Creates data table response.
+            </summary>
+            <param name="responseAdditionalParams">Additional parameters to be added to data table response.</param>
+            <returns>Data table response.</returns>
+        </member>
+        <member name="T:DataTableQueryBuilder.Generic.DataTableQueryBuilder`2">
+            <summary>
+            Builds a query according to the specific DataTable request.
+            </summary>
+            <typeparam name="TDataTableFields">A view model that represents the list of DataTable columns.</typeparam>
+            <typeparam name="TSource">The type of the data returned from the data source.</typeparam>
+        </member>
+        <member name="M:DataTableQueryBuilder.Generic.DataTableQueryBuilder`2.#ctor(DataTableQueryBuilder.Generic.DataTableRequest)">
+            <summary>
+            Creates a new query builder to be used for specific DataTable request.
+            </summary>
+            <param name="request">DataTable request.</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.Generic.DataTableQueryBuilder`2.#ctor(DataTableQueryBuilder.Generic.DataTableRequest,System.Action{DataTableQueryBuilder.QueryBuilderOptions{`0,`1}})">
+            <summary>
+            Creates a new query builder to be used on specific DataTable request.
+            </summary>
+            <param name="request">DataTable request.</param>
+            <param name="optionsAction">An action to configure the QueryBuilderOptions.</param>
+        </member>
+        <member name="T:DataTableQueryBuilder.Generic.DataTablesQueryBuilder`1">
+            <summary>
+            Builds a query according to the specific DataTable request.
+            </summary>
+            <typeparam name="TSource">The type of the data returned from the data source.</typeparam>
+        </member>
+        <member name="M:DataTableQueryBuilder.Generic.DataTablesQueryBuilder`1.#ctor(DataTableQueryBuilder.Generic.DataTableRequest)">
+            <summary>
+            Creates a new query builder to be used for specific DataTable request.
+            </summary>
+            <param name="request">DataTable request.</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.Generic.DataTablesQueryBuilder`1.#ctor(DataTableQueryBuilder.Generic.DataTableRequest,System.Action{DataTableQueryBuilder.QueryBuilderOptions{`0,`0}})">
+            <summary>
+            Creates a new query builder to be used on specific DataTable request.
+            </summary>
+            <param name="request">DataTable request.</param>
+            <param name="optionsAction">An action to configure the QueryBuilderOptions.</param>
+        </member>
+        <member name="T:DataTableQueryBuilder.Generic.Column">
+            <summary>
+            Represents a Generic column.
+            </summary>
+        </member>
+        <member name="T:DataTableQueryBuilder.Generic.DataTableRequest">
+            <summary>
+            Represents a Generic request.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.Generic.DataTableRequest.Page">
+            <summary>
+            Current page number.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.Generic.DataTableRequest.PageSize">
+            <summary>
+            Gets the number of records that the table can display in the current draw.
+            It is expected that the number of records returned will be equal to this number, unless the server has fewer records to return.
+            A value &lt;= 0 to indicate that all records should be returned (although that negates any benefits of server-side processing!).
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.Generic.DataTableRequest.StartRecordNumber">
+            <summary>
+            Gets paging first record indicator.
+            This is the start point in the current data set (zero index based).
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.Generic.DataTableRequest.Search">
+            <summary>
+            Gets the search value to be applied to all columns that have global search enabled.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.Generic.DataTableRequest.SearchValue">
+            <summary>
+            Gets the search value to be applied to all columns that have global search enabled.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.Generic.DataTableRequest.Columns">
+            <summary>
+            Gets Generic column collection (from client-side).
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.Generic.DataTableRequest.SearchableFields">
+            <summary>
+            Gets searchable fields.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.Generic.DataTableRequest.SortableFields">
+            <summary>
+            Gets sortable fields.
+            </summary>
+        </member>
+        <member name="T:DataTableQueryBuilder.Generic.Options">
+            <summary>
+            Represents a configuration
+            </summary>
+        </member>
+        <member name="T:DataTableQueryBuilder.Generic.DataTableResponse">
+            <summary>
+            Represents a Generic response.
+            </summary>
+        </member>
+        <member name="F:DataTableQueryBuilder.Generic.DataTableResponse.ContentType">
+            <summary>
+            Defines the result content type.
+            </summary>
+        </member>
+        <member name="F:DataTableQueryBuilder.Generic.DataTableResponse.ContentEncoding">
+            <summary>
+            Defines the result enconding.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.Generic.DataTableResponse.Request">
+            <summary>
+            Gets request for validation.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.Generic.DataTableResponse.Error">
+            <summary>
+            Gets error message, if not successful.
+            Should only be available for Generic 1.10 and above.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.Generic.DataTableResponse.TotalRecords">
+            <summary>
+            Gets total record count (total records available on database).
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.Generic.DataTableResponse.TotalRecordsFiltered">
+            <summary>
+            Gets filtered record count (total records available after filtering).
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.Generic.DataTableResponse.Data">
+            <summary>
+            Gets data object (collection).
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.Generic.DataTableResponse.AdditionalParameters">
+            <summary>
+            Gets aditional parameters for response.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.Generic.DataTableResponse.#ctor(DataTableQueryBuilder.Generic.DataTableRequest,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Creates a new response instance.
+            </summary>
+            <param name="request">Generic request object.</param>
+            <param name="errorMessage">Error message.</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.Generic.DataTableResponse.#ctor(DataTableQueryBuilder.Generic.DataTableRequest,System.Int32,System.Int32,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Creates a new response instance.
+            </summary>
+            <param name="request">Generic request object.</param>
+            <param name="totalRecords">Total record count (total records available on database).</param>
+            <param name="totalRecordsFiltered">Filtered record count (total records available after filtering).</param>
+            <param name="additionalParameters">Aditional parameters for response.</param>
+            <param name="data">Data object (collection).</param>
+        </member>
+        <member name="M:DataTableQueryBuilder.Generic.DataTableResponse.ToJson">
+            <summary>
+            Converts this object to a Json compatible response using global naming convention for parameters.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DataTableQueryBuilder.Generic.ResponseNameConvention">
+            <summary>
+            Represents response naming convention.
+            </summary>
+        </member>
+    </members>
+</doc>

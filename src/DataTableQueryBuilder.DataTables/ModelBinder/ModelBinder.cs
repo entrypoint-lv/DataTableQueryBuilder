@@ -94,30 +94,33 @@ namespace DataTableQueryBuilder.DataTables
 
             while (true)
             {
-                // Parses Field value.
-                if (!Parse(values.GetValue(String.Format(names.ColumnField, counter)), out string columnField))
-                    break;
+                try {
+                    // Parses Name value.
+                    if (!Parse(values.GetValue(String.Format(names.ColumnName, counter)), out string? columnName))
+                        break;
 
-                // Parses Name value.
-                Parse(values.GetValue(String.Format(names.ColumnName, counter)), out string? columnName);
+                    // Parses Field value.
+                    Parse(values.GetValue(String.Format(names.ColumnField, counter)), out string? columnField);
 
-                // Parses Orderable value.
-                bool columnSortable = true;
-                Parse(values.GetValue(String.Format(names.IsColumnSortable, counter)), out columnSortable);
+                    // Parses Orderable value.
+                    bool columnSortable = true;
+                    Parse(values.GetValue(String.Format(names.IsColumnSortable, counter)), out columnSortable);
 
-                // Parses Searchable value.
-                bool columnSearchable = true;
-                Parse(values.GetValue(String.Format(names.IsColumnSearchable, counter)), out columnSearchable);
+                    // Parses Searchable value.
+                    bool columnSearchable = true;
+                    Parse(values.GetValue(String.Format(names.IsColumnSearchable, counter)), out columnSearchable);
 
-                // Parsed Search value.
-                Parse(values.GetValue(String.Format(names.ColumnSearchValue, counter)), out string? columnSearchValue);
+                    // Parsed Search value.
+                    Parse(values.GetValue(String.Format(names.ColumnSearchValue, counter)), out string? columnSearchValue);
 
-                // Parses IsRegex value.
-                Parse(values.GetValue(String.Format(names.IsColumnSearchRegex, counter)), out bool columnSearchRegex);
+                    // Parses IsRegex value.
+                    Parse(values.GetValue(String.Format(names.IsColumnSearchRegex, counter)), out bool columnSearchRegex);
 
-                var column = new Column(columnName, columnField, columnSearchable, columnSortable, new Search(columnSearchValue, columnSearchRegex));
+                    var column = new Column(columnName, columnField, columnSearchable, columnSortable, new Search(columnSearchValue, columnSearchRegex));
 
-                columns.Add(column);
+                    columns.Add(column);
+                }
+                catch { }
 
                 counter++;
             }
