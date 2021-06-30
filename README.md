@@ -32,7 +32,7 @@ For other JS datatable components, install the generic NuGet package instead:
 dotnet add package DataTableQueryBuilder.Generic
 ```
 
-## Basic example
+## Basic usage
 
 Let's assume that you want to show a list of users.
 
@@ -55,7 +55,7 @@ In most cases, your JS datatable's configurations will look something like this:
 </script>
 ```
 
-Your JS component expects server to return data for each page as a JSON array, for example:
+Your JS datatable expects server to return data for each page as a JSON array, for example:
 
 ```js
 [
@@ -69,7 +69,7 @@ So, a field value in each column's configuration represents a property name of a
 
 ### Server-side configuration
 
-Create a LINQ projection model that represents the fields returned by server:
+Create a LINQ projection model that represents the fields expected by your JS datatable and returned by server:
 
 ```c#
 public class UserListData
@@ -101,7 +101,7 @@ public IActionResult UserList(DataTablesRequest request)
 }
 ```
     
-> The Build method returns a BuildResult object that contains a builded query and some other properties, expected by your JS datatable - this method doesn't execute the query.
+> The Build method returns a BuildResult object that contains a builded query and some other properties, expected by JS datatable - this method doesn't execute the query.
 
 > To execute the query and return the data to the datatable, call the CreateResponse method.
 
@@ -172,11 +172,11 @@ This request could look something like this:
 search: [{'fullName' : 'John'}, {'companyName': 'Goo'}]
 sort: [{'posts' : 'asc'}]
 ```
-> Here, `fullName`, `companyName` and `posts` are field names.
+> Here, `fullName`, `companyName` and `posts` are field names as well as property names in the LINQ projection model (case insensitive).
 
 The task of the query builder is to extend a base LINQ query with an additional ``Where`` and ``OrderBy`` clauses based on this request.
 
-If no configuration is provided, the builder will automatically determine the value matching strategy to use for data filtering based on the data types of the properties in the projection model, so the base LINQ query will be extended in the following way:
+If no configuration is provided, the builder will automatically determine the value matching strategy to use for data filtering based on the data types of the properties in the LINQ projection model, so the base LINQ query will be extended in the following way:
 
 ```c#
 //IQueryable<UserListData> users = userService.GetAllForUserList();
@@ -191,9 +191,46 @@ return dataContext.Users
     .OrderBy(p => p.Posts);
 ```
 
-Sometimes you may want to filter data in a column based on some other field's data. A common example would be a ``<select>`` element that allows to filter by specific company and uses company's Id as selected value.
+## Configuration options
 
-In this case, you can use the ``SearchBy`` method to specify a LINQ expressions that should be used when filtering by this field:
+Use the `ForField` methods to customize the configuration for specific field:
+
+```c#
+var qb = new DataTablesQueryBuilder<UserListData>(request, o =>
+{
+    o.ForField(f => f.FullName, o => o.UseValueMatchMode(StringMatchMode.Exact));
+    o.ForField(f => f.CompanyName, o =>
+    {
+        o.UseValueMatchMode(StringMatchMode.StartsWith);
+        o.EnableGlobalSearch();
+    });
+});
+```
+
+With this configuration the base LINQ query will be extended in the following way:
+
+```c#
+//IQueryable<UserListData> users = userService.GetAllForUserList();
+
+return dataContext.Users
+    .Select(u => new UserListData()
+    {
+        ///
+    })
+    .Where(p => p.FullName.Equals(val))
+    .Where(p => p.CompanyName.StartsWith(val))
+    .OrderBy(p => p.Posts);
+```
+
+
+
+## Custom search and sort expressions
+
+Sometimes you may want to filter data in a column based on a value, that doesn't belong to that column.
+
+A common example would be the `CompanyName` column, that needs to be filtered by `companyId` value from `<select>` element that exists on the same page.
+
+In this case, you may add the `CompanyId` property to the projection model and then use the `SearchBy` method to specify a custom LINQ expression that should be used when filtering by this field:
 
 ```c#
 var qb = new DataTablesQueryBuilder<UserListData>(request, o =>
@@ -213,19 +250,22 @@ return dataContext.Users
     .Select(u => new UserListData()
     {
         ///
+        CompanyId = u.CompanyId
     })
     .Where(p => p.FullName.Contains(val))
     .Where(p => p.CompanyId.HasValue && p.CompanyId == int.Parse(val))
     .OrderBy(p => p.Posts);
 ```
 
+Similarly, you can use the `SortBy` method to set a custom sort expression.
+
 ## Advanced filtering
 
 While returning fields directly from base query by using projection is fine for simple use cases, you may find that this approach doesn't allow you to perform a more advanced data filtering.
 
-An example would be to show only those users that have a posts with a title that matches some value.
+An example would be to filter users by the title of their blog posts.
 
-In these cases you should use the builder without projection and introduce a separate view model instead.
+In such cases, you should return entity instead of projection model from your base LINQ query, but introduce a separate view model instead.
 
 1. Create a base LINQ query that will be used by query builder to request users from a database:
 
@@ -241,7 +281,7 @@ In these cases you should use the builder without projection and introduce a sep
     }
     ```
 
-2. Create a view model that represents fields returned by server:
+2. Create a view model that represents the fields expected by your JS datatable and returned by server:
 
     ```c#
     public class UserDataTableFields
@@ -286,16 +326,14 @@ In these cases you should use the builder without projection and introduce a sep
 
     > The CreateResponse method will use AutoMapper to convert the data returned by LINQ query (``IEnumerable<User>``) to a JSON data array expected by datatable (``IEnumerable<UserDataTableFields>``).
 
-Let's review an example when datatable sends the following request:
+Letš review the following datatable request:
 
 ```js
 search: [{'fullName' : 'John'}, {'companyName': 'Goo'}, {'posts': 'Title'}]
 sort: [{'posts' : 'asc'}]
 ```
 
-Here, the entity's property names ``FullName`` and ``Id`` will be figured out automatically based on the field names in the request (ignoring the case sensivity).
-
-If field name and entity's property name don't match, like with our ``CompanyName`` field, we need to tell the builder which entity's property to use by utilizing the ``UseSourceProperty`` method:
+Here, the `CompanyName` field's name doesn't match the entity's property name, so we need to tell the builder which entity's property to use by utilizing the ``UseSourceProperty`` method:
 
 ```c#
 o.ForField(f => f.CompanyName, o => o.UseSourceProperty(u => u.Company!.Name));
