@@ -326,7 +326,7 @@ In such cases, you should return entity instead of projection model from your ba
 
     > The CreateResponse method will use AutoMapper to convert the data returned by LINQ query (``IEnumerable<User>``) to a JSON data array expected by datatable (``IEnumerable<UserDataTableFields>``).
 
-Letš review the following datatable request:
+Let's review the following datatable request:
 
 ```js
 search: [{'fullName' : 'John'}, {'companyName': 'Goo'}, {'posts': 'Title'}]
