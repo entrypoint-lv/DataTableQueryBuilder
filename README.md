@@ -1,10 +1,8 @@
 # LINQ query builder for JavaScript data tables
 
- A LINQ query builder that automatically converts AJAX request coming from a front-end datatable to a LINQ query against the Entity Framework data model according to the specified configuration.
+ A LINQ query builder that automatically transforms an AJAX request coming from JS datatable into a LINQ query against the Entity Framework data model according to the specified configuration.
 
 ## Install
-
-### DataTables.net
 
 If you're using https://datatables.net, install the following NuGet package:
 
@@ -28,17 +26,19 @@ Then register the model binder to bind incoming AJAX requests from DataTables to
    }
    ```
 
-### Other datatable components
-
-For other datatable components, simply install the basic package instead:
+For other JS datatable components, install the generic NuGet package instead:
 
 ```console
-dotnet add package DataTableQueryBuilder
+dotnet add package DataTableQueryBuilder.Generic
 ```
 
-## Example setup
+## Basic example
 
-Let's assume that we have some front-end datatable that represents a list of users:
+Let's assume that you want to show a list of users.
+
+### Client-side configuration
+
+In most cases, your JS datatable's configurations will look something like this:
 
 ```html
 <my-datatable-component :data-url="/api/userlist" :columns="columns"></my-datatable-component>
@@ -55,17 +55,80 @@ Let's assume that we have some front-end datatable that represents a list of use
 </script>
 ```
 
-Here, a field value is the property name of a row object in a JSON data array returned by the server, for example:
+Your JS component expects server to return data for each page as a JSON array, for example:
 
 ```js
-    [
-        { 'id': 1, 'fullName': 'John Smith', 'email': 'john@example.com', 'companyName': '', 'posts' : 0, createDate: '2021-01-05T19:38:23.551Z' }
-        { 'id': 2, 'fullName': 'Michael Smith', 'email': 'michael@example.com', 'companyName': 'Apple', 'posts' : 5, createDate: '2021-04-23T18:15:43.511Z' }
-        { 'id': 3, 'fullName': 'Mary Smith', 'email': 'mary@example.com', 'companyName': 'Google', 'posts' : 10, createDate: '2020-09-12T10:11:45.712Z' }
-    ]
+[
+    { 'id': 1, 'fullName': 'John Smith', 'email': 'john@example.com', 'companyName': '', 'posts' : 0, createDate: '2021-01-05T19:38:23.551Z' }
+    { 'id': 2, 'fullName': 'Michael Smith', 'email': 'michael@example.com', 'companyName': 'Apple', 'posts' : 5, createDate: '2021-04-23T18:15:43.511Z' }
+    { 'id': 3, 'fullName': 'Mary Smith', 'email': 'mary@example.com', 'companyName': 'Google', 'posts' : 10, createDate: '2020-09-12T10:11:45.712Z' }
+]
 ```
 
-Let's assume that our Entity Framework data model looks like this:
+So, a field value in each column's configuration represents a property name of a row object in this JSON array.
+
+### Server-side configuration
+
+Create a LINQ projection model that represents the fields returned by server:
+
+```c#
+public class UserListData
+{
+    public int Id { get; set; }        
+    public string FullName { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string CompanyName { get; set; } = string.Empty;
+    public int Posts { get; set; }
+    public DateTime CreateDate { get; set; }
+}
+```
+
+> Please note that the ``CreateDate`` field here is of type DateTime, so it will be returned in ISO date format and not as formatted string - this is intentional, as the formatting must happen in the UI and not in the LINQ query.
+
+Create an action that will receive an AJAX request from your JS datatable, transform it to a LINQ query and return the data:
+
+```c#
+public IActionResult UserList(DataTablesRequest request)
+{
+    var qb = new DataTablesQueryBuilder<UserListData>(request);
+
+    // returns IQueryable<UserListData>
+    var users = userService.GetAllForUserList();
+
+    var result = qb.Build(users);
+
+    return result.CreateResponse();
+}
+```
+    
+> The Build method returns a BuildResult object that contains a builded query and some other properties, expected by your JS datatable - this method doesn't execute the query.
+
+> To execute the query and return the data to the datatable, call the CreateResponse method.
+
+Thats all!
+
+In the above example the `GetAllForUserList` method returns a base LINQ query that will be used by query builder to request users from a database:
+
+```c#
+public class UserService
+{
+    public IQueryable<UserListData> GetAllForUserList()
+    {
+        return dataContext.Users
+        .Select(u => new UserListData()
+        {
+            Id = u.Id,
+            FullName = u.FullName,
+            Email = u.Email,
+            CompanyName = u.Company != null ? u.Company.Name : string.Empty,
+            Posts = u.Post.Count(),
+            CreateDate = u.CreateDate
+        });
+    }   
+}
+```
+
+For reference, the following Entity Framework data model is used:
 
 ```c#
 public class User
@@ -99,81 +162,21 @@ public class Post
 }
 ```
 
-## Basic usage
-
-In simple cases you can use LINQ projection to return fields required by datatable directly from a LINQ query.
-
-With this approach you need to:
-
-1. Create a projection model that represents the fields returned by server:
-
-    ```c#
-    public class UserListData
-    {
-        public int Id { get; set; }        
-        public string FullName { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string CompanyName { get; set; } = string.Empty;
-        public int? CompanyId { get; set; };
-        public int Posts { get; set; }
-        public DateTime CreateDate { get; set; }
-    }
-    ```
-    
-    > Note that the ``CreateDate`` field will be returned in ISO date format and not as formatted string - this is intentional, as the formatting must happen in the UI and not in the LINQ query.
-
-2. Create a base LINQ query that will be used by query builder to request users from a database. Use the projection to select the required data:
-
-    ```c#
-    public class UserService
-    {
-        public IQueryable<UserListData> GetAllForUserList()
-        {
-            return dataContext.Users
-            .Select(u => new UserListData()
-            {
-                Id = u.Id,
-                FullName = u.FullName,
-                Email = u.Email,
-                CompanyName = u.Company != null ? u.Company.Name : string.Empty,
-                CompanyId = u.CompanyId,
-                Posts = u.Post.Count(),
-                CreateDate = u.CreateDate
-            });
-        }   
-    }
-    ```
-
-5. Create an action that will receive a request from datatable, convert it to a LINQ query and return the data:
-
-    ```c#
-    public IActionResult UserList(DataTablesRequest request)
-    {
-        var qb = new DataTablesQueryBuilder<UserListData>(request);
-
-        var users = userService.GetAllForUserList();
-
-        var result = qb.Build(users);
-
-        return result.CreateResponse();
-    }
-    ```
-    
-    > The Build method returns a BuildResult object that contains a builded query and some other properties, expected by front-end datatable. Please note that this method doesn't execute the query. To execute the query and return the data to the datatable, call the CreateResponse method.
-
 ## How it works
 
-When user applies filtering or sorting to some columns, the datatable sends a request to the server that includes a filtering and ordering clauses.
+When user applies filtering or sorting to some columns, the JS datatable sends a request to the server that includes a filtering and ordering clauses.
 
-For example, the request could look something like this:
+This request could look something like this:
+
 ```js
 search: [{'fullName' : 'John'}, {'companyName': 'Goo'}]
 sort: [{'posts' : 'asc'}]
 ```
+> Here, `fullName`, `companyName` and `posts` are field names.
 
 The task of the query builder is to extend a base LINQ query with an additional ``Where`` and ``OrderBy`` clauses based on this request.
 
-If no configuration is provided, the builder will automatically determine what match methods to use based on the properties' data types, so the base query will be extended in the following way:
+If no configuration is provided, the builder will automatically determine the value matching strategy to use for data filtering based on the data types of the properties in the projection model, so the base LINQ query will be extended in the following way:
 
 ```c#
 //IQueryable<UserListData> users = userService.GetAllForUserList();
