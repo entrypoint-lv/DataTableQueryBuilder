@@ -194,8 +194,8 @@ return dataContext.Users
     {
         ///
     })
-    .Where(p => p.FullName.ToLower().Contains(val.ToLower()))
-    .Where(p => p.CompanyName.ToLower().Contains(val.ToLower()))
+    .Where(p => p.FullName.ToLower().Contains("John".ToLower()))
+    .Where(p => p.CompanyName.ToLower().Contains("Goo".ToLower()))
     .Where(p => p.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture))
     .OrderBy(p => p.Posts);
 ```
@@ -218,7 +218,7 @@ Builder's options:
 | Property / Method | Comment | Type | Default |
 | :--- | :--- | :--- | :--- |
 | DateFormat | Gets or sets date format used for value matching when filtering DateTime fields. | string | CultureInfo.InvariantCulture.DateTimeFormat.ShortDatePattern |
-| ForField | Customizes the options for individual field. | | |
+| ForField | Customizes the options for individual field. | - | - |
 
 Individual field's options:
 
@@ -255,8 +255,8 @@ return dataContext.Users
     {
         ///
     })
-    .Where(p => p.FullName.ToLower().EndsWith(val.ToLower()))
-    .Where(p => p.CompanyName.ToLower().StartsWith(val.ToLower()))
+    .Where(p => p.FullName.ToLower().EndsWith("John".ToLower()))
+    .Where(p => p.CompanyName.ToLower().StartsWith("Goo".ToLower()))
     .Where(p => p.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture))
     .OrderBy(p => p.Posts);
 ```
@@ -300,8 +300,8 @@ return dataContext.Users
         ///
         CompanyId = u.CompanyId
     })
-    .Where(p => p.FullName.ToLower().Contains(val.ToLower()))
-    .Where(p => p.CompanyId.HasValue && p.CompanyId == int.Parse(val))
+    .Where(p => p.FullName.ToLower().Contains("John".ToLower()))
+    .Where(p => p.CompanyId.HasValue && p.CompanyId == int.Parse("1"))
     .Where(p => p.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture))
     .OrderBy(p => p.Posts);
 ```
@@ -362,7 +362,7 @@ In such cases, you should return entity instead of projection model from your ba
         {
             o.ForField(f => f.CompanyName, o => o.UseSourceProperty(u => u.Company!.Name));
             o.ForField(f => f.Posts, o => {
-                o.SearchBy((u, val) => u.Posts.Any(p => p.Title.Contains(val)));
+                o.SearchBy((u, val) => u.Posts.Any(p => p.Title.ToLower().Contains(val.ToLower())));
                 o.OrderBy(u => u.Posts.Count());
             });
         });
@@ -378,7 +378,7 @@ In such cases, you should return entity instead of projection model from your ba
 Let's review the following datatable request:
 
 ```js
-search: [{'fullName' : 'John'}, {'companyName': 'Goo'}, {'posts': 'Title'}]
+search: [{'fullName' : 'John'}, {'companyName': 'Goo'}, {'posts': 'Some title'}]
 sort: [{'posts' : 'asc'}]
 ```
 
@@ -403,8 +403,8 @@ With this configuration the resulting LINQ query will look like this:
   //IQueryable<User> users = userService.GetAllWithCompaniesAndPosts();
 
   return users
-      .Where(u => u.FullName.ToLower().Contains(val.ToLower()))
-      .Where(u => u.Company!.Name.ToLower().Contains(val.ToLower()))
-      .Where(u => u.Posts.Any(p => p.Title.ToLower().Contains(val.ToLower()))
+      .Where(u => u.FullName.ToLower().Contains("John".ToLower()))
+      .Where(u => u.Company!.Name.ToLower().Contains("Goo".ToLower()))
+      .Where(u => u.Posts.Any(p => p.Title.ToLower().Contains("Some title".ToLower()))
       .OrderBy(u => u.Posts.Count());
   ```
