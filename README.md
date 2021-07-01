@@ -194,8 +194,8 @@ return dataContext.Users
     {
         ///
     })
-    .Where(p => p.FullName.Contains(val))
-    .Where(p => p.CompanyName.Contains(val))
+    .Where(p => p.FullName.ToLower().Contains(val.ToLower()))
+    .Where(p => p.CompanyName.ToLower().Contains(val.ToLower()))
     .Where(p => p.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture))
     .OrderBy(p => p.Posts);
 ```
@@ -206,7 +206,7 @@ Built-in value matching strategies:
 
 | Source's property type | Comment | Available matching modes | Default |
 | --- | --- | --- | --- |
-| Integral numeric types (sbyte, byte, short, ushort, int, uint, long, ulong) | - | IntegerMatchMode.Exact<br />IntegerMatchMode.Contains | IntegerMatchMode.Contains |
+| Integral numeric types (sbyte, byte, short, ushort, int, uint, long, ulong) | - | `Equal` (default)<br />`p.ToString().ToLower().Contains(val)` | `Equal` |
 | Boolean | - | - | Equal |
 | Enum | - | - | Equal |
 | DateTime | The matching mode is determined by the passed filtering value | - | If single date is passed: `p.CreateDate.Date == val` <br /><br />If date range is passed: `p.CreateDate >= val && p.CreateDate < val` |
@@ -235,7 +235,7 @@ Example:
 var qb = new DataTablesQueryBuilder<UserListData>(request, o =>
 {
     o.DateFormat = "MM/dd/yyyy";
-    o.ForField(f => f.FullName, o => o.UseValueMatchMode(StringMatchMode.Exact));
+    o.ForField(f => f.FullName, o => o.UseValueMatchMode(StringMatchMode.EndsWith));
     o.ForField(f => f.CompanyName, o =>
     {
         o.UseValueMatchMode(StringMatchMode.StartsWith);
@@ -254,8 +254,8 @@ return dataContext.Users
     {
         ///
     })
-    .Where(p => p.FullName.Equals(val))
-    .Where(p => p.CompanyName.StartsWith(val))
+    .Where(p => p.FullName.ToLower().EndsWith(val.ToLower()))
+    .Where(p => p.CompanyName.ToLower().StartsWith(val.ToLower()))
     .Where(p => p.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture))
     .OrderBy(p => p.Posts);
 ```
@@ -298,7 +298,7 @@ return dataContext.Users
         ///
         CompanyId = u.CompanyId
     })
-    .Where(p => p.FullName.Contains(val))
+    .Where(p => p.FullName.ToLower().Contains(val.ToLower()))
     .Where(p => p.CompanyId.HasValue && p.CompanyId == int.Parse(val))
     .Where(p => p.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture))
     .OrderBy(p => p.Posts);
@@ -390,7 +390,7 @@ If we are unable to filter or sort the data just by matching the property's valu
 
 ```c#
 o.ForField(f => f.Posts, o => {
-    o.SearchBy((u, val) => u.Posts.Any(p => p.Title.Contains(val)));
+    o.SearchBy((u, val) => u.Posts.Any(p => p.Title.ToLower().Contains(val.ToLower())));
     o.OrderBy(u => u.Posts.Count());
 });
 ```
@@ -401,8 +401,8 @@ With this configuration the resulting LINQ query will look like this:
   //IQueryable<User> users = userService.GetAllWithCompaniesAndPosts();
 
   return users
-      .Where(u => u.FullName.Contains(val))
-      .Where(u => u.Company!.Name.Contains(val))
-      .Where(u => u.Posts.Any(p => p.Title.Contains(val))
+      .Where(u => u.FullName.ToLower().Contains(val.ToLower()))
+      .Where(u => u.Company!.Name.ToLower().Contains(val.ToLower()))
+      .Where(u => u.Posts.Any(p => p.Title.ToLower().Contains(val.ToLower()))
       .OrderBy(u => u.Posts.Count());
   ```
