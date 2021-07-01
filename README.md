@@ -36,11 +36,7 @@ dotnet add package DataTableQueryBuilder.Generic
 
 ## Basic usage
 
-Let's assume that you want to show a list of users.
-
-### Client-side configuration
-
-In most cases, your JS datatable's configurations will look something like this:
+Let's assume that you want to show a list of users. In most cases, your JS datatable's configurations will look something like this:
 
 ```html
 <my-datatable-component :data-url="/api/userlist" :columns="columns"></my-datatable-component>
@@ -57,7 +53,7 @@ In most cases, your JS datatable's configurations will look something like this:
 </script>
 ```
 
-Your JS datatable expects server to return data for each page as a JSON array, for example:
+Your JS datatable expects server to return data for each page as a JSON array. So, a field value in each column's configuration represents a property name of a row object in this JSON array, for example:
 
 ```js
 [
@@ -66,8 +62,6 @@ Your JS datatable expects server to return data for each page as a JSON array, f
     { 'id': 3, 'fullName': 'Mary Smith', 'email': 'mary@example.com', 'companyName': 'Google', 'posts' : 10, createDate: '2020-09-12T10:11:45.712Z' }
 ]
 ```
-
-So, a field value in each column's configuration represents a property name of a row object in this JSON array.
 
 ### Server-side configuration
 
@@ -129,7 +123,6 @@ public class UserService
     }   
 }
 ```
-
 
 For reference, the following Entity Framework data model is used all examples:
 
@@ -200,9 +193,9 @@ return dataContext.Users
 
 ## Configuration options
 
-Available value matching strategies:
+Built-in value matching strategies:
 
-| Type | Comment | Available matching modes | Default |
+| Value Type | Comment | Available matching modes | Default |
 | --- | --- | --- | --- |
 | Integral numeric types (sbyte, byte, short, ushort, int, uint, long, ulong) | - | IntegerMatchMode.Exact<br />IntegerMatchMode.Contains | IntegerMatchMode.Contains |
 | Boolean | - | - | Equal |
