@@ -275,6 +275,7 @@ In this case, you may add the `CompanyId` property to the projection model and t
 public class UserListData
 {
    ///
+   [JsonIgnore]
    public int? CompanyId { get; set; }
 }
 ```
