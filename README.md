@@ -261,7 +261,7 @@ return dataContext.Users
 
 ## Custom search and sort expressions
 
-Sometimes you may want to filter data in a column based on a value, that doesn't belong to that column.
+Sometimes you may want to filter data in a column based on a value that doesn't belong to that column.
 
 A common example would be the `CompanyName` column, that needs to be filtered by `companyId` value from `<select>` element that exists on the same page.
 
