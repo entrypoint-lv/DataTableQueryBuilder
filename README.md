@@ -127,7 +127,7 @@ Thats all!
 > To execute the query and return the data to the datatable, call the CreateResponse method.
 
 
-For reference, the following Entity Framework data model is used all examples:
+For reference, the following Entity Framework data model is used in all examples:
 
 <details>
   <summary>Entity Framework data model</summary>
