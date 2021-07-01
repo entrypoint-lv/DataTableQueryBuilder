@@ -204,26 +204,27 @@ return dataContext.Users
 
 Built-in value matching strategies:
 
-| Source's property type | Comment | Available matching modes | Default |
-| --- | --- | --- | --- |
-| Integral numeric types (sbyte, byte, short, ushort, int, uint, long, ulong) | - | `Equal` (default)<br />`p.ToString().ToLower().Contains(val)` | `Equal` |
-| Boolean | - | - | Equal |
-| Enum | - | - | Equal |
-| DateTime | The matching mode is determined by the passed filtering value | - | If single date is passed: `p.CreateDate.Date == val` <br /><br />If date range is passed: `p.CreateDate >= val && p.CreateDate < val` |
-| Any other type | Converted to string by executing `.ToString().ToLower()` | StringMatchMode.Exact<br />StringMatchMode.Contains<br />StringMatchMode.StartsWith<br />StringMatchMode.EndsWith<br />StringMatchMode.SQLServerContainsPhrase<br />StringMatchMode.SQLServerFreeText | StringMatchMode.Contains |
+| Source's property type | Available matching strategies |
+| --- | --- |
+| Integral numeric types (sbyte, byte, short, ushort, int, uint, long, ulong) | Equals<br />Contains (default)
+| Boolean | Equals |
+| Enum | Equals |
+| DateTime | The matching strategy is determined by the passed filtering value. If single date is passed - Equals, if date range is passed - Between. |
+| String | Contains (default)<br />StartsWith<br />EndsWith<br />SQLServerContains<br />SQLServerFreeText |
+| Any other type | Treated as string by executing `Property.ToString()` |
 
-QueryBuilder options:
+Builder's options:
 
 | Property / Method | Comment | Type | Default |
 | --- | --- | --- | --- |
 | DateFormat | Gets or sets date format used for value matching when filtering DateTime fields. | string | CultureInfo.InvariantCulture.DateTimeFormat.ShortDatePattern |
 | ForField | Customizes the options for individual field. | | |
 
-Field options:
+Individual field's options:
 
 | Method | Comment | Arguments |
 | --- | --- | --- |
-| UseValueMatchMode<TEnum> | Explicitly sets the value matching strategy to be used when filtering. Applicable only to properties of type `String`, `DateTime` and Integral numeric types. | Enum of type StringMatchMode, DateMatchMode or IntegerMatchMode |
+| UseValueMatchMode<TEnum> | Explicitly sets the value matching strategy to be used when filtering. Applicable only to properties of type `String` and Integral numeric types. | Enum of type StringMatchMode or IntegerMatchMode |
 | UseSourceProperty<TMember> | Explicitly sets the property to be used when filtering and sorting. | Expression<Func<T, TMember>> property |
 | SearchBy | Explicitly sets the search expression to be used when filtering. | Expression<Func<T, string, bool>> |
 | OrderBy | Explicitly sets the sort expression to be used when sorting. | Expression<Func<T, object>> expression |
