@@ -177,12 +177,12 @@ sort: [{'posts' : 'asc'}]
 ```
 > Here, `fullName`, `companyName` and `posts` are field names from JS datatable's configuration.
 
-The task of the query builder is to extend a base LINQ query with an additional ``Where`` and ``OrderBy`` clauses based on this request.
+The task of the query builder is to extend a base LINQ query with an additional ``Where`` and ``OrderBy`` clauses based on this request by using expression trees.
    
 If no configuration is provided, the builder will:
    
    1. Find the match between incoming fields and properties in the LINQ projection model by their names (ignoring the case sensitivity).
-   2. Automatically determine the value matching strategy to use for data filtering based on the matched property's data type.
+   2. Determine the value matching strategy to use for data filtering based on the matched property's data type.
 
 As the result, the base LINQ query will be extended in the following way:
 
