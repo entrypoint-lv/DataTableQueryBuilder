@@ -36,7 +36,9 @@ dotnet add package DataTableQueryBuilder.Generic
 
 ## Basic usage
 
-Let's assume that you want to show a list of users. In most cases, your JS datatable's configurations will look something like this:
+Let's assume that you want to show a list of users.
+
+In most cases, your JS datatable's configurations will look something like this:
 
 ```html
 <my-datatable-component :data-url="/api/userlist" :columns="columns"></my-datatable-component>
