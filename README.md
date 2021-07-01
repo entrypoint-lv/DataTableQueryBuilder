@@ -223,7 +223,7 @@ Field options:
 | Method | Comment | Arguments |
 | --- | --- | --- |
 | UseValueMatchMode<TEnum> | Explicitly sets the value matching strategy to be used when filtering. Applicable only to fields of type `String`, `DateTime` and Integral numeric types. | Enum of type StringMatchMode, DateMatchMode or IntegerMatchMode |
-| UseSourceProperty<TMember> | Explicitly sets the LINQ entity's property to be used when filtering and sorting. | Expression<Func<T, TMember>> property |
+| UseSourceProperty<TMember> | Explicitly sets the Source's property to be used when filtering and sorting. | Expression<Func<T, TMember>> property |
 | SearchBy | Explicitly sets the search expression to be used when filtering. | Expression<Func<T, string, bool>> |
 | OrderBy | Explicitly sets the sort expression to be used when sorting. | Expression<Func<T, object>> expression |
 | EnableGlobalSearch | Enables a global search on this field. Applicable only to JS datatables supporting global search option. | - |
