@@ -81,7 +81,7 @@ public class UserListData
 }
 ```
 
-> Please note that the ``CreateDate`` field here is of type DateTime, so it will be returned in ISO date format and not as formatted string - this is intentional, as the formatting must happen in the UI and not in the LINQ query.
+> Please note that the `CreateDate` property is of type DateTime, so it will be returned in ISO date format - this is intentional, as the formatting must happen in the UI and not in the LINQ query.
 
 Create a base LINQ query that will be used by query builder to request users from a database:
 
@@ -119,12 +119,13 @@ public IActionResult UserList(DataTablesRequest request)
     return result.CreateResponse();
 }
 ```
-    
+
+Thats all!
+
 > The Build method returns a BuildResult object that contains a builded query and some other properties, expected by JS datatable - this method doesn't execute the query.
 
 > To execute the query and return the data to the datatable, call the CreateResponse method.
 
-Thats all!
 
 For reference, the following Entity Framework data model is used all examples:
 
@@ -174,11 +175,16 @@ This request could look something like this:
 search: [{'fullName' : 'John'}, {'companyName': 'Goo'}]
 sort: [{'posts' : 'asc'}]
 ```
-> Here, `fullName`, `companyName` and `posts` are field names as well as property names in the LINQ projection model (case insensitive).
+> Here, `fullName`, `companyName` and `posts` are field names from JS datatable's configuration.
 
 The task of the query builder is to extend a base LINQ query with an additional ``Where`` and ``OrderBy`` clauses based on this request.
+   
+If no configuration is provided, the builder will:
+   
+   1. Find the match between incoming fields and properties in the LINQ projection model by their names (ignoring the case sensitivity).
+   2. Automatically determine the value matching strategy to use for data filtering based on the matched property's data type.
 
-If no configuration is provided, the builder will automatically determine the value matching strategy to use for data filtering based on the data types of the properties in the LINQ projection model, so the base LINQ query will be extended in the following way:
+As the result, the base LINQ query will be extended in the following way:
 
 ```c#
 //IQueryable<UserListData> users = userService.GetAllForUserList();
@@ -197,7 +203,7 @@ return dataContext.Users
 
 Built-in value matching strategies:
 
-| Value Type | Comment | Available matching modes | Default |
+| Source's property type | Comment | Available matching modes | Default |
 | --- | --- | --- | --- |
 | Integral numeric types (sbyte, byte, short, ushort, int, uint, long, ulong) | - | IntegerMatchMode.Exact<br />IntegerMatchMode.Contains | IntegerMatchMode.Contains |
 | Boolean | - | - | Equal |
