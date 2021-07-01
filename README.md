@@ -205,7 +205,7 @@ return dataContext.Users
 Built-in value matching strategies:
 
 | Source's property type | Available matching strategies |
-| --- | --- |
+| :--- | :--- |
 | Integral numeric types (sbyte, byte, short, ushort, int, uint, long, ulong) | Equals<br />Contains (default)
 | Boolean | Equals |
 | Enum | Equals |
@@ -216,14 +216,14 @@ Built-in value matching strategies:
 Builder's options:
 
 | Property / Method | Comment | Type | Default |
-| --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- |
 | DateFormat | Gets or sets date format used for value matching when filtering DateTime fields. | string | CultureInfo.InvariantCulture.DateTimeFormat.ShortDatePattern |
 | ForField | Customizes the options for individual field. | | |
 
 Individual field's options:
 
 | Method | Comment | Arguments |
-| --- | --- | --- |
+| :--- | :--- | :--- |
 | UseValueMatchMode<TEnum> | Explicitly sets the value matching strategy to be used when filtering. Applicable only to properties of type `String` and Integral numeric types. | Enum of type StringMatchMode or IntegerMatchMode |
 | UseSourceProperty<TMember> | Explicitly sets the property to be used when filtering and sorting. | Expression<Func<T, TMember>> property |
 | SearchBy | Explicitly sets the search expression to be used when filtering. | Expression<Func<T, string, bool>> |
