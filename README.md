@@ -193,11 +193,39 @@ return dataContext.Users
 
 ## Configuration options
 
-Use the `ForField` methods to customize the configuration for specific field:
+Available value matching strategies:
+
+| Type | Comment | Available matching modes | Default |
+| --- | --- | --- | --- |
+| Integral numeric types (sbyte, byte, short, ushort, int, uint, long, ulong) | - | IntegerMatchMode.Exact<br />IntegerMatchMode.Contains | IntegerMatchMode.Contains |
+| Boolean | - | - | Equal |
+| Enum | - | - | Equal |
+| DateTime | - | DateMatchMode.Exact<br />DateMatchMode.Range | DateMatchMode.Range |
+| Any other type | Converted to string by executing `.ToString().ToLower()` | StringMatchMode.Exact<br />StringMatchMode.Contains<br />StringMatchMode.StartsWith<br />StringMatchMode.EndsWith<br />StringMatchMode.SQLServerContainsPhrase<br />StringMatchMode.SQLServerFreeText | StringMatchMode.Contains |
+
+QueryBuilder options:
+
+| Property / Method | Comment | Type | Default |
+| --- | --- | --- | --- |
+| DateFormat | Gets or sets date format used for value matching when filtering DateTime fields. | string | CultureInfo.InvariantCulture.DateTimeFormat.ShortDatePattern |
+| ForField | Customizes the options for individual field. | | |
+
+Field options:
+
+| Method | Comment | Arguments |
+| --- | --- | --- |
+| UseValueMatchMode<TEnum> | Explicitly sets the value matching strategy to be used when filtering. Applicable only to fields of type `String`, `DateTime` and Integral numeric types. | Enum of type StringMatchMode, DateMatchMode or IntegerMatchMode |
+| UseSourceProperty<TMember> | Explicitly sets the LINQ entity's property to be used when filtering and sorting. | Expression<Func<T, TMember>> property |
+| SearchBy | Explicitly sets the search expression to be used when filtering. | Expression<Func<T, string, bool>> |
+| OrderBy | Explicitly sets the sort expression to be used when sorting. | Expression<Func<T, object>> expression |
+| EnableGlobalSearch | Enables a global search on this field. Applicable only to JS datatables supporting global search option. | - |
+
+Example:
 
 ```c#
 var qb = new DataTablesQueryBuilder<UserListData>(request, o =>
 {
+    o.DateFormat = "MM/dd/yyyy";
     o.ForField(f => f.FullName, o => o.UseValueMatchMode(StringMatchMode.Exact));
     o.ForField(f => f.CompanyName, o =>
     {
