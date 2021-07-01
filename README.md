@@ -181,8 +181,8 @@ The task of the query builder is to extend a base LINQ query with an additional 
    
 If no configuration is provided, the builder will:
    
-   1. Find the match between incoming fields and properties in the LINQ projection model by their names (ignoring the case sensitivity).
-   2. Determine the value matching strategy to use for data filtering based on the matched property's data type.
+   1. Find the match between fields and target properties of the LINQ projection model by matching their names (ignoring the case sensitivity).
+   2. Determine the value matching strategy to use for data filtering based on the matched target property's data type.
 
 As the result, the base LINQ query will be extended in the following way:
 
