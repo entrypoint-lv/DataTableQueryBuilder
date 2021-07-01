@@ -338,7 +338,7 @@ In such cases, you should return entity instead of projection model from your ba
     }
     ```
 
-3. Create a mapping between ``User`` and ``UserDataTableFields`` that will be used to convert the data returned by LINQ query (``IEnumerable<User>``) to a JSON data array expected by datatable:
+3. Create a mapping between `User` and `UserDataTableFields` that will be used to convert the data returned by LINQ query (`IEnumerable<User>`) to a JSON data array expected by datatable (`IEnumerable<UserDataTableFields>`):
 
     ```c#
     CreateMap<User, UserDataTableFields>()
@@ -368,7 +368,7 @@ In such cases, you should return entity instead of projection model from your ba
     }
     ```
 
-    > The CreateResponse method will use AutoMapper to convert the data returned by LINQ query (``IEnumerable<User>``) to a JSON data array expected by datatable (``IEnumerable<UserDataTableFields>``).
+    > The CreateResponse method will use AutoMapper to convert the data returned by LINQ query to a JSON data array expected by datatable.
 
 Let's review the following datatable request:
 
