@@ -351,6 +351,8 @@ In such cases, you should return entity instead of projection model from your ba
     ```c#
     public IActionResult UserList(DataTablesRequest request)
     {
+        var users = userService.GetAllWithCompaniesAndPosts();
+
         var qb = new DataTablesQueryBuilder<UserDataTableFields, User>(request, o =>
         {
             o.ForField(f => f.CompanyName, o => o.UseSourceProperty(u => u.Company!.Name));
@@ -359,8 +361,6 @@ In such cases, you should return entity instead of projection model from your ba
                 o.OrderBy(u => u.Posts.Count());
             });
         });
-
-        var users = userService.GetAllWithCompaniesAndPosts();
 
         var result = qb.Build(users);
 
