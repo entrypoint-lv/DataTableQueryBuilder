@@ -172,12 +172,12 @@ When user applies filtering or sorting to some columns, the JS datatable sends a
 This request could look something like this:
 
 ```js
-search: [{'fullName' : 'John'}, {'companyName': 'Goo'}]
+search: [{'fullName' : 'John'}, {'companyName': 'Goo'}, {'createDate': '05/15/2020'}]
 sort: [{'posts' : 'asc'}]
 ```
-> Here, `fullName`, `companyName` and `posts` are field names from JS datatable's configuration.
+> Here, `fullName`, `companyName`, `createDate` and `posts` are field names from JS datatable's configuration.
 
-The task of the query builder is to extend a base LINQ query with an additional ``Where`` and ``OrderBy`` clauses based on this request by using expression trees.
+The task of the query builder is to extend a base LINQ query with an additional `Where` and `OrderBy` clauses based on this request by using expression trees.
    
 If no configuration is provided, the builder will:
    
@@ -196,6 +196,7 @@ return dataContext.Users
     })
     .Where(p => p.FullName.Contains(val))
     .Where(p => p.CompanyName.Contains(val))
+    .Where(p => p.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture)
     .OrderBy(p => p.Posts);
 ```
 
@@ -208,7 +209,7 @@ Built-in value matching strategies:
 | Integral numeric types (sbyte, byte, short, ushort, int, uint, long, ulong) | - | IntegerMatchMode.Exact<br />IntegerMatchMode.Contains | IntegerMatchMode.Contains |
 | Boolean | - | - | Equal |
 | Enum | - | - | Equal |
-| DateTime | - | DateMatchMode.Exact<br />DateMatchMode.Range | DateMatchMode.Range |
+| DateTime | The matching mode is determined by the passed filtering value | - | If single date is passed: `p.CreateDate.Date == val` <br /><br />If date range is passed: `p.CreateDate >= val && p.CreateDate < val` |
 | Any other type | Converted to string by executing `.ToString().ToLower()` | StringMatchMode.Exact<br />StringMatchMode.Contains<br />StringMatchMode.StartsWith<br />StringMatchMode.EndsWith<br />StringMatchMode.SQLServerContainsPhrase<br />StringMatchMode.SQLServerFreeText | StringMatchMode.Contains |
 
 QueryBuilder options:
@@ -255,6 +256,7 @@ return dataContext.Users
     })
     .Where(p => p.FullName.Equals(val))
     .Where(p => p.CompanyName.StartsWith(val))
+    .Where(p => p.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture)
     .OrderBy(p => p.Posts);
 ```
 
@@ -298,6 +300,7 @@ return dataContext.Users
     })
     .Where(p => p.FullName.Contains(val))
     .Where(p => p.CompanyId.HasValue && p.CompanyId == int.Parse(val))
+    .Where(p => p.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture)
     .OrderBy(p => p.Posts);
 ```
 
