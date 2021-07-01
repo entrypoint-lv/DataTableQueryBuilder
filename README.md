@@ -269,6 +269,14 @@ A common example would be the `CompanyName` column, that needs to be filtered by
 In this case, you may add the `CompanyId` property to the projection model and then use the `SearchBy` method to specify a custom LINQ expression that should be used when filtering by this field:
 
 ```c#
+public class UserListData
+{
+   ///
+   public int? CompanyId { get; set; }
+}
+```
+
+```c#
 var qb = new DataTablesQueryBuilder<UserListData>(request, o =>
 {
     o.ForField(f => f.CompanyName, o => {
@@ -297,7 +305,7 @@ Similarly, you can use the `SortBy` method to set a custom sort expression.
 
 ## Advanced filtering
 
-While returning fields directly from base query by using projection is fine for simple use cases, you may find that this approach doesn't allow you to perform a more advanced data filtering.
+While returning fields required by datatable directly from the base LINQ query by using projection is fine for simple use cases, you may find that this approach doesn't allow you to perform a more advanced data filtering.
 
 An example would be to filter users by the title of their blog posts.
 
