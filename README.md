@@ -196,7 +196,7 @@ return dataContext.Users
     })
     .Where(p => p.FullName.Contains(val))
     .Where(p => p.CompanyName.Contains(val))
-    .Where(p => p.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture)
+    .Where(p => p.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture))
     .OrderBy(p => p.Posts);
 ```
 
@@ -256,7 +256,7 @@ return dataContext.Users
     })
     .Where(p => p.FullName.Equals(val))
     .Where(p => p.CompanyName.StartsWith(val))
-    .Where(p => p.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture)
+    .Where(p => p.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture))
     .OrderBy(p => p.Posts);
 ```
 
@@ -300,7 +300,7 @@ return dataContext.Users
     })
     .Where(p => p.FullName.Contains(val))
     .Where(p => p.CompanyId.HasValue && p.CompanyId == int.Parse(val))
-    .Where(p => p.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture)
+    .Where(p => p.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture))
     .OrderBy(p => p.Posts);
 ```
 
