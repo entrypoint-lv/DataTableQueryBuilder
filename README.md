@@ -130,39 +130,44 @@ public class UserService
 }
 ```
 
-For reference, the following Entity Framework data model is used:
 
-```c#
-public class User
-{
-    public int Id { get; set; }
-    public string FullName { get; set; } = "";
-    public string Email { get; set; } = "";
-    
-    public int? CompanyId { get; set; }
-    public Company? Company { get; set; }
+For reference, the following Entity Framework data model is used all examples:
 
-    public virtual ICollection<Post> Posts { get; } = new List<Post>();
-}
+<details>
+  <summary>Entity Framework data model</summary>
+  
+   ```c#
+   public class User
+   {
+       public int Id { get; set; }
+       public string FullName { get; set; } = "";
+       public string Email { get; set; } = "";
 
-public class Company
-{
-    public int Id { get; set; }
-    public string Name { get; set; } = "";
+       public int? CompanyId { get; set; }
+       public Company? Company { get; set; }
 
-    public ICollection<User> Users { get; set; } = new List<User>();
-}
+       public virtual ICollection<Post> Posts { get; } = new List<Post>();
+   }
 
-public class Post
-{
-    public int Id { get; set; }
-    public string Title { get; set; } = "";
-    public string Content { get; set; } = "";
+   public class Company
+   {
+       public int Id { get; set; }
+       public string Name { get; set; } = "";
 
-    public int UserId { get; set; }
-    public User User { get; set; }
-}
-```
+       public ICollection<User> Users { get; set; } = new List<User>();
+   }
+
+   public class Post
+   {
+       public int Id { get; set; }
+       public string Title { get; set; } = "";
+       public string Content { get; set; } = "";
+
+       public int UserId { get; set; }
+       public User User { get; set; }
+   }
+   ```
+</details>
 
 ## How it works
 
