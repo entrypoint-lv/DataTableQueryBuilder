@@ -83,29 +83,7 @@ public class UserListData
 
 > Please note that the ``CreateDate`` field here is of type DateTime, so it will be returned in ISO date format and not as formatted string - this is intentional, as the formatting must happen in the UI and not in the LINQ query.
 
-Create an action that will receive an AJAX request from your JS datatable, transform it to a LINQ query and return the data:
-
-```c#
-public IActionResult UserList(DataTablesRequest request)
-{
-    var qb = new DataTablesQueryBuilder<UserListData>(request);
-
-    // returns IQueryable<UserListData>
-    var users = userService.GetAllForUserList();
-
-    var result = qb.Build(users);
-
-    return result.CreateResponse();
-}
-```
-    
-> The Build method returns a BuildResult object that contains a builded query and some other properties, expected by JS datatable - this method doesn't execute the query.
-
-> To execute the query and return the data to the datatable, call the CreateResponse method.
-
-Thats all!
-
-In the above example the `GetAllForUserList` method returns a base LINQ query that will be used by query builder to request users from a database:
+Create a base LINQ query that will be used by query builder to request users from a database:
 
 ```c#
 public class UserService
@@ -125,6 +103,28 @@ public class UserService
     }   
 }
 ```
+
+Create an action that will receive an AJAX request from your JS datatable, transform it to a LINQ query and return the data:
+
+```c#
+public IActionResult UserList(DataTablesRequest request)
+{
+    // returns IQueryable<UserListData>
+    var users = userService.GetAllForUserList();
+
+    var qb = new DataTablesQueryBuilder<UserListData>(request);
+
+    var result = qb.Build(users);
+
+    return result.CreateResponse();
+}
+```
+    
+> The Build method returns a BuildResult object that contains a builded query and some other properties, expected by JS datatable - this method doesn't execute the query.
+
+> To execute the query and return the data to the datatable, call the CreateResponse method.
+
+Thats all!
 
 For reference, the following Entity Framework data model is used all examples:
 
