@@ -192,7 +192,7 @@ As the result, the base LINQ query will be extended in the following way:
 return dataContext.Users
     .Select(u => new UserListData()
     {
-        ///
+        //...
     })
     .Where(p => p.FullName.ToLower().Contains("John".ToLower()))
     .Where(p => p.CompanyName.ToLower().Contains("Goo".ToLower()))
@@ -253,7 +253,7 @@ With this configuration the base LINQ query will be extended in the following wa
 return dataContext.Users
     .Select(u => new UserListData()
     {
-        ///
+        //...
     })
     .Where(p => p.FullName.ToLower().EndsWith("John".ToLower()))
     .Where(p => p.CompanyName.ToLower().StartsWith("Goo".ToLower()))
@@ -274,7 +274,7 @@ In this case, you may add the `CompanyId` property to the projection model and t
 ```c#
 public class UserListData
 {
-   ///
+   //...
    [JsonIgnore]
    public int? CompanyId { get; set; }
 }
@@ -297,7 +297,7 @@ With this configuration the resulting query will look like this:
 return dataContext.Users
     .Select(u => new UserListData()
     {
-        ///
+        //...
         CompanyId = u.CompanyId
     })
     .Where(p => p.FullName.ToLower().Contains("John".ToLower()))
