@@ -381,7 +381,7 @@ search: [{'fullName' : 'John'}, {'companyName': 'Goo'}, {'posts': 'Some title'}]
 sort: [{'posts' : 'asc'}]
 ```
 
-Here, the `CompanyName` field's name doesn't match the entity's property name, so we need to tell the builder which entity's property to use by utilizing the ``UseSourceProperty`` method:
+Here, the `companyName` field's name doesn't match the entity's property name, so we need to tell the builder which entity's property to use by utilizing the ``UseSourceProperty`` method:
 
 ```c#
 o.ForField(f => f.CompanyName, o => o.UseSourceProperty(u => u.Company!.Name));
