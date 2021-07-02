@@ -310,7 +310,7 @@ Similarly, you can use the `SortBy` method to set a custom sort expression.
 
 ## Advanced filtering
 
-While returning fields required by datatable directly from the base LINQ query by using projection is fine for simple use cases, you may find that this approach doesn't allow you to perform a more advanced data filtering.
+While returning required fields directly from the base LINQ query by using projection is fine for simple use cases, you may find that this approach doesn't allow you to perform a more advanced data filtering.
 
 An example would be to filter users by the title of their blog posts.
 
