@@ -83,7 +83,7 @@ public class UserListData
 
 > Please note that the `CreateDate` property is of type DateTime, so it will be returned in ISO date format - this is intentional, as the formatting must happen in the UI and not in the LINQ query.
 
-Create a base LINQ query that will be used by query builder to request users from a database:
+Create a base LINQ query that will be used by query builder to request users from a database and return the required fields:
 
 ```c#
 public class UserService
