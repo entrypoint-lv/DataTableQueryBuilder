@@ -261,8 +261,6 @@ return dataContext.Users
     .OrderBy(p => p.Posts);
 ```
 
-
-
 ## Custom search and sort expressions
 
 Sometimes you may want to filter data in a column based on a value that doesn't belong to that column.
@@ -279,7 +277,8 @@ public class UserListData
    public int? CompanyId { get; set; }
 }
 ```
-
+> You can use [JsonIgnore] attribute to prevent the property from being sent to the client.
+   
 ```c#
 var qb = new DataTablesQueryBuilder<UserListData>(request, o =>
 {
