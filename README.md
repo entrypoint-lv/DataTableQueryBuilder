@@ -307,13 +307,11 @@ return dataContext.Users
 
 Similarly, you can use the `SortBy` method to set a custom sort expression.
 
-## Advanced filtering
+## Usage without data projection
 
-While returning required fields directly from the base LINQ query by using projection is fine for simple use cases, you may find that this approach doesn't allow you to perform a more advanced data filtering.
+While using data projection in base LINQ query is fine for most use cases, you may find yourself in a situation when you do not want to or cannot use the data projection in the base query.
 
-An example would be to filter users by the title of their blog posts.
-
-In such cases, you should return entity instead of projection model from your base LINQ query, but introduce a separate view model instead.
+In such cases, you may return your EF entity instead of projection model from your base LINQ query, but introduce a separate view model instead.
 
 1. Create a base LINQ query that will be used by query builder to request users from a database:
 
@@ -374,20 +372,20 @@ In such cases, you should return entity instead of projection model from your ba
 
     > The CreateResponse method will use AutoMapper to convert the data returned by LINQ query to a JSON data array expected by datatable.
 
-Let's review the following datatable request:
+Let's review how this approach works with the following datatable request:
 
 ```js
 search: [{'fullName' : 'John'}, {'companyName': 'Goo'}, {'posts': 'Some title'}]
 sort: [{'posts' : 'asc'}]
 ```
 
-Here, the `companyName` field's name doesn't match the entity's property name, so we need to tell the builder which entity's property to use by utilizing the ``UseSourceProperty`` method:
+Here, the `companyName` field's name doesn't match with any of the entity's property names, so we need to tell the builder which entity's property to use by utilizing the ``UseSourceProperty`` method:
 
 ```c#
 o.ForField(f => f.CompanyName, o => o.UseSourceProperty(u => u.Company!.Name));
 ```
 
-If we are unable to filter or sort the data just by matching the property's value, we can specify a LINQ expressions that will be used to filter/sort the data by using the ``SearchBy`` and ``OrderBy`` methods:
+As described before, if we are unable to filter or sort the data just by matching the property's value, we can specify a LINQ expressions that will be used to filter/sort the data by using the ``SearchBy`` and ``OrderBy`` methods:
 
 ```c#
 o.ForField(f => f.Posts, o => {
