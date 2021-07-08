@@ -15,6 +15,8 @@ If you're using https://datatables.net, install the following NuGet package:
 Then register the model binder to bind incoming AJAX requests from DataTables to a DataTablesRequest model:
 
    ```c#
+   using DataTableQueryBuilder.DataTables;
+   
    public class Startup
    {
        //...
