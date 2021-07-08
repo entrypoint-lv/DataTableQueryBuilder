@@ -97,7 +97,7 @@ public class UserService
             FullName = u.FullName,
             Email = u.Email,
             CompanyName = u.Company != null ? u.Company.Name : string.Empty,
-            Posts = u.Post.Count(),
+            Posts = u.Posts.Count(),
             CreateDate = u.CreateDate
         });
     }   
