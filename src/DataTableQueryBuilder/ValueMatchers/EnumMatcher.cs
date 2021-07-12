@@ -13,6 +13,8 @@ namespace DataTableQueryBuilder.ValueMatchers
 
             Enum.TryParse(enumType, ValueToMatch, true, out object? val);
 
+            Enum.Parse(enumType, ValueToMatch);
+
             if (val == null)
                 return NoMatch;
 

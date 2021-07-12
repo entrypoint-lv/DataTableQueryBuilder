@@ -108,7 +108,7 @@ namespace DataTableQueryBuilder
                 }
                 else
                 {
-                    matchExp = BuildMatchExpression(opt.SourceProperty, field.Value, opt, target);
+                    matchExp = BuildMatchExpression(field.Key, opt, field.Value, target);
                 }
 
                 if (matchExp != null)
@@ -146,7 +146,7 @@ namespace DataTableQueryBuilder
                 }
                 else
                 {
-                    matchExp = BuildMatchExpression(opt.SourceProperty, request.SearchValue, opt, target);
+                    matchExp = BuildMatchExpression(field.Key, opt, request.SearchValue, target);
                 }
 
                 if (matchExp != null)
@@ -156,43 +156,17 @@ namespace DataTableQueryBuilder
             return exp;
         }
 
-        private Expression? BuildMatchExpression(Expression? targetProperty, string propertyValue, FieldOptions<TSource> fieldOptions, ParameterExpression target)
+        private Expression? BuildMatchExpression(string fieldKey, FieldOptions<TSource> fieldOptions, string propertyValue, ParameterExpression target)
         {
-            if (targetProperty == null)
+            if (fieldOptions.SourceProperty == null)
                 return null;
 
             if (string.IsNullOrEmpty(propertyValue))
                 return null;
 
-            var propertyExp = ExpressionHelper.ExtractPropertyChain(targetProperty, target);
+            var propertyExp = ExpressionHelper.ExtractPropertyChain(fieldOptions.SourceProperty, target);
 
-            var valueMatcher = GetValueMatcher(propertyExp, propertyValue, fieldOptions);
-
-            return valueMatcher.Match();
-        }
-
-        private ValueMatcher GetValueMatcher(Expression property, string propertyValue, FieldOptions<TSource> fieldOptions)
-        {
-            var type = property.Type;
-
-            if (TypeHelper.IsInteger(type))
-            {
-                //if (valueMatchMethod == ValueMatchMethod.Equals)
-                return new IntegerMatcher(property, propertyValue);
-
-                //return new StringMatcher(property, valueToMatch, valueMatchMethod);
-            }
-
-            if (TypeHelper.IsBoolean(type))
-                return new BooleanMatcher(property, propertyValue);
-
-            if (TypeHelper.IsEnum(type))
-                return new EnumMatcher(property, propertyValue);
-
-            if (TypeHelper.IsDateTime(type))
-                return new DateMatcher(property, propertyValue, Options.DateFormat);
-
-            return new StringMatcher(property, propertyValue, ValueMatchMethod.Contains);
+            return ValueMatcher.Create(fieldKey, propertyExp, propertyValue, fieldOptions.ValueMatchMode, Options.DateFormat).Match();
         }
 
         private IQueryable<TSource> ApplySortExpression(IQueryable<TSource> query)

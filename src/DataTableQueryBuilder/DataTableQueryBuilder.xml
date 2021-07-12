@@ -84,14 +84,14 @@
             <param name="target"></param>
             <returns></returns>
         </member>
+        <member name="P:DataTableQueryBuilder.FieldOptions`1.ValueMatchMode">
+            <summary>
+            Gets the value matching strategy that is used when searching. Default is "Contains" for strings and integers, and "Exact" for other value types.
+            </summary>
+        </member>
         <member name="P:DataTableQueryBuilder.FieldOptions`1.SourceProperty">
             <summary>
             Gets the Source's property access expression that is used when searching and sorting.
-            </summary>
-        </member>
-        <member name="P:DataTableQueryBuilder.FieldOptions`1.ValueMatchMethod">
-            <summary>
-            Gets the value match method that is used when searching. Default is String.Contains() for strings and integers, and equals for other value types.
             </summary>
         </member>
         <member name="P:DataTableQueryBuilder.FieldOptions`1.IsGlobalSearchEnabled">
@@ -111,7 +111,7 @@
         </member>
         <member name="M:DataTableQueryBuilder.FieldOptions`1.UseSourceProperty``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
             <summary>
-            Explicitly sets the Source's property to use for searching and sorting.
+            Explicitly sets the Source's property to be used when searching and sorting.
             </summary>
             <typeparam name="TMember"></typeparam>
             <param name="property"></param>
@@ -123,19 +123,26 @@
         </member>
         <member name="M:DataTableQueryBuilder.FieldOptions`1.SearchBy(System.Linq.Expressions.Expression{System.Func{`0,System.String,System.Boolean}})">
             <summary>
-            Explicitly sets the search expression to be used during searching.
+            Explicitly sets the search expression to be used when searching.
             </summary>
             <param name="expression"></param>
         </member>
         <member name="M:DataTableQueryBuilder.FieldOptions`1.OrderBy(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">
             <summary>
-            Explicitly sets the sort expression to be used during sorting.
+            Explicitly sets the sort expression to be used when sorting.
             </summary>
             <param name="expression"></param>
         </member>
-        <member name="M:DataTableQueryBuilder.FieldOptions`1.UseValueMatchMethod(DataTableQueryBuilder.ValueMatchers.ValueMatchMethod)">
+        <member name="M:DataTableQueryBuilder.FieldOptions`1.UseMatchMode(DataTableQueryBuilder.ValueMatchers.StringMatchMode)">
             <summary>
-            Explicitly sets the value match method to be used during searching.
+            Explicitly sets the value matching strategy to be used when searching.
+            </summary>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.FieldOptions`1.UseMatchMode(DataTableQueryBuilder.ValueMatchers.IntegerMatchMode)">
+            <summary>
+            Explicitly sets the value matching strategy to be used when searching.
             </summary>
             <param name="method"></param>
             <returns></returns>
@@ -175,6 +182,11 @@
         <member name="T:DataTableQueryBuilder.IDataTableResponse">
             <summary>
             Represents a generic response for data table.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.IDataTableResponse.TotalRecords">
+            <summary>
+            Gets total record count.
             </summary>
         </member>
         <member name="P:DataTableQueryBuilder.IDataTableResponse.TotalRecordsFiltered">
@@ -350,9 +362,23 @@
             <summary>
             Creates a new sort instance.
             </summary>
-            <param name="field">Data field to be bound.</param>
             <param name="order">Sort order for multi-sorting.</param>
             <param name="direction">Sort direction.</param>
+        </member>
+        <member name="T:DataTableQueryBuilder.SortDirection">
+            <summary>
+            Sort direction enum.
+            </summary>
+        </member>
+        <member name="F:DataTableQueryBuilder.SortDirection.Ascending">
+            <summary>
+            Ascending direction.
+            </summary>
+        </member>
+        <member name="F:DataTableQueryBuilder.SortDirection.Descending">
+            <summary>
+            Descending direction.
+            </summary>
         </member>
     </members>
 </doc>

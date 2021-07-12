@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTableQueryBuilder.DataT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTableQueryBuilder.Generic", "src\DataTableQueryBuilder.Generic\DataTableQueryBuilder.Generic.csproj", "{EA1EA6BA-FD82-488A-953E-71B4C5A1972A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleAPI", "src\SampleAPI\SampleAPI.csproj", "{02A0CA25-9D46-4173-8B28-3BD0AED87C54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{EA1EA6BA-FD82-488A-953E-71B4C5A1972A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA1EA6BA-FD82-488A-953E-71B4C5A1972A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA1EA6BA-FD82-488A-953E-71B4C5A1972A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02A0CA25-9D46-4173-8B28-3BD0AED87C54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02A0CA25-9D46-4173-8B28-3BD0AED87C54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02A0CA25-9D46-4173-8B28-3BD0AED87C54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02A0CA25-9D46-4173-8B28-3BD0AED87C54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
