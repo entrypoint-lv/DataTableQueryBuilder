@@ -46,7 +46,15 @@ namespace SampleAPI
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SampleAPI", Version = "v1" });
+                c.CustomSchemaIds(type => type.ToString());
             });
+
+            services.AddCors(o => o.AddPolicy("AllowAll", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
 
             // Add application services.
             AddApplicationServices(services);
@@ -73,6 +81,8 @@ namespace SampleAPI
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("AllowAll");
 
             app.UseEndpoints(endpoints =>
             {

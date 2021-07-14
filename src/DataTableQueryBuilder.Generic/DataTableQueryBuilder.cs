@@ -41,13 +41,13 @@ namespace DataTableQueryBuilder.Generic
     /// Builds a query according to the specific DataTable request.
     /// </summary>
     /// <typeparam name="TSource">The type of the data returned from the data source.</typeparam>
-    public class DataTablesQueryBuilder<TSource> : QueryBuilder<TSource, TSource>
+    public class DataTableQueryBuilder<TSource> : QueryBuilder<TSource, TSource>
     {
         /// <summary>
         /// Creates a new query builder to be used for specific DataTable request.
         /// </summary>
         /// <param name="request">DataTable request.</param>
-        public DataTablesQueryBuilder(DataTableRequest request) : base(request)
+        public DataTableQueryBuilder(DataTableRequest request) : base(request)
         { }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace DataTableQueryBuilder.Generic
         /// </summary>
         /// <param name="request">DataTable request.</param>
         /// <param name="optionsAction">An action to configure the QueryBuilderOptions.</param>
-        public DataTablesQueryBuilder(DataTableRequest request, Action<QueryBuilderOptions<TSource, TSource>> optionsAction) : base(request, optionsAction)
+        public DataTableQueryBuilder(DataTableRequest request, Action<QueryBuilderOptions<TSource, TSource>> optionsAction) : base(request, optionsAction)
         { }
 
         public DataTableBuildResult<TSource> Build(IQueryable<TSource> sourceQuery)

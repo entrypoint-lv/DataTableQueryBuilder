@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using DataTableQueryBuilder.DataTables;
-
 namespace SampleAPI.Controllers
 {
     using Models.Data;
@@ -27,12 +25,12 @@ namespace SampleAPI.Controllers
         }
 
         [HttpPost]
-        [Route("UserList")]
-        public IActionResult UserList([FromForm] DataTablesRequest request)
+        [Route("UserList.DataTables")]
+        public IActionResult UserList([FromForm] DataTableQueryBuilder.DataTables.DataTablesRequest request)
         {
             var users = userService.GetAllForUserList();
 
-            var qb = new DataTablesQueryBuilder<UserListData>(request);
+            var qb = new DataTableQueryBuilder.DataTables.DataTableQueryBuilder<UserListData>(request);
 
             var result = qb.Build(users);
 
@@ -40,12 +38,12 @@ namespace SampleAPI.Controllers
         }
 
         [HttpPost]
-        [Route("UserList2")]
-        public IActionResult UserList2([FromForm] DataTablesRequest request)
+        [Route("UserList.Generic")]
+        public IActionResult UserList2([FromForm] DataTableQueryBuilder.Generic.DataTableRequest request)
         {
             var users = userService.GetAllForUserList();
 
-            var qb = new DataTablesQueryBuilder<UserListData>(request);
+            var qb = new DataTableQueryBuilder.Generic.DataTableQueryBuilder<UserListData>(request);
 
             var result = qb.Build(users);
 
