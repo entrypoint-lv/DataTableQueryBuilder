@@ -39,7 +39,7 @@ namespace SampleAPI.Controllers
 
         [HttpPost]
         [Route("UserList.Generic")]
-        public IActionResult UserList2([FromForm] DataTableQueryBuilder.Generic.DataTableRequest request)
+        public IActionResult UserList2([FromBody] DataTableQueryBuilder.Generic.DataTableRequest request)
         {
             var users = userService.GetAllForUserList();
 
