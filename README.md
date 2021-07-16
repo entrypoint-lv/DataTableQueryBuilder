@@ -36,6 +36,14 @@ For other JS datatable components, install the generic NuGet package instead:
 dotnet add package DataTableQueryBuilder.Generic
 ```
 
+## Samples
+
+[Vue.js (vue-good-table) sample](https://codesandbox.io/s/vue-good-table-with-datatablequerybuilder-cynse)
+
+[DataTables.net sample](https://codesandbox.io/s/datatablesnet-with-datatablequerybuilder-hgpg2)
+
+Server-side API sample - [source code](https://github.com/EntryPointDev/DataTableQueryBuilder/tree/master/samples/SampleAPI) and [specification](https://query-builder-sample-api.entrypointdev.com/swagger/)
+
 ## Basic usage
 
 Let's assume that you want to show a list of users.
