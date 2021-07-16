@@ -26,7 +26,7 @@ namespace SampleAPI.Controllers
 
         [HttpPost]
         [Route("UserList.DataTables")]
-        public IActionResult UserListDataTables([FromForm] DataTableQueryBuilder.DataTables.DataTablesRequest request)
+        public IActionResult UserListDataTables([FromForm] DataTableQueryBuilder.DataTables.DataTableRequest request)
         {
             var users = userService.GetAllForUserList();
 

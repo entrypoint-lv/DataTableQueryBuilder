@@ -30,7 +30,7 @@ namespace DataTableQueryBuilder.DataTables
         /// <returns>An DataTablesRequest object or null if binding was not possible.</returns>
         public virtual void BindModel(ModelBindingContext bindingContext, Options options, Func<ModelBindingContext, IDictionary<string, object>>? parseAditionalParameters)
         {
-            if (!bindingContext.ModelType.Equals(typeof(DataTablesRequest)))
+            if (!bindingContext.ModelType.Equals(typeof(DataTableRequest)))
                 return;
 
             // Binding is set to a null model to avoid unexpected errors.
@@ -67,7 +67,7 @@ namespace DataTableQueryBuilder.DataTables
 
             var aditionalParameters = parseAditionalParameters == null ? null : parseAditionalParameters(bindingContext);
 
-            var model = new DataTablesRequest(draw, start, pageSize, new Search(searchValue, searchRegex), columns, aditionalParameters);
+            var model = new DataTableRequest(draw, start, pageSize, new Search(searchValue, searchRegex), columns, aditionalParameters);
             {
                 bindingContext.Result = ModelBindingResult.Success(model);
                 return;

@@ -11,7 +11,7 @@ namespace DataTableQueryBuilder.DataTables
     /// <summary>
     /// Represents a response for DataTables.
     /// </summary>
-    public class DataTablesResponse : IDataTableResponse
+    public class DataTableResponse : IDataTableResponse
     {
         /// <summary>
         /// Defines the result content type.
@@ -26,7 +26,7 @@ namespace DataTableQueryBuilder.DataTables
         /// <summary>
         /// Gets request for validation.
         /// </summary>
-        public DataTablesRequest Request { get; protected set; }
+        public DataTableRequest Request { get; protected set; }
         
         /// <summary>
         /// Gets error message, if not successful.
@@ -59,7 +59,7 @@ namespace DataTableQueryBuilder.DataTables
         /// </summary>
         /// <param name="request">DataTables request object.</param>
         /// <param name="errorMessage">Error message.</param>
-        protected DataTablesResponse(DataTablesRequest request, string errorMessage, IDictionary<string, object>? additionalParameters)
+        protected DataTableResponse(DataTableRequest request, string errorMessage, IDictionary<string, object>? additionalParameters)
         {
             Request = request;
             Error = errorMessage;
@@ -74,7 +74,7 @@ namespace DataTableQueryBuilder.DataTables
         /// <param name="totalRecordsFiltered">Filtered record count (total records available after filtering).</param>
         /// <param name="additionalParameters">Aditional parameters for response.</param>
         /// <param name="data">Data object (collection).</param>
-        public DataTablesResponse(DataTablesRequest request, int totalRecords, int totalRecordsFiltered, object data, IDictionary<string, object>? additionalParameters)
+        public DataTableResponse(DataTableRequest request, int totalRecords, int totalRecordsFiltered, object data, IDictionary<string, object>? additionalParameters)
         {
             Request = request;
             TotalRecords = totalRecords;

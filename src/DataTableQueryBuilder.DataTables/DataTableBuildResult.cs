@@ -9,9 +9,9 @@ namespace DataTableQueryBuilder.DataTables
     /// <summary>
     /// Represents a DataTables build result.
     /// </summary>
-    public class DataTablesBuildResult<TDataTableFields, TEntity> : QueryBuildResult<TDataTableFields, TEntity>
+    public class DataTableBuildResult<TDataTableFields, TEntity> : QueryBuildResult<TDataTableFields, TEntity>
     {
-        private readonly DataTablesRequest request;
+        private readonly DataTableRequest request;
 
         /// <summary>
         /// Creates a new DataTables build result.
@@ -20,7 +20,7 @@ namespace DataTableQueryBuilder.DataTables
         /// <param name="totalRecordsFiltered">Total records filtered from the data source.</param>
         /// <param name="buildedQuery">Builded LINQ query.</param>
         /// <param name="request">DataTables request.</param>
-        public DataTablesBuildResult(int totalRecords, int totalRecordsFiltered, IQueryable<TEntity> buildedQuery, DataTablesRequest request) : base(totalRecords, totalRecordsFiltered, buildedQuery)
+        public DataTableBuildResult(int totalRecords, int totalRecordsFiltered, IQueryable<TEntity> buildedQuery, DataTableRequest request) : base(totalRecords, totalRecordsFiltered, buildedQuery)
         {
             this.request = request;
         }
@@ -68,7 +68,7 @@ namespace DataTableQueryBuilder.DataTables
         {
             var model = mappingOptions == null ? mapper.Map<IEnumerable<TDataTableFields>>(BuildedQuery) : mapper.Map<IEnumerable<TDataTableFields>>(BuildedQuery, mappingOptions);
 
-            return new DataTablesResponse(request, TotalRecords, TotalRecordsFiltered, model, responseAdditionalParams);
+            return new DataTableResponse(request, TotalRecords, TotalRecordsFiltered, model, responseAdditionalParams);
         }
     }
 
@@ -77,7 +77,7 @@ namespace DataTableQueryBuilder.DataTables
     /// </summary>
     public class DataTablesBuildResult<TEntity> : QueryBuildResult<TEntity, TEntity>
     {
-        private readonly DataTablesRequest request;
+        private readonly DataTableRequest request;
 
         /// <summary>
         /// Creates a new DataTables build result.
@@ -86,7 +86,7 @@ namespace DataTableQueryBuilder.DataTables
         /// <param name="totalRecordsFiltered">Total records filtered from the data source.</param>
         /// <param name="buildedQuery">Builded LINQ query.</param>
         /// <param name="request">DataTables request.</param>
-        public DataTablesBuildResult(int totalRecords, int totalRecordsFiltered, IQueryable<TEntity> buildedQuery, DataTablesRequest request) : base(totalRecords, totalRecordsFiltered, buildedQuery)
+        public DataTablesBuildResult(int totalRecords, int totalRecordsFiltered, IQueryable<TEntity> buildedQuery, DataTableRequest request) : base(totalRecords, totalRecordsFiltered, buildedQuery)
         {
             this.request = request;
         }
@@ -107,7 +107,7 @@ namespace DataTableQueryBuilder.DataTables
         /// <returns>Data table response.</returns>
         public IDataTableResponse CreateResponse(Dictionary<string, object>? responseAdditionalParams)
         {
-            return new DataTablesResponse(request, TotalRecords, TotalRecordsFiltered, BuildedQuery, responseAdditionalParams);
+            return new DataTableResponse(request, TotalRecords, TotalRecordsFiltered, BuildedQuery, responseAdditionalParams);
         }
     }
 }

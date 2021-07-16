@@ -100,7 +100,7 @@ namespace DataTableQueryBuilder.DataTables
                 return null;
             }
 
-            private bool IsBindable(Type type) { return type.Equals(typeof(DataTablesRequest)); }
+            private bool IsBindable(Type type) { return type.Equals(typeof(DataTableRequest)); }
         }
     }
 }

@@ -6,7 +6,7 @@ namespace DataTableQueryBuilder.DataTables
     /// <summary>
     /// Represents a DataTables request.
     /// </summary>
-    public class DataTablesRequest : IDataTableRequest
+    public class DataTableRequest : IDataTableRequest
     {
         /// <summary>
         /// Gets draw counter.
@@ -57,10 +57,10 @@ namespace DataTableQueryBuilder.DataTables
         /// </summary>
         public IDictionary<string, object>? AdditionalParameters { get; }
 
-        public DataTablesRequest(int draw, int start, int pagesize, Search search, IEnumerable<Column> columns) : this(draw, start, pagesize, search, columns, null)
+        public DataTableRequest(int draw, int start, int pagesize, Search search, IEnumerable<Column> columns) : this(draw, start, pagesize, search, columns, null)
         { }
 
-        public DataTablesRequest(int draw, int start, int pageSize, Search search, IEnumerable<Column> columns, IDictionary<string, object>? additionalParameters)
+        public DataTableRequest(int draw, int start, int pageSize, Search search, IEnumerable<Column> columns, IDictionary<string, object>? additionalParameters)
         {
             Draw = draw;
             StartRecordNumber = start;
