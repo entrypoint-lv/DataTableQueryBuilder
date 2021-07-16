@@ -114,7 +114,7 @@ public IActionResult UserList(DataTablesRequest request)
     // returns IQueryable<UserListData>
     var users = userService.GetAllForUserList();
 
-    var qb = new DataTablesQueryBuilder<UserListData>(request);
+    var qb = new DataTableQueryBuilder<UserListData>(request);
 
     var result = qb.Build(users);
 
@@ -235,7 +235,7 @@ Individual field's options:
 Example:
 
 ```c#
-var qb = new DataTablesQueryBuilder<UserListData>(request, o =>
+var qb = new DataTableQueryBuilder<UserListData>(request, o =>
 {
     o.DateFormat = "MM/dd/yyyy";
     o.ForField(f => f.FullName, o => o.UseValueMatchMode(StringMatchMode.EndsWith));
@@ -282,7 +282,7 @@ public class UserListData
 > You can use [JsonIgnore] attribute to prevent the property from being sent to the client.
    
 ```c#
-var qb = new DataTablesQueryBuilder<UserListData>(request, o =>
+var qb = new DataTableQueryBuilder<UserListData>(request, o =>
 {
     o.ForField(f => f.CompanyName, o => {
         o.SearchBy((u, val) => u.CompanyId.HasValue && u.CompanyId == int.Parse(val));
@@ -357,7 +357,7 @@ In such cases, you may return your EF entity instead of projection model from yo
     {
         var users = userService.GetAllWithCompaniesAndPosts();
 
-        var qb = new DataTablesQueryBuilder<UserDataTableFields, User>(request, o =>
+        var qb = new DataTableQueryBuilder<UserDataTableFields, User>(request, o =>
         {
             o.ForField(f => f.CompanyName, o => o.UseSourceProperty(u => u.Company!.Name));
             o.ForField(f => f.Posts, o => {
