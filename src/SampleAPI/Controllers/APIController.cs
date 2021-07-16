@@ -26,11 +26,15 @@ namespace SampleAPI.Controllers
 
         [HttpPost]
         [Route("UserList.DataTables")]
-        public IActionResult UserList([FromForm] DataTableQueryBuilder.DataTables.DataTablesRequest request)
+        public IActionResult UserListDataTables([FromForm] DataTableQueryBuilder.DataTables.DataTablesRequest request)
         {
             var users = userService.GetAllForUserList();
 
-            var qb = new DataTableQueryBuilder.DataTables.DataTableQueryBuilder<UserListData>(request);
+            var qb = new DataTableQueryBuilder.DataTables.DataTableQueryBuilder<UserListData>(request, o => {
+                o.ForField(f => f.FullName, o => o.EnableGlobalSearch());
+                o.ForField(f => f.Email, o => o.EnableGlobalSearch());
+                o.ForField(f => f.CompanyName, o => o.EnableGlobalSearch());
+            });
 
             var result = qb.Build(users);
 
@@ -39,11 +43,15 @@ namespace SampleAPI.Controllers
 
         [HttpPost]
         [Route("UserList.Generic")]
-        public IActionResult UserList2([FromBody] DataTableQueryBuilder.Generic.DataTableRequest request)
+        public IActionResult UserListGeneric([FromBody] DataTableQueryBuilder.Generic.DataTableRequest request)
         {
             var users = userService.GetAllForUserList();
 
-            var qb = new DataTableQueryBuilder.Generic.DataTableQueryBuilder<UserListData>(request);
+            var qb = new DataTableQueryBuilder.Generic.DataTableQueryBuilder<UserListData>(request, o => {
+                o.ForField(f => f.FullName, o => o.EnableGlobalSearch());
+                o.ForField(f => f.Email, o => o.EnableGlobalSearch());
+                o.ForField(f => f.CompanyName, o => o.EnableGlobalSearch());
+            });
 
             var result = qb.Build(users);
 
