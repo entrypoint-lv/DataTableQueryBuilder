@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataTableQueryBuilder.DataTables\DataTableQueryBuilder.DataTables.csproj" />
-    <ProjectReference Include="..\DataTableQueryBuilder.Generic\DataTableQueryBuilder.Generic.csproj" />
+    <ProjectReference Include="..\..\src\DataTableQueryBuilder.DataTables\DataTableQueryBuilder.DataTables.csproj" />
+    <ProjectReference Include="..\..\src\DataTableQueryBuilder.Generic\DataTableQueryBuilder.Generic.csproj" />
   </ItemGroup>
 
 </Project>

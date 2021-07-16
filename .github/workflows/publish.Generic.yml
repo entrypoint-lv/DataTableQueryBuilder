@@ -1,0 +1,37 @@
+name: Publish DataTableQueryBuilder.Generic to GPR
+
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+  
+jobs:
+  build:
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.100
+        
+    - name: Install dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+      
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+      
+    - name: Publish DataTableQueryBuilder.Generic
+      uses: Rebel028/publish-nuget@2.6.1
+      with:
+        PROJECT_FILE_PATH: src/DataTableQueryBuilder.Generic/DataTableQueryBuilder.Generic.csproj
+        PACKAGE_NAME: DataTableQueryBuilder.Generic
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+        NUGET_SOURCE: https://nuget.pkg.github.com/EntryPointDev

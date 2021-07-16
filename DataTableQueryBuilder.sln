@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTableQueryBuilder.DataT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTableQueryBuilder.Generic", "src\DataTableQueryBuilder.Generic\DataTableQueryBuilder.Generic.csproj", "{EA1EA6BA-FD82-488A-953E-71B4C5A1972A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleAPI", "src\SampleAPI\SampleAPI.csproj", "{02A0CA25-9D46-4173-8B28-3BD0AED87C54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleAPI", "samples\SampleAPI\SampleAPI.csproj", "{02A0CA25-9D46-4173-8B28-3BD0AED87C54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
