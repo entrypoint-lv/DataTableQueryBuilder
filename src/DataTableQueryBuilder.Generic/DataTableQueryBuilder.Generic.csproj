@@ -1,19 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>1.0.5</Version>
+    <Version>1.0.0</Version>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>DataTableQueryBuilder.DataTables</PackageId>
+    <PackageId>DataTableQueryBuilder.Generic</PackageId>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/EntryPointDev/DataTableQueryBuilder</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>DataTableQueryBuilder.DataTables.xml</DocumentationFile>
+    <DocumentationFile>DataTableQueryBuilder.Generic.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

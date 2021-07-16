@@ -108,7 +108,7 @@ namespace DataTableQueryBuilder
                 }
                 else
                 {
-                    matchExp = BuildMatchExpression(opt.SourceProperty, field.Value, opt.ValueMatchMethod, target);
+                    matchExp = BuildMatchExpression(field.Key, opt, field.Value, target);
                 }
 
                 if (matchExp != null)
@@ -120,7 +120,7 @@ namespace DataTableQueryBuilder
 
         private Expression? BuildGlobalSearchExpression(ParameterExpression target)
         {
-            if (string.IsNullOrEmpty(request.GlobalSearchValue))
+            if (string.IsNullOrEmpty(request.SearchValue))
                 return null;
 
             Expression? exp = null;
@@ -142,11 +142,11 @@ namespace DataTableQueryBuilder
                 {
                     //replace expression parameters
                     matchExp = ExpressionHelper.Replace(opt.SearchExpression.Body, opt.SearchExpression.Parameters[0], target);
-                    matchExp = ExpressionHelper.Replace(matchExp, opt.SearchExpression.Parameters[1], Expression.Constant(request.GlobalSearchValue));
+                    matchExp = ExpressionHelper.Replace(matchExp, opt.SearchExpression.Parameters[1], Expression.Constant(request.SearchValue));
                 }
                 else
                 {
-                    matchExp = BuildMatchExpression(opt.SourceProperty, request.GlobalSearchValue, opt.ValueMatchMethod, target);
+                    matchExp = BuildMatchExpression(field.Key, opt, request.SearchValue, target);
                 }
 
                 if (matchExp != null)
@@ -156,17 +156,17 @@ namespace DataTableQueryBuilder
             return exp;
         }
 
-        private Expression? BuildMatchExpression(Expression? targetProperty, string propertyValue, ValueMatchMethod valueMatchMethod, ParameterExpression target)
+        private Expression? BuildMatchExpression(string fieldKey, FieldOptions<TSource> fieldOptions, string propertyValue, ParameterExpression target)
         {
-            if (targetProperty == null)
+            if (fieldOptions.SourceProperty == null)
                 return null;
 
             if (string.IsNullOrEmpty(propertyValue))
                 return null;
 
-            var propertyExp = ExpressionHelper.ExtractPropertyChain(targetProperty, target);
+            var propertyExp = ExpressionHelper.ExtractPropertyChain(fieldOptions.SourceProperty, target);
 
-            return ValueMatcher.Create(propertyExp, propertyValue, valueMatchMethod, Options.DateFormat).Match();
+            return ValueMatcher.Create(fieldKey, propertyExp, propertyValue, fieldOptions.ValueMatchMode, Options.DateFormat).Match();
         }
 
         private IQueryable<TSource> ApplySortExpression(IQueryable<TSource> query)

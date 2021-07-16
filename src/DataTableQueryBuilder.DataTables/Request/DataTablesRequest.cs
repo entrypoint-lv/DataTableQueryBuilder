@@ -23,44 +23,34 @@ namespace DataTableQueryBuilder.DataTables
         /// <summary>
         /// Gets the number of records that the table can display in the current draw.
         /// It is expected that the number of records returned will be equal to this number, unless the server has fewer records to return.
-        /// A value <= 0 to indicate that all records should be returned (although that negates any benefits of server-side processing!).
+        /// A value &lt;= 0 to indicate that all records should be returned (although that negates any benefits of server-side processing!).
         /// </summary>
         public int PageSize { get; }
-
-        /// <summary>
-        /// Gets global search.
-        /// To be applied to all searchable columns.
-        /// </summary>
-        public Search Search { get; }
 
         /// <summary>
         /// Gets DataTables column collection (from client-side).
         /// </summary>
         public IEnumerable<Column> Columns { get; }
 
-        public string? GlobalSearchValue
-        {
-            get
-            {
-                return this.Search.Value;
-            }
-        }
+        /// <summary>
+        /// Gets the search value to be applied to all columns that have global search enabled.
+        /// </summary>
+        public Search Search { get; }
 
-        public Dictionary<string, string> SearchableFields
-        {
-            get
-            {
-                return Columns.Where(c => c.IsSearchable && c.Search != null).ToDictionary(c => c.Field, c => c.Search!.Value);
-            }
-        }
+        /// <summary>
+        /// Gets the search value to be applied to all columns that have global search enabled.
+        /// </summary>
+        public string? SearchValue => Search.Value;
 
-        public Dictionary<string, Sort> SortableFields
-        {
-            get
-            {
-                return Columns.Where(c => c.IsSortable && c.Sort != null).ToDictionary(c => c.Field, c => c.Sort!);
-            }
-        }
+        /// <summary>
+        /// Gets searchable fields.
+        /// </summary>
+        public Dictionary<string, string> SearchableFields => Columns.Where(c => c.IsSearchable && c.Search != null).ToDictionary(c => c.Field, c => c.Search!.Value);
+
+        /// <summary>
+        /// Gets sortable fields.
+        /// </summary>
+        public Dictionary<string, Sort> SortableFields => Columns.Where(c => c.IsSortable && c.Sort != null).ToDictionary(c => c.Field, c => c.Sort!);
 
         /// <summary>
         /// Gets the user-defined collection of parameters.

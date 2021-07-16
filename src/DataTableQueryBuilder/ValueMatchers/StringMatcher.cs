@@ -7,16 +7,16 @@ namespace DataTableQueryBuilder.ValueMatchers
 {
     public class StringMatcher : ValueMatcher
     {
-        protected ValueMatchMethod MatchMethod { get; set; }
+        protected StringMatchMode MatchMode { get; private set; }
 
-        public StringMatcher(Expression property, string valueToMatch, ValueMatchMethod matchMethod) : base(property, valueToMatch)
+        public StringMatcher(Expression property, string valueToMatch, StringMatchMode valueMatchMode) : base(property, valueToMatch)
         {
-            MatchMethod = matchMethod;
+            MatchMode = valueMatchMode;
         }
 
         public override Expression Match()
         {
-            if (MatchMethod == ValueMatchMethod.SQLServerContainsPhrase || MatchMethod == ValueMatchMethod.SQLServerFreeText)
+            if (MatchMode == StringMatchMode.SQLServerContainsPhrase || MatchMode == StringMatchMode.SQLServerFreeText)
                 return GenerateSQLServerFullTextSearchMatchExp();
 
             return GenerateStringMatchExp();
@@ -24,23 +24,21 @@ namespace DataTableQueryBuilder.ValueMatchers
 
         private Expression GenerateStringMatchExp()
         {
-            var methodName = MatchMethod == ValueMatchMethod.StartsWith ? "StartsWith" : (MatchMethod == ValueMatchMethod.EndsWith ? "EndsWith" : "Contains");
+            var methodName = MatchMode == StringMatchMode.StartsWith ? "StartsWith" : (MatchMode == StringMatchMode.EndsWith ? "EndsWith" : "Contains");
 
-            var propertyAsStringExp = Property.Type == typeof(string) ? (Expression)Expression.Coalesce(Property, Expression.Constant(string.Empty)) : Expression.Call(Property, Property.Type.GetMethod("ToString", Type.EmptyTypes));
+            var propertyAsStringExp = Property.Type == typeof(string) ? (Expression)Expression.Coalesce(Property, Expression.Constant(string.Empty)) : Expression.Call(Property, Property.Type.GetMethod("ToString", Type.EmptyTypes)!);
 
-            var propertyToLowerExp = Expression.Call(propertyAsStringExp, typeof(string).GetMethod("ToLower", Type.EmptyTypes));
+            var propertyToLowerExp = Expression.Call(propertyAsStringExp, typeof(string).GetMethod("ToLower", Type.EmptyTypes)!);
 
-            var propertyMatchExp = Expression.Call(propertyToLowerExp, typeof(string).GetMethod(methodName, new[] { typeof(string) }), Expression.Constant(ValueToMatch.ToLower()));
-
-            return propertyMatchExp;
+            return Expression.Call(propertyToLowerExp, typeof(string).GetMethod(methodName, new[] { typeof(string) })!, Expression.Constant(ValueToMatch.ToLower()));
         }
 
         private Expression GenerateSQLServerFullTextSearchMatchExp()
         {
-            var sqlServerMethodName = MatchMethod == ValueMatchMethod.SQLServerContainsPhrase ? "Contains" : "FreeText";
-            var valueToMatch = MatchMethod == ValueMatchMethod.SQLServerContainsPhrase ? $"\"{ValueToMatch}*\"" : ValueToMatch;
+            var sqlServerMethodName = MatchMode == StringMatchMode.SQLServerContainsPhrase ? "Contains" : "FreeText";
+            var valueToMatch = MatchMode == StringMatchMode.SQLServerContainsPhrase ? $"\"{ValueToMatch}*\"" : ValueToMatch;
 
-            var methodInfo = typeof(SqlServerDbFunctionsExtensions).GetMethod(sqlServerMethodName, BindingFlags.Static | BindingFlags.Public, null, new[] { EF.Functions.GetType(), typeof(string), typeof(string) }, null);
+            var methodInfo = typeof(SqlServerDbFunctionsExtensions).GetMethod(sqlServerMethodName, BindingFlags.Static | BindingFlags.Public, null, new[] { EF.Functions.GetType(), typeof(string), typeof(string) }, null)!;
 
             return Expression.Call(methodInfo, Expression.Constant(EF.Functions), Property, Expression.Constant(valueToMatch));
         }

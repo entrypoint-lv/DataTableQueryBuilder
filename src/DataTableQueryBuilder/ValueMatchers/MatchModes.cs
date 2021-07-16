@@ -2,13 +2,18 @@
 
 namespace DataTableQueryBuilder.ValueMatchers
 {
-    public enum ValueMatchMethod
+    public enum StringMatchMode
     {
-        Equals,
         Contains,
         StartsWith,
         EndsWith,
         SQLServerContainsPhrase,
         SQLServerFreeText
+    }
+
+    public enum IntegerMatchMode
+    {
+        Equals,
+        Contains
     }
 }

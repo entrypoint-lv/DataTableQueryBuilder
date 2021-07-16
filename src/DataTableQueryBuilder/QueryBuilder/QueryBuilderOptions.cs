@@ -105,7 +105,7 @@ namespace DataTableQueryBuilder
                 //Create access expression to TEntity's property, if property was found
                 var propertyAccessExpression = prop == null ? null : Expression.MakeMemberAccess(Expression.Parameter(typeof(TEntity), "target"), prop!);
 
-                fieldOptions.Add(field, new FieldOptions<TEntity>(propertyAccessExpression));
+                fieldOptions.Add(field, FieldOptions<TEntity>.Create(propertyAccessExpression));
             }
 
             return fieldOptions;

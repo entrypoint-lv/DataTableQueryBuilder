@@ -4,14 +4,94 @@
         <name>DataTableQueryBuilder</name>
     </assembly>
     <members>
+        <member name="T:DataTableQueryBuilder.ExpressionHelper">
+            <summary>
+            Expression helper.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.ExpressionHelper.AddWhere``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression)">
+            <summary>
+            Adds Where expression to query.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="query"></param>
+            <param name="expression"></param>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.ExpressionHelper.AddOrderBy``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression)">
+            <summary>
+            Adds OrderBy expression to query.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="query"></param>
+            <param name="expression"></param>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.ExpressionHelper.AddOrderByDescending``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression)">
+            <summary>
+            Adds OrderByDescending expression to query.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="query"></param>
+            <param name="expression"></param>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.ExpressionHelper.AddThenBy``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression)">
+            <summary>
+            Adds AddThenBy expression to query.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="query"></param>
+            <param name="expression"></param>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.ExpressionHelper.AddThenByDescending``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression)">
+            <summary>
+            Adds AddThenByDescending expression to query.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="query"></param>
+            <param name="expression"></param>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.ExpressionHelper.Replace(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Replaces expression parameters
+            </summary>
+            <param name="expression"></param>
+            <param name="searchEx"></param>
+            <param name="replaceEx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.ExpressionHelper.FindParameter(System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression)">
+            <summary>
+            Finds parameter in expression body.
+            </summary>
+            <param name="expression"></param>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.ExpressionHelper.ExtractPropertyChain(System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression)">
+            <summary>
+            Extracts property chain.
+            </summary>
+            <param name="targetProperty"></param>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="P:DataTableQueryBuilder.FieldOptions`1.ValueMatchMode">
+            <summary>
+            Gets the value matching strategy that is used when searching. Default is "Contains" for strings and integers, and "Exact" for other value types.
+            </summary>
+        </member>
         <member name="P:DataTableQueryBuilder.FieldOptions`1.SourceProperty">
             <summary>
             Gets the Source's property access expression that is used when searching and sorting.
-            </summary>
-        </member>
-        <member name="P:DataTableQueryBuilder.FieldOptions`1.ValueMatchMethod">
-            <summary>
-            Gets the value match method that is used when searching. Default is String.Contains() for strings and integers, and equals for other value types.
             </summary>
         </member>
         <member name="P:DataTableQueryBuilder.FieldOptions`1.IsGlobalSearchEnabled">
@@ -31,7 +111,7 @@
         </member>
         <member name="M:DataTableQueryBuilder.FieldOptions`1.UseSourceProperty``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
             <summary>
-            Explicitly sets the Source's property to use for searching and sorting.
+            Explicitly sets the Source's property to be used when searching and sorting.
             </summary>
             <typeparam name="TMember"></typeparam>
             <param name="property"></param>
@@ -43,19 +123,26 @@
         </member>
         <member name="M:DataTableQueryBuilder.FieldOptions`1.SearchBy(System.Linq.Expressions.Expression{System.Func{`0,System.String,System.Boolean}})">
             <summary>
-            Explicitly sets the search expression to be used during searching.
+            Explicitly sets the search expression to be used when searching.
             </summary>
             <param name="expression"></param>
         </member>
         <member name="M:DataTableQueryBuilder.FieldOptions`1.OrderBy(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">
             <summary>
-            Explicitly sets the sort expression to be used during sorting.
+            Explicitly sets the sort expression to be used when sorting.
             </summary>
             <param name="expression"></param>
         </member>
-        <member name="M:DataTableQueryBuilder.FieldOptions`1.UseValueMatchMethod(DataTableQueryBuilder.ValueMatchers.ValueMatchMethod)">
+        <member name="M:DataTableQueryBuilder.FieldOptions`1.UseMatchMode(DataTableQueryBuilder.ValueMatchers.StringMatchMode)">
             <summary>
-            Explicitly sets the value match method to be used during searching.
+            Explicitly sets the value matching strategy to be used when searching.
+            </summary>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataTableQueryBuilder.FieldOptions`1.UseMatchMode(DataTableQueryBuilder.ValueMatchers.IntegerMatchMode)">
+            <summary>
+            Explicitly sets the value matching strategy to be used when searching.
             </summary>
             <param name="method"></param>
             <returns></returns>
@@ -77,9 +164,29 @@
             It is expected that the number of records returned will be equal to this number, unless the server has fewer records to return.
             </summary>
         </member>
+        <member name="P:DataTableQueryBuilder.IDataTableRequest.SearchValue">
+            <summary>
+            Gets the search value to be applied to all columns that have global search enabled.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.IDataTableRequest.SearchableFields">
+            <summary>
+            Gets searchable fields.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.IDataTableRequest.SortableFields">
+            <summary>
+            Gets sortable value.
+            </summary>
+        </member>
         <member name="T:DataTableQueryBuilder.IDataTableResponse">
             <summary>
             Represents a generic response for data table.
+            </summary>
+        </member>
+        <member name="P:DataTableQueryBuilder.IDataTableResponse.TotalRecords">
+            <summary>
+            Gets total record count.
             </summary>
         </member>
         <member name="P:DataTableQueryBuilder.IDataTableResponse.TotalRecordsFiltered">
@@ -208,6 +315,11 @@
             </summary>
             <returns>Field options.</returns>
         </member>
+        <member name="T:DataTableQueryBuilder.QueryBuildResult`2">
+            <summary>
+            Represents a query build result.
+            </summary>
+        </member>
         <member name="P:DataTableQueryBuilder.QueryBuildResult`2.TotalRecords">
             <summary>
             Gets the total number of records without filtering applied.
@@ -222,6 +334,14 @@
             <summary>
             Gets the builded query with specified searching and sorting configuration applied.
             </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.QueryBuildResult`2.#ctor(System.Int32,System.Int32,System.Linq.IQueryable{`1})">
+            <summary>
+            Creates a new build result.
+            </summary>
+            <param name="totalRecords">Total records in the data source.</param>
+            <param name="totalRecordsFiltered">Total records filtered from the data source.</param>
+            <param name="buildedQuery">Builded LINQ query.</param>
         </member>
         <member name="T:DataTableQueryBuilder.Sort">
             <summary>
@@ -242,9 +362,23 @@
             <summary>
             Creates a new sort instance.
             </summary>
-            <param name="field">Data field to be bound.</param>
             <param name="order">Sort order for multi-sorting.</param>
             <param name="direction">Sort direction.</param>
+        </member>
+        <member name="T:DataTableQueryBuilder.SortDirection">
+            <summary>
+            Sort direction enum.
+            </summary>
+        </member>
+        <member name="F:DataTableQueryBuilder.SortDirection.Ascending">
+            <summary>
+            Ascending direction.
+            </summary>
+        </member>
+        <member name="F:DataTableQueryBuilder.SortDirection.Descending">
+            <summary>
+            Descending direction.
+            </summary>
         </member>
     </members>
 </doc>

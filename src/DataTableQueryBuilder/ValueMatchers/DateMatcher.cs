@@ -9,18 +9,24 @@ namespace DataTableQueryBuilder.ValueMatchers
 {
     public class DateMatcher : ValueMatcher
     {
-        private readonly string dateFormat;
+        protected string DateFormat { get; private set; }
 
         public DateMatcher(Expression property, string valueToMatch, string dateFormat) : base(property, valueToMatch)
         {
-            this.dateFormat = dateFormat;
+            DateFormat = dateFormat;
         }
 
         public override Expression Match()
         {
-            var range = ValueToMatch.Split('-');
+            var dateRange = ValueToMatch.Split('-');
 
-            return range.Length > 1 ? MatchByDateRange(range) : MatchBySingleDate(range[0]);
+            if (dateRange.Length == 1)
+                return MatchByExactDate(dateRange[0]);
+
+            if (dateRange.Length == 2)
+                return MatchByDateRange(dateRange);
+
+            return NoMatch;
         }
 
         private Expression MatchByDateRange(string[] dateRange)
@@ -41,7 +47,7 @@ namespace DataTableQueryBuilder.ValueMatchers
             return Expression.AndAlso(propertyGreatherThan, propertyLessThan);
         }
 
-        private Expression MatchBySingleDate(string date)
+        private Expression MatchByExactDate(string date)
         {
             var dateVal = ParseDate(date);
 
@@ -55,7 +61,7 @@ namespace DataTableQueryBuilder.ValueMatchers
 
         private DateTime? ParseDate(string date)
         {
-            bool success = DateTime.TryParseExact(date.Trim(), dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate);
+            bool success = DateTime.TryParseExact(date.Trim(), DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate);
 
             return success ? (DateTime?)parsedDate : null;
         }

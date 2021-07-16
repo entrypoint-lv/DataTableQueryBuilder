@@ -11,6 +11,9 @@ namespace DataTableQueryBuilder
     /// </summary>
     public interface IDataTableResponse : IActionResult
     {
+        /// <summary>
+        /// Gets total record count.
+        /// </summary>
         public int TotalRecords { get; }
 
         /// <summary>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+	<metadata>
+		<id>DataTableQueryBuilder.Generic</id>
+		<title>DataTableQueryBuilder.Generic</title>
+		<authors>EntryPoint</authors>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<license type="expression">MIT</license>
+		<description>DataTableQueryBuilder.Generic</description>
+		<releaseNotes>Initial</releaseNotes>
+		<copyright>Copyright 2021 (c) EntryPoint. All rights reserved.</copyright>
+		<tags>DataTableQueryBuilder.Generic EntryPoint</tags>
+		<dependencies>
+			<group targetFramework="uap">
+				<dependency id="DataTableQueryBuilder" version="1.0.3" />
+			</group>
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\Release\net5.0\DataTableQueryBuilder.Generic.dll" target="lib\net5.0\DataTableQueryBuilder.Generic.dll" />
+		<file src="bin\Release\net5.0\DataTableQueryBuilder.Generic.xml" target="lib\net5.0\DataTableQueryBuilder.Generic.xml" />
+	</files>
+</package>
