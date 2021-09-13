@@ -12,7 +12,7 @@ If you're using https://datatables.net, install the following NuGet package:
    dotnet add package DataTableQueryBuilder.DataTables
    ```
 
-Then register the model binder to bind incoming AJAX requests from DataTables to a DataTablesRequest model:
+Then register the model binder to bind incoming AJAX requests from DataTables to a DataTableRequest model:
 
    ```c#
    using DataTableQueryBuilder.DataTables;
@@ -35,6 +35,14 @@ For other JS datatable components, install the generic NuGet package instead:
 ```console
 dotnet add package DataTableQueryBuilder.Generic
 ```
+
+## Samples
+
+[Vue.js (vue-good-table) sample](https://codesandbox.io/s/vue-good-table-with-datatablequerybuilder-cynse)
+
+[DataTables.net sample](https://codesandbox.io/s/datatablesnet-with-datatablequerybuilder-hgpg2)
+
+Server-side API sample - [source code](https://github.com/EntryPointDev/DataTableQueryBuilder/tree/master/samples/SampleAPI) and [specification](https://query-builder-sample-api.entrypointdev.com/swagger/)
 
 ## Basic usage
 
@@ -109,7 +117,7 @@ public class UserService
 Create an action that will receive an AJAX request from your JS datatable, transform it to a LINQ query and return the data:
 
 ```c#
-public IActionResult UserList(DataTablesRequest request)
+public IActionResult UserList(DataTableRequest request)
 {
     // returns IQueryable<UserListData>
     var users = userService.GetAllForUserList();
@@ -353,7 +361,7 @@ In such cases, you may return your EF entity instead of projection model from yo
 4. Create an action that will receive a request from datatable, convert it to a LINQ query and return the data:
 
     ```c#
-    public IActionResult UserList(DataTablesRequest request)
+    public IActionResult UserList(DataTableRequest request)
     {
         var users = userService.GetAllWithCompaniesAndPosts();
 
