@@ -23,12 +23,9 @@ namespace DataTableQueryBuilder
 
         public static bool IsInteger(Type type)
         {
-            var underlyingType = Nullable.GetUnderlyingType(type);
+            var t = Nullable.GetUnderlyingType(type) ?? type;
 
-            if(underlyingType == null)
-                return false;
-
-            return integerTypes.Contains(type) || integerTypes.Contains(underlyingType);
+            return integerTypes.Contains(t);
         }
 
         public static bool IsBoolean(Type type)
@@ -43,15 +40,9 @@ namespace DataTableQueryBuilder
 
         public static bool IsEnum(Type type)
         {
-            if (type.GetTypeInfo().IsEnum)
-                return true;
+            var t = Nullable.GetUnderlyingType(type) ?? type;
 
-            var underlyingType = Nullable.GetUnderlyingType(type);
-
-            if (underlyingType == null)
-                return false;
-
-            return underlyingType.GetTypeInfo().IsEnum;
+            return t.GetTypeInfo().IsEnum;
         }
     }
 }

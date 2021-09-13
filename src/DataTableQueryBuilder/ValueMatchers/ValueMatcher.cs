@@ -32,7 +32,7 @@ namespace DataTableQueryBuilder.ValueMatchers
 
             if (TypeHelper.IsInteger(type))
             {
-                var integerMatchMode = IntegerMatchMode.Contains;
+                var integerMatchMode = IntegerMatchMode.Equals;
 
                 if (valueMatchMode != null)
                 {

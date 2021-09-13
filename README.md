@@ -208,7 +208,7 @@ Built-in value matching strategies:
 
 | Source's property type | Available matching strategies |
 | :--- | :--- |
-| Integral numeric types (sbyte, byte, short, ushort, int, uint, long, ulong) | Equals<br />Contains (default)
+| Integral numeric types (sbyte, byte, short, ushort, int, uint, long, ulong) | Equals (default)<br />Contains
 | Boolean | Equals |
 | Enum | Equals |
 | DateTime | The matching strategy is determined by the passed filtering value. If single date is passed - Equals, if date range is passed - Between. |
