@@ -29,7 +29,7 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
       
     - name: Publish DataTableQueryBuilder.Generic
-      uses: Rebel028/publish-nuget@2.6.1
+      uses: rohith/publish-nuget@v2
       with:
         PROJECT_FILE_PATH: src/DataTableQueryBuilder.Generic/DataTableQueryBuilder.Generic.csproj
         PACKAGE_NAME: DataTableQueryBuilder.Generic
