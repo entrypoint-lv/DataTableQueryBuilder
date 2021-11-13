@@ -14,7 +14,7 @@ Server-side API's [code sample](https://github.com/EntryPointDev/DataTableQueryB
 
 ## Install
 
-If you're using https://datatables.net, install the following NuGet package:
+If you're using [datatables.net](https://datatables.net), install the following NuGet package:
 
    ```console
    dotnet add package DataTableQueryBuilder.DataTables
