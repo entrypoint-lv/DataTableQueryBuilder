@@ -20,7 +20,12 @@ namespace DataTableQueryBuilder
         public int TotalRecordsFiltered { get; private set; }
 
         /// <summary>
-        /// Gets the builded query with specified searching and sorting configuration applied.
+        /// Gets the builded query without pagination with specified searching and sorting configuration applied.
+        /// </summary>
+        public IQueryable<TEntity> BuildedQueryWithoutPagination { get; private set; }
+
+        /// <summary>
+        /// Gets the builded query with pagination and specified searching and sorting configuration applied.
         /// </summary>
         public IQueryable<TEntity> BuildedQuery { get; private set; }
 
@@ -29,11 +34,13 @@ namespace DataTableQueryBuilder
         /// </summary>
         /// <param name="totalRecords">Total records in the data source.</param>
         /// <param name="totalRecordsFiltered">Total records filtered from the data source.</param>
+        /// <param name="buildedQueryWithoutPagination">Builded LINQ query without pagination.</param>
         /// <param name="buildedQuery">Builded LINQ query.</param>
-        public QueryBuildResult(int totalRecords, int totalRecordsFiltered, IQueryable<TEntity> buildedQuery)
+        public QueryBuildResult(int totalRecords, int totalRecordsFiltered, IQueryable<TEntity> buildedQueryWithoutPagination, IQueryable<TEntity> buildedQuery)
         {
             TotalRecords = totalRecords;
             TotalRecordsFiltered = totalRecordsFiltered;
+            BuildedQueryWithoutPagination = buildedQueryWithoutPagination;
             BuildedQuery = buildedQuery;
         }
     }

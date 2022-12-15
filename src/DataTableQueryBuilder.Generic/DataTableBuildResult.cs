@@ -19,9 +19,10 @@ namespace DataTableQueryBuilder.Generic
         /// </summary>
         /// <param name="totalRecords">Total records in the data source.</param>
         /// <param name="totalRecordsFiltered">Total records filtered from the data source.</param>
+        /// /// <param name="buildedQueryWithoutPagination">Builded LINQ query without pagination.</param>
         /// <param name="buildedQuery">Builded LINQ query.</param>
         /// <param name="request">DataTables request.</param>
-        public DataTableBuildResult(int totalRecords, int totalRecordsFiltered, IQueryable<TEntity> buildedQuery, DataTableRequest request) : base(totalRecords, totalRecordsFiltered, buildedQuery)
+        public DataTableBuildResult(int totalRecords, int totalRecordsFiltered, IQueryable<TEntity> buildedQueryWithoutPagination, IQueryable<TEntity> buildedQuery, DataTableRequest request) : base(totalRecords, totalRecordsFiltered, buildedQueryWithoutPagination, buildedQuery)
         {
             this.request = request;
         }
@@ -85,9 +86,10 @@ namespace DataTableQueryBuilder.Generic
         /// </summary>
         /// <param name="totalRecords">Total records in the data source.</param>
         /// <param name="totalRecordsFiltered">Total records filtered from the data source.</param>
+        /// <param name="buildedQueryWithoutPagination">Builded LINQ query without pagination.</param>
         /// <param name="buildedQuery">Builded LINQ query.</param>
         /// <param name="request">DataTables request.</param>
-        public DataTableBuildResult(int totalRecords, int totalRecordsFiltered, IQueryable<TEntity> buildedQuery, DataTableRequest request) : base(totalRecords, totalRecordsFiltered, buildedQuery)
+        public DataTableBuildResult(int totalRecords, int totalRecordsFiltered, IQueryable<TEntity> buildedQueryWithoutPagination, IQueryable<TEntity> buildedQuery, DataTableRequest request) : base(totalRecords, totalRecordsFiltered, buildedQueryWithoutPagination, buildedQuery)
         {
             this.request = request;
         }

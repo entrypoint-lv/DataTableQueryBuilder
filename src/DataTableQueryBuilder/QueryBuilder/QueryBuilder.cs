@@ -52,16 +52,15 @@ namespace DataTableQueryBuilder
 
             var totalRecords = sourceQuery.Count();
 
-            var buildedQuery = ApplySearchExpression(sourceQuery);
-            buildedQuery = ApplySortExpression(buildedQuery);
+            var buildedQueryWithoutPagination = ApplySearchExpression(sourceQuery);
+            buildedQueryWithoutPagination = ApplySortExpression(buildedQueryWithoutPagination);
 
-            var totalRecordsFiltered = buildedQuery.Count();
+            var totalRecordsFiltered = buildedQueryWithoutPagination.Count();
 
             //apply pagination
-            if (request.PageSize > 0)
-                buildedQuery = buildedQuery.Skip(request.StartRecordNumber).Take(request.PageSize);
+            var buildedQuery = request.PageSize > 0 ? buildedQueryWithoutPagination.Skip(request.StartRecordNumber).Take(request.PageSize) : buildedQueryWithoutPagination;
 
-            return new QueryBuildResult<TDestination, TSource>(totalRecords, totalRecordsFiltered, buildedQuery);
+            return new QueryBuildResult<TDestination, TSource>(totalRecords, totalRecordsFiltered, buildedQueryWithoutPagination, buildedQuery);
         }
 
         private IQueryable<TSource> ApplySearchExpression(IQueryable<TSource> query)

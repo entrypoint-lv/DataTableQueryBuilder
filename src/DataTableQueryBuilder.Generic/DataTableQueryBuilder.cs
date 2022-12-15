@@ -33,7 +33,7 @@ namespace DataTableQueryBuilder.Generic
         {
             var res = BuildQuery(sourceQuery);
 
-            return new DataTableBuildResult<TDataTableFields, TSource>(res.TotalRecords, res.TotalRecordsFiltered, res.BuildedQuery, (DataTableRequest)request);
+            return new DataTableBuildResult<TDataTableFields, TSource>(res.TotalRecords, res.TotalRecordsFiltered, res.BuildedQueryWithoutPagination, res.BuildedQuery, (DataTableRequest)request);
         }
     }
 
@@ -62,7 +62,7 @@ namespace DataTableQueryBuilder.Generic
         {
             var res = BuildQuery(sourceQuery);
 
-            return new DataTableBuildResult<TSource>(res.TotalRecords, res.TotalRecordsFiltered, res.BuildedQuery, (DataTableRequest)request);
+            return new DataTableBuildResult<TSource>(res.TotalRecords, res.TotalRecordsFiltered, res.BuildedQueryWithoutPagination, res.BuildedQuery, (DataTableRequest)request);
         }
     }
 }
