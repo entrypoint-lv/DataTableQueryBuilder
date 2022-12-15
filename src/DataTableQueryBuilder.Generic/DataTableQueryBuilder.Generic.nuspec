@@ -12,7 +12,7 @@
 		<tags>DataTableQueryBuilder.Generic EntryPoint</tags>
 		<dependencies>
 			<group targetFramework="uap">
-				<dependency id="DataTableQueryBuilder" version="1.0.3" />
+				<dependency id="DataTableQueryBuilder" version="1.0.6" />
 			</group>
 		</dependencies>
 	</metadata>
