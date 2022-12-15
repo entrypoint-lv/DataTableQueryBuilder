@@ -5,11 +5,11 @@
     /// </summary>
     public class Column
     {
-        public string Field { get; set; }
+        public string? Field { get; set; }
         public string? Name { get; set; }
         public bool Searchable { get; set; } = true;
-        public string Search { get; set; } = string.Empty;
+        public string? Search { get; set; }
         public bool Sortable { get; set; } = true;
-        public string Sort { get; set; } = string.Empty;
+        public string? Sort { get; set; }
     }
 }

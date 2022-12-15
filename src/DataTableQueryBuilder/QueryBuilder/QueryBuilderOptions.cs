@@ -67,7 +67,7 @@ namespace DataTableQueryBuilder
                     continue;
 
                 if (opt.SourceProperty == null && opt.SearchExpression == null)
-                    throw new Exception($"Can't figure out how to search the field '{field.Key}'. Mark column as not searchable or use UseEntityProperty() or SetSearchExp() methods.");
+                    throw new Exception($"Can't figure out how to search the field '{field.Key}'. Mark column as not searchable or use UseSourceProperty() or SearchBy() methods.");
 
                 if (opt.SearchExpression != null)
                 {
@@ -83,7 +83,7 @@ namespace DataTableQueryBuilder
                 var opt = fieldOptions[field.Key];
 
                 if (opt != null && opt.SourceProperty == null && opt.SortExpression == null)
-                    throw new Exception($"Can't figure out how to sort field '{field.Key}'. Mark column as not sortable or use UseEntityProperty() or SetSortExp() methods.");
+                    throw new Exception($"Can't figure out how to sort field '{field.Key}'. Mark column as not sortable or use UseSourceProperty() or OrderBy() methods.");
             }
         }
 

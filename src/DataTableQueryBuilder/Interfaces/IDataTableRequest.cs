@@ -27,11 +27,11 @@ namespace DataTableQueryBuilder
         /// <summary>
         /// Gets searchable fields.
         /// </summary>
-        public Dictionary<string, string> SearchableFields { get; }
+        public Dictionary<string, string?> SearchableFields { get; }
 
         /// <summary>
         /// Gets sortable value.
         /// </summary>
-        public Dictionary<string, Sort> SortableFields { get; }
+        public Dictionary<string, Sort?> SortableFields { get; }
     }
 }

@@ -45,19 +45,19 @@ namespace DataTableQueryBuilder.Generic
         /// <summary>
         /// Gets searchable fields.
         /// </summary>
-        public Dictionary<string, string> SearchableFields => Columns.Where(c => c.Searchable).ToDictionary(c => c.Field, c => c.Search);
+        public Dictionary<string, string?> SearchableFields => Columns.Where(c => c.Field != null && c.Searchable).ToDictionary(c => c.Field!, c => c.Search);
 
         /// <summary>
         /// Gets sortable fields.
         /// </summary>
-        public Dictionary<string, Sort> SortableFields
+        public Dictionary<string, Sort?> SortableFields
         {
             get
             {
-                Dictionary<string, Sort> sortableFields = new Dictionary<string, Sort>();
+                Dictionary<string, Sort?> sortableFields = new();
 
-                foreach (Column column in Columns.Where(c => c.Sortable && !string.IsNullOrEmpty(c.Sort)))
-                    sortableFields.Add(column.Field, new Sort(sortableFields.Count, column.Sort));
+                foreach (Column column in Columns.Where(c => c.Field != null && c.Sortable))
+                    sortableFields.Add(column.Field!, column.Sort != null ? new Sort(sortableFields.Count, column.Sort) : null);
 
                 return sortableFields;
             }

@@ -160,9 +160,6 @@ namespace DataTableQueryBuilder.DataTables
         private static bool Parse<ElementType>(ValueProviderResult value, out ElementType result)
         {
             result = default!;
-
-            if (value == null)
-                return false;
             
             if (string.IsNullOrWhiteSpace(value.FirstValue))
                 return false;

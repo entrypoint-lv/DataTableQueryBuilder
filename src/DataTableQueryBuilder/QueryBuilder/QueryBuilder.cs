@@ -107,7 +107,7 @@ namespace DataTableQueryBuilder
                 }
                 else
                 {
-                    matchExp = BuildMatchExpression(field.Key, opt, field.Value, target);
+                    matchExp = BuildMatchExpression(field.Key, opt, field.Value!, target);
                 }
 
                 if (matchExp != null)
@@ -170,7 +170,7 @@ namespace DataTableQueryBuilder
 
         private IQueryable<TSource> ApplySortExpression(IQueryable<TSource> query)
         {
-            var fieldsToSort = request.SortableFields.Where(f => f.Value != null).OrderBy(f => f.Value.Order);
+            var fieldsToSort = request.SortableFields.Where(f => f.Value != null).OrderBy(f => f.Value!.Order);
 
             if (fieldsToSort.Count() == 0)
                 return query;
@@ -205,12 +205,12 @@ namespace DataTableQueryBuilder
 
                 if (!orderByAdded)
                 {
-                    q = (field.Value.Direction == SortDirection.Ascending) ? ExpressionHelper.AddOrderBy(q, sortExp, target) : ExpressionHelper.AddOrderByDescending(q, sortExp, target);
+                    q = (field.Value!.Direction == SortDirection.Ascending) ? ExpressionHelper.AddOrderBy(q, sortExp, target) : ExpressionHelper.AddOrderByDescending(q, sortExp, target);
                     orderByAdded = true;
                 }
                 else
                 {
-                    q = (field.Value.Direction == SortDirection.Ascending) ? ExpressionHelper.AddThenBy(q, sortExp, target) : ExpressionHelper.AddThenByDescending(q, sortExp, target);
+                    q = (field.Value!.Direction == SortDirection.Ascending) ? ExpressionHelper.AddThenBy(q, sortExp, target) : ExpressionHelper.AddThenByDescending(q, sortExp, target);
                 }
             }
 

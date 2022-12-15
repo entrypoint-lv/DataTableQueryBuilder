@@ -45,12 +45,12 @@ namespace DataTableQueryBuilder.DataTables
         /// <summary>
         /// Gets searchable fields.
         /// </summary>
-        public Dictionary<string, string> SearchableFields => Columns.Where(c => c.IsSearchable && c.Search != null).ToDictionary(c => c.Field, c => c.Search!.Value);
+        public Dictionary<string, string?> SearchableFields => Columns.Where(c => c.Field != null && c.IsSearchable).ToDictionary(c => c.Field!, c => c.Search?.Value);
 
         /// <summary>
         /// Gets sortable fields.
         /// </summary>
-        public Dictionary<string, Sort> SortableFields => Columns.Where(c => c.IsSortable && c.Sort != null).ToDictionary(c => c.Field, c => c.Sort!);
+        public Dictionary<string, Sort?> SortableFields => Columns.Where(c => c.Field != null && c.IsSortable).ToDictionary(c => c.Field!, c => c.Sort);
 
         /// <summary>
         /// Gets the user-defined collection of parameters.
