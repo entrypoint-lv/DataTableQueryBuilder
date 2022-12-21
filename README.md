@@ -141,7 +141,7 @@ A `data` property in column configuration contains a property name of a row obje
 ]
 ```
 
-## Step 1. Create Entity Framework data model
+### Step 1. Create Entity Framework data model
 
 Create your Entity Framework data model. We'll use the following simple data model in this example:
   
@@ -177,7 +177,7 @@ public class Post
 }
 ```
 
-## Step 2. Create projection model
+### Step 2. Create projection model
 
 Create a strongly typed projection model that represents the fields expected by your JS datatable and returned by server:
 
@@ -193,7 +193,7 @@ public class UserListData
 }
 ```
 
-## Step 3. Create a base query
+### Step 3. Create a base query
 
 Create a base LINQ query that will be used by query builder to request users from a database and return the required fields:
 
@@ -216,7 +216,7 @@ public class UserService
 }
 ```
 
-## Step 4. Create an action
+### Step 4. Create an action
 
 Create an action that will receive an AJAX request from your JS datatable, transform it to a LINQ query and return the data:
 
