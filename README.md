@@ -1,16 +1,16 @@
-# LINQ query builder for JavaScript datatable/grid components
+# LINQ query builder for JavaScript datatable components
 
-This builder automatically transforms an AJAX request coming from JS component into a LINQ query against the Entity Framework data model according to the specified configuration.
+This builder automatically transforms an AJAX request coming from a JavaScript datatable into a LINQ query against the Entity Framework data model according to the provided configuration.
 
-Can theoretically be used with any JavaScript datatable/grid component that supports server-side processing, but currently tested on [datatables.net](https://datatables.net) and [vue-good-table](https://xaksis.github.io/vue-good-table/) only.
+Can be used with ANY JavaScript datatable component that supports server-side processing (currently tested on [datatables.net](https://datatables.net) and [vue-good-table](https://xaksis.github.io/vue-good-table/) only).
 
-## Samples
+## Demo & Samples
 
-[datatables.net sample](https://codesandbox.io/s/datatablesnet-with-datatablequerybuilder-hgpg2)
+A [live demo](https://codesandbox.io/s/datatablesnet-with-datatablequerybuilder-hgpg2) of using [datatables.net](https://datatables.net) with DataTableQueryBuilder.
 
-[vue-good-table sample](https://codesandbox.io/s/vue-good-table-with-datatablequerybuilder-cynse)
+A [live demo](https://codesandbox.io/s/vue-good-table-with-datatablequerybuilder-cynse) of using [vue-good-table](https://xaksis.github.io/vue-good-table/) with DataTableQueryBuilder.
 
-Server-side API's [code sample](https://github.com/EntryPointDev/DataTableQueryBuilder/tree/master/samples/SampleAPI) and [OpenAPI specification](https://query-builder-sample-api.entrypointdev.com/swagger/)
+A [source code](https://github.com/EntryPointDev/DataTableQueryBuilder/tree/master/samples/SampleAPI) and [OpenAPI specification](https://query-builder-sample-api.entrypointdev.com/swagger/) of server-side API that is used in the above demos.
 
 ## Install
 
