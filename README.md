@@ -53,6 +53,28 @@ Let's suppose that you want to show a searchable and sortable list of users, wit
 In case of using Datatables, your configuration will look something like this:
 
 ```html
+<div id="filters">
+    <input type="text" data-column="id" placeholder="Id" />
+    <input type="text" data-column="fullName" placeholder="Full Name" />
+    <input type="text" data-column="email" placeholder="Email" />
+    <input type="text" data-column="posts" placeholder="Posts" />
+    <input type="text" data-column="createDate" placeholder="MM/DD/YYYY" />
+</div>
+
+<table id="user-list">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Full name</th>
+        <th>Email</th>
+        <th>Company</th>
+        <th>Posts</th>
+        <th>Create Date</th>
+    </tr>
+    </thead>
+</table>
+
+<script>
 const apiUrl = "https://query-builder-sample-api.entrypointdev.com/API/UserList.DataTables";
 
 $(document).ready(function () {
@@ -83,6 +105,7 @@ $(document).ready(function () {
                 col.search(this.value).draw();
         });
     });
+</script>
 ```
 
 Your datatable will send requests to the back-end and expect server to return the correct rows (in form of a JSON array) to display them in the UI.
