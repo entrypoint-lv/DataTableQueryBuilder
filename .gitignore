@@ -206,3 +206,9 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+/src/DataTableQueryBuilder/docs/.vitepress/cache
+/src/DataTableQueryBuilder/docs/.vitepress/dist
+
+node_modules
+package-lock.json
