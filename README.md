@@ -79,20 +79,20 @@ const apiUrl = "https://query-builder-sample-api.entrypointdev.com/API/UserList.
 
 $(document).ready(function () {
     let dt = $("#user-list").DataTable({
-    processing: true,
-    serverSide: true,
-    ajax: {
-        url: apiUrl,
-        type: "POST"
-    },
-    columns: [
-        { name: "id", data: "id" },
-        { name: "fullName", data: "fullName" },
-        { name: "email", data: "email" },
-        { name: "companyName", data: "companyName" },
-        { name: "posts", data: "posts" },
-        { name: "createDate", data: "createDate" }
-    ]
+       processing: true,
+       serverSide: true,
+       ajax: {
+           url: apiUrl,
+           type: "POST"
+       },
+       columns: [
+           { name: "id", data: "id" },
+           { name: "fullName", data: "fullName" },
+           { name: "email", data: "email" },
+           { name: "companyName", data: "companyName" },
+           { name: "posts", data: "posts" },
+           { name: "createDate", data: "createDate" }
+       ]
     });
 
     $("#filters input").each(function () {
