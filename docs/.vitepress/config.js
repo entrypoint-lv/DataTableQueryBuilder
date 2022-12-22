@@ -40,7 +40,7 @@
             {
                 text: 'Examples',
                 items: [
-                    { text: 'Demo & Samples', link: '/guide/samples.md' },
+                    { text: 'Demo and Samples', link: '/guide/samples.md' },
                 ]
             }
         ],

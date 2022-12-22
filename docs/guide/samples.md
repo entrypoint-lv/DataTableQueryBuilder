@@ -1,6 +1,6 @@
-﻿# Demo & Samples
+﻿# Demo and Samples
 
-## Datatables demo
+## DataTables demo
 
 A [live demo](https://codesandbox.io/s/datatablesnet-with-datatablequerybuilder-hgpg2) of using [DataTables](https://datatables.net) with DataTableQueryBuilder:
 
