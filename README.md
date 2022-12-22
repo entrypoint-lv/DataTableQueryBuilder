@@ -4,6 +4,10 @@ This builder automatically transforms an AJAX request coming from a JavaScript d
 
 Can be used with ANY JavaScript datatable component that supports server-side processing (currently tested on [datatables.net](https://datatables.net) and [vue-good-table](https://xaksis.github.io/vue-good-table/) only).
 
+## Docs
+
+The full documentation is available here - https://entrypointdev.github.io/DataTableQueryBuilder/
+
 ## Demo & Samples
 
 A [live demo](https://codesandbox.io/s/datatablesnet-with-datatablequerybuilder-hgpg2) of using [datatables.net](https://datatables.net) with DataTableQueryBuilder.
