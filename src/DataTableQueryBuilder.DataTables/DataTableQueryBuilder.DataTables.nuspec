@@ -5,13 +5,10 @@
 		<title>DataTableQueryBuilder.DataTables</title>
 		<authors>EntryPointDev</authors>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<license type="expression">MIT</license>
 		<description>Server-side .NET query builder for DataTables</description>
 		<releaseNotes>Initial</releaseNotes>
 		<copyright>Copyright 2019-2023 (c) Entrypoint. All rights reserved.</copyright>
 		<tags>Server-side .NET query builder</tags>
-		<readme>docs\README.md</readme>
-		<projectUrl>https://entrypointdev.github.io/DataTableQueryBuilder/</projectUrl>
 		<dependencies>
 			<group targetFramework="uap">
 				<dependency id="DataTableQueryBuilder" version="1.0.8" />
@@ -19,7 +16,6 @@
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="..\..\README.md" target="docs\" />
 		<file src="bin\Release\net5.0\DataTableQueryBuilder.DataTables.dll" target="lib\net5.0\DataTableQueryBuilder.DataTables.dll" />
 		<file src="bin\Release\net5.0\DataTableQueryBuilder.DataTables.xml" target="lib\net5.0\DataTableQueryBuilder.DataTables.xml" />
 	</files>
