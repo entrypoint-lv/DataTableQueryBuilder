@@ -14,7 +14,7 @@
 		<projectUrl>https://entrypointdev.github.io/DataTableQueryBuilder/</projectUrl>
 		<dependencies>
 			<group targetFramework="uap">
-				<dependency id="DataTableQueryBuilder" version="1.0.7" />
+				<dependency id="DataTableQueryBuilder" version="1.0.8" />
 			</group>
 		</dependencies>
 	</metadata>
