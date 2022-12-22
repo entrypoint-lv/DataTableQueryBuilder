@@ -5,7 +5,7 @@
 		<releaseNotes>Initial</releaseNotes>
 		<dependencies>
 			<group targetFramework="uap">
-				<dependency id="DataTableQueryBuilder" version="1.0.8" />
+				<dependency id="DataTableQueryBuilder" version="1.0.10" />
 			</group>
 		</dependencies>
 	</metadata>

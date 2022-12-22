@@ -21,7 +21,7 @@ namespace DataTableQueryBuilder
                 this.to = to;
             }
 
-            public override Expression Visit(Expression node)
+            public override Expression? Visit(Expression? node)
             {
                 return node == from ? to : base.Visit(node);
             }
@@ -55,7 +55,7 @@ namespace DataTableQueryBuilder
         /// <param name="expression"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static IQueryable<T> AddWhere<T>(IQueryable<T> query, Expression? expression, ParameterExpression target)
+        public static IQueryable<T> AddWhere<T>(IQueryable<T> query, Expression expression, ParameterExpression target)
         {
             var whereExp = Expression.Call(
                 typeof(Queryable),
@@ -154,7 +154,7 @@ namespace DataTableQueryBuilder
         /// <param name="searchEx"></param>
         /// <param name="replaceEx"></param>
         /// <returns></returns>
-        public static Expression Replace(Expression expression, Expression searchEx, Expression replaceEx)
+        public static Expression? Replace(Expression? expression, Expression searchEx, Expression replaceEx)
         {
             return new ReplaceVisitor(searchEx, replaceEx).Visit(expression);
         }
@@ -211,7 +211,7 @@ namespace DataTableQueryBuilder
                 throw new Exception("Expression is not a property accessor");
             }
 
-            foreach (var propertyInfo in ExtractPropertyInfoChain(memberExpression.Expression))
+            foreach (var propertyInfo in ExtractPropertyInfoChain(memberExpression.Expression!))
             {
                 yield return propertyInfo;
             }

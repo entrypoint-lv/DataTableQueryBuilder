@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
-		<Version>1.0.9</Version>
+		<Version>1.0.10</Version>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
@@ -10,7 +10,7 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://entrypointdev.github.io/DataTableQueryBuilder/</PackageProjectUrl>
-		<PackageTags>Server-side .NET query builder for JavaScript data tables</PackageTags>
+		<PackageTags>Server-side .NET LINQ query builder JavaScript datatable EntityFramework EntityFrameworkCore EFCore</PackageTags>
 		<Authors>entrypoint</Authors>
 		<Description>Server-side .NET query builder for JavaScript data tables (base package)</Description>
 		<Copyright>Copyright 2019-2023 (c) Entrypoint. All rights reserved.</Copyright>

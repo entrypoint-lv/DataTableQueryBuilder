@@ -78,7 +78,7 @@ namespace DataTableQueryBuilder
             if (fieldSearchExp != null && globalSearchExp != null)
                 searchExp = Expression.AndAlso(fieldSearchExp, globalSearchExp);
 
-            return ExpressionHelper.AddWhere(query, searchExp, target);
+            return ExpressionHelper.AddWhere(query, searchExp!, target);
         }
 
         private Expression? BuildFieldSearchExpression(ParameterExpression target)
