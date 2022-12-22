@@ -1,26 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<Version>1.0.11</Version>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <Version>1.0.10</Version>
-    <Nullable>enable</Nullable>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-	<PackageProjectUrl>https://entrypointdev.github.io/DataTableQueryBuilder/</PackageProjectUrl>
-  </PropertyGroup>
+	<PropertyGroup>
+		<PackageId>DataTableQueryBuilder.DataTables</PackageId>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://entrypointdev.github.io/DataTableQueryBuilder/</PackageProjectUrl>
+		<PackageTags>Server-side .NET query builder for DataTables</PackageTags>
+		<Authors>entrypoint</Authors>
+		<Description>Server-side .NET query builder for DataTables</Description>
+		<Copyright>Copyright 2019-2023 (c) Entrypoint. All rights reserved.</Copyright>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/EntryPointDev/DataTableQueryBuilder</RepositoryUrl>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <PackageId>DataTableQueryBuilder.DataTables</PackageId>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/EntryPointDev/DataTableQueryBuilder</RepositoryUrl>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DocumentationFile>DataTableQueryBuilder.DataTables.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>DataTableQueryBuilder.DataTables.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <ItemGroup>
-	<None Include="..\..\README.md" Pack="true" PackagePath="\"/>
-    <ProjectReference Include="..\DataTableQueryBuilder\DataTableQueryBuilder.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
+		<ProjectReference Include="..\DataTableQueryBuilder\DataTableQueryBuilder.csproj" />
+	</ItemGroup>
 </Project>
