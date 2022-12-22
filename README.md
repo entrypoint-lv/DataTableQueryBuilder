@@ -1,12 +1,16 @@
-# LINQ query builder for JavaScript datatable components
+# Server-side .NET query builder for JavaScript data tables
 
 This builder automatically transforms an AJAX request coming from a JavaScript datatable into a LINQ query against the Entity Framework data model according to the provided configuration.
 
 Can be used with ANY JavaScript datatable component that supports server-side processing (currently tested on [datatables.net](https://datatables.net) and [vue-good-table](https://xaksis.github.io/vue-good-table/) only).
 
-## Demo & Samples
+## Docs
 
-A [live demo](https://codesandbox.io/s/datatablesnet-with-datatablequerybuilder-hgpg2) of using [datatables.net](https://datatables.net) with DataTableQueryBuilder.
+The full documentation is available here - https://entrypointdev.github.io/DataTableQueryBuilder/
+
+## Demo and samples
+
+A [live demo](https://codesandbox.io/s/datatablesnet-with-datatablequerybuilder-hgpg2) of using [DataTables](https://datatables.net) with DataTableQueryBuilder.
 
 A [live demo](https://codesandbox.io/s/vue-good-table-with-datatablequerybuilder-cynse) of using [vue-good-table](https://xaksis.github.io/vue-good-table/) with DataTableQueryBuilder.
 
@@ -234,4 +238,4 @@ public IActionResult UserList(DataTableRequest request)
 }
 ```
 
-That's all!
+That's all! Please refer to [the documentation](https://entrypointdev.github.io/DataTableQueryBuilder/) for available configuration options and detailed information.
