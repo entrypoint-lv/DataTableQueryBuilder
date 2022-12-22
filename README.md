@@ -8,9 +8,9 @@ Can be used with ANY JavaScript datatable component that supports server-side pr
 
 The full documentation is available here - https://entrypointdev.github.io/DataTableQueryBuilder/
 
-## Demo & Samples
+## Demo and samples
 
-A [live demo](https://codesandbox.io/s/datatablesnet-with-datatablequerybuilder-hgpg2) of using [datatables.net](https://datatables.net) with DataTableQueryBuilder.
+A [live demo](https://codesandbox.io/s/datatablesnet-with-datatablequerybuilder-hgpg2) of using [DataTables](https://datatables.net) with DataTableQueryBuilder.
 
 A [live demo](https://codesandbox.io/s/vue-good-table-with-datatablequerybuilder-cynse) of using [vue-good-table](https://xaksis.github.io/vue-good-table/) with DataTableQueryBuilder.
 
