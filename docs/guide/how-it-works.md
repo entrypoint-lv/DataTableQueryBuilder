@@ -22,7 +22,7 @@ pazeSize: 20
 Here, `fullName`, `companyName`, `createDate` and `posts` are fields in a JSON array returned by server.
 :::
 
-The task of query builder is to extend a base LINQ query with an additional `Where`, `OrderBy`, `Skip` and `Take` clauses based on this request by using expression trees.
+The task of query builder is to dynamically extend a base LINQ query with an additional `Where`, `OrderBy`, `Skip` and `Take` clauses based on this request by using expression trees.
 
 ## Default conventions
 
@@ -46,7 +46,7 @@ As there is no any additional configuration provided, the builder will:
    
    1. Find a match between fields in the request and properties of the source `UserListData` projection model by matching their names (ignoring the case sensitivity).
 
-   2. For each filtering clause in the request, set the default [value matching strategy](value-matching) based on the type of the property in the source `UserListData` projection model.
+   2. For each filtering clause in the request, determine the [value matching strategy](value-matching) based on the type of the property in the source `UserListData` projection model.
 
 As the result, with the above request and configuration, the base LINQ query will be extended in the following way:
 
@@ -97,7 +97,7 @@ return dataContext.Users
     })
     .Where(p => p.FullName.ToLower().EndsWith("John".ToLower()))
     .Where(p => p.CompanyName.ToLower().StartsWith("Goo".ToLower()))
-    .Where(p => p.Posts.ToLower().Contains("5".ToLower()))
+    .Where(p => p.Posts.ToString().ToLower().Contains("5".ToLower()))
     .Where(p => p.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture))
     .OrderBy(p => p.Posts)
     .Skip(0).Take(20);

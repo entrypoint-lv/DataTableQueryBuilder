@@ -27,7 +27,7 @@
                 text: 'Advanced',
                 items: [
                     { text: 'Custom Expressions', link: '/guide/advanced/custom-search-sort.md' },
-                    { text: 'Usage Without Projection', link: '/guide/advanced/usage-without-projection.md' },
+                    { text: 'Usage without Projection', link: '/guide/advanced/usage-without-projection.md' },
                 ]
             },
             {

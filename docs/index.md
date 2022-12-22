@@ -4,7 +4,7 @@ layout: home
 hero:
   name: DataTable Query Builder
   text: Server-side .NET query builder for JavaScript data tables
-  tagline: Automatically transform an AJAX request coming from your JavaScript datatable into a LINQ query
+  tagline: Implement server-side paging, filtering and sorting for any JavaScript datatable with just a few lines of code.
   actions:
     - theme: brand
       text: Get Started
@@ -16,7 +16,7 @@ hero:
 features:
   - icon: ⏱️
     title: Save time
-    details: Implement server-side paging, filtering and sorting with just a few lines of code
+    details: Automatically transform AJAX requests from JavaScript datatable into LINQ queries
   - icon: ⚡️
     title: Simple and powerful
     details: Zero configuration for simple cases and powerful API for complex ones

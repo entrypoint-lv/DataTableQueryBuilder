@@ -1,10 +1,10 @@
-﻿# Usage without Data Projection
+﻿# Usage without Projection
 
-While using data projection in base LINQ query is fine for most use cases, you may find yourself in a situation when you do not want to or cannot use the data projection in the base query.
+While using projection in base LINQ query is fine for most use cases, you may find yourself in a situation where you don't want to or can't do that.
 
-In such cases, you may return the EF entity from your base LINQ query, but introduce a separate view model that will represent the fields expected by datatable.
+In such cases, you can return the EF entity from your base LINQ query, but introduce a separate view model that will represent the fields expected by datatable.
 
-## Step 1. Create view model
+## Step 1. Create a view model
 
 Create a strongly typed view model that represents the fields expected by your JS datatable and returned by server:
 
@@ -52,7 +52,7 @@ CreateMap<User, UserDataTableFields>()
 
 ## Step 4. Create an action
 
-Create an action that will receive a request from datatable, convert it to a LINQ query and return the data.
+Create an action that will receive an AJAX request from your JS datatable, transform it to a LINQ query and return the data.
 
 Since we now use two different models, one returned by query, and one expected by datatable, we may need to provide an additional configuration:
 
@@ -130,7 +130,7 @@ With this configuration the resulting LINQ query will look like this:
 
 ## Pros and cons of usage without projection
 
-The main adavantages of using builder without data projection are more advanced filtering possibilities, as we are not limited just to the properties of projection model.
+The one adavantage of using builder without projection is more advanced filtering capabilities, as we are not limited just to the properties of projection model.
 
 Since we have the full access to the source entity and its navigation properties we may easily implement an advanced filtering that is not possible when using projection model.
 
@@ -154,6 +154,17 @@ o.ForField(f => f.Posts, o =>
     o.SearchBy((u, val) => u.Posts.Any(p => p.Title.ToLower().Contains(val.ToLower())));
     o.OrderBy(u => u.Posts.Count());
 );
+```
+
+Another advantage is that we can do data transformation when mapping the source entity to a view model.
+
+For example, if we have a `CreateDate` property on the source entity, we need it to be of type `DateTime` in order to be able to perform filtering on it, but we can easily transform it to formatted string to display it in a datatable:
+
+```c#
+CreateMap<User, UserDataTableFields>()
+    .ForMember(d => d.CreateDate, o => 
+        o.MapFrom(s => s.CreateDate.ToString("MMMM dd, yyyy"))
+    );
 ```
 
 The main disadvantage is an increased complexity due to the need for mapping and additional builder configuration.

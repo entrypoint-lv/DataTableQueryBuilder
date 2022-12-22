@@ -103,7 +103,7 @@ A `data` property in column configuration contains a property name of a row obje
 From now on, we will use a term `field` for a property in the returned JSON array.
 :::
 
-## Step 1. Create Entity Framework data model
+## Step 1. Create an Entity Framework data model
 
 Create your Entity Framework data model. We'll use the following simple data model in all examples:
   
@@ -139,7 +139,7 @@ public class Post
 }
 ```
 
-## Step 2. Create projection model
+## Step 2. Create a projection model
 
 Create a strongly typed projection model that represents the fields expected by your JS datatable and returned by server:
 

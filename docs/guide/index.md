@@ -1,6 +1,6 @@
 ﻿# Server-side .NET query builder for JavaScript data tables
 
-This builder automatically transforms an AJAX request coming from a JavaScript datatable into a LINQ query against the Entity Framework data model according to the provided configuration.
+This builder automatically transforms AJAX requests coming from a JavaScript datatable into LINQ queries against the Entity Framework data model according to the provided configuration.
 
 Can be used with ANY JavaScript datatable component that supports server-side processing (currently tested on [datatables.net](https://datatables.net) and [vue-good-table](https://xaksis.github.io/vue-good-table/) only).
 
