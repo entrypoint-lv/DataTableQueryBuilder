@@ -6,10 +6,12 @@
 		<authors>EntryPointDev</authors>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<license type="expression">MIT</license>
-		<description>DataTableQueryBuilder.Generic</description>
+		<description>Server-side .NET query builder for JavaScript data tables</description>
 		<releaseNotes>Initial</releaseNotes>
-		<copyright>Copyright 2021 (c) EntryPoint. All rights reserved.</copyright>
-		<tags>DataTableQueryBuilder.Generic EntryPoint</tags>
+		<copyright>Copyright 2019-2023 (c) Entrypoint. All rights reserved.</copyright>
+		<tags>Server-side .NET query builder</tags>
+		<readme>docs\README.md</readme>
+		<projectUrl>https://entrypointdev.github.io/DataTableQueryBuilder/</projectUrl>
 		<dependencies>
 			<group targetFramework="uap">
 				<dependency id="DataTableQueryBuilder" version="1.0.7" />
@@ -17,6 +19,7 @@
 		</dependencies>
 	</metadata>
 	<files>
+		<file src="..\..\README.md" target="docs\" />
 		<file src="bin\Release\net5.0\DataTableQueryBuilder.Generic.dll" target="lib\net5.0\DataTableQueryBuilder.Generic.dll" />
 		<file src="bin\Release\net5.0\DataTableQueryBuilder.Generic.xml" target="lib\net5.0\DataTableQueryBuilder.Generic.xml" />
 	</files>
