@@ -27,7 +27,7 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
       
     - name: Publish DataTableQueryBuilder.DataTables
-      uses: rohith/publish-nuget@v2
+      uses: brandedoutcast/publish-nuget@v2
       with:
         PROJECT_FILE_PATH: src/DataTableQueryBuilder.DataTables/DataTableQueryBuilder.DataTables.csproj
         PACKAGE_NAME: DataTableQueryBuilder.DataTables
