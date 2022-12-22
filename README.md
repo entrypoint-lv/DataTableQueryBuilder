@@ -1,4 +1,4 @@
-# LINQ query builder for JavaScript datatable components
+# Server-side .NET query builder for JavaScript data tables
 
 This builder automatically transforms an AJAX request coming from a JavaScript datatable into a LINQ query against the Entity Framework data model according to the provided configuration.
 
