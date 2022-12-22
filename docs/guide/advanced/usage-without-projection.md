@@ -158,7 +158,7 @@ o.ForField(f => f.Posts, o =>
 
 Another advantage is that we can do data transformation when mapping the source entity to a view model.
 
-For example, if we have a `CreateDate` property on the source entity, we need it to be of type `DateTime` in order to be able to perform filtering on it, but we can easily transform it to formatted string to display it in a datatable:
+For example, if we have a `CreateDate` property on the source entity, we need it to be of type `DateTime` in order to be able to perform filtering on it, but we can easily convert it to a formatted string to display it in a datatable:
 
 ```c#
 CreateMap<User, UserDataTableFields>()
