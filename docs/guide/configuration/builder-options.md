@@ -4,7 +4,7 @@
 A property to get/set date format used for value matching when filtering on properties of `DateTime` type.
 
 - Type: `string`
-- Default: `CultureInfo.InvariantCulture.DateTimeFormat.ShortDatePattern`
+- Default: `CultureInfo.InvariantCulture.DateTimeFormat.ShortDatePattern` (MM/dd/yyyy)
 
 ## ForField
 
