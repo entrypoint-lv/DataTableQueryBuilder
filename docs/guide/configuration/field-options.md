@@ -1,7 +1,7 @@
 ﻿# Individual Field Options
 
 ## UseMatchMode
-A method to explicitly set the value matching strategy to be used when filtering. Applicable only to properties of type `String` or Integral numeric types.
+A method to explicitly set the value matching strategy to be used when filtering. Applicable only to properties of type `String` or integer numeric types.
 
 - Arguments:
 

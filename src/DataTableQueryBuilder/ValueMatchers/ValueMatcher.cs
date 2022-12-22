@@ -37,7 +37,7 @@ namespace DataTableQueryBuilder.ValueMatchers
                 if (valueMatchMode != null)
                 {
                     if (!(valueMatchMode is IntegerMatchMode))
-                        throw new Exception($"The ValueMatchMode for field '{fieldKey}' should be of type IntegralMatchMode.");
+                        throw new Exception($"The ValueMatchMode for field '{fieldKey}' should be of type IntegerMatchMode.");
 
                     integerMatchMode = (IntegerMatchMode)valueMatchMode;
                 }

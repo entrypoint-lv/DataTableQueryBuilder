@@ -1,7 +1,7 @@
 ﻿# Builder options
 
 ## DateFormat
-A property to get/set date format used for value matching when filtering DateTime fields.
+A property to get/set date format used for value matching when filtering on properties of `DateTime` type.
 
 - Type: `string`
 - Default: `CultureInfo.InvariantCulture.DateTimeFormat.ShortDatePattern`
