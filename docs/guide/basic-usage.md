@@ -2,7 +2,7 @@
 
 Let's suppose that you want to show a searchable and sortable list of users, with all sorting, paging and filtering happening on the server-side.
 
-In case of using Datatables, your configuration will look something like this:
+In case of using [DataTables](https://datatables.net), your configuration will look something like this:
 
 ::: code-group
 

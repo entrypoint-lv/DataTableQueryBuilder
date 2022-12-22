@@ -2,8 +2,6 @@ name: Publish DataTableQueryBuilder.DataTables to NuGet
 
 
 on:
-  push:
-    branches: [ master ]
   workflow_dispatch:
   
 jobs:

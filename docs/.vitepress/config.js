@@ -1,6 +1,6 @@
 ﻿export default {
-    title: 'DataTableQueryBuilder',
-    description: 'LINQ query builder for JavaScript datatables that support server-side processing',
+    title: 'DataTable Query Builder',
+    description: 'Server-side .NET query builder for JavaScript datatables',
     base: '/DataTableQueryBuilder/',
 
     themeConfig: {

@@ -1,4 +1,4 @@
-﻿# LINQ query builder for JavaScript datatables that support server-side processing
+﻿# Server-side .NET query builder for JavaScript data tables
 
 This builder automatically transforms an AJAX request coming from a JavaScript datatable into a LINQ query against the Entity Framework data model according to the provided configuration.
 
@@ -6,13 +6,13 @@ Can be used with ANY JavaScript datatable component that supports server-side pr
 
 ## Usage with DataTables
 
-If you're using [datatables.net](https://datatables.net) or wrappers around it, install the [DataTableQueryBuilder.DataTables](https://www.nuget.org/packages/datatablequerybuilder.datatables/) NuGet package:
+If you're using [DataTables](https://datatables.net) or wrappers around it, install the [DataTableQueryBuilder.DataTables](https://www.nuget.org/packages/datatablequerybuilder.datatables/) NuGet package:
 
    ```shell
    dotnet add package DataTableQueryBuilder.DataTables
    ```
 
-Then register the model binder to bind incoming AJAX requests from DataTables to a DataTableRequest model:
+Then register the model binder to bind incoming AJAX requests from DataTables to a `DataTableRequest` model:
 
    ```c#
    using DataTableQueryBuilder.DataTables;

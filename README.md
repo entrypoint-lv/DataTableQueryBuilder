@@ -14,7 +14,7 @@ A [source code](https://github.com/EntryPointDev/DataTableQueryBuilder/tree/mast
 
 ## Install
 
-If you're using [datatables.net](https://datatables.net) or wrappers around it, install the [DataTableQueryBuilder.DataTables](https://www.nuget.org/packages/datatablequerybuilder.datatables/) NuGet package:
+If you're using [DataTables](https://datatables.net) or wrappers around it, install the [DataTableQueryBuilder.DataTables](https://www.nuget.org/packages/datatablequerybuilder.datatables/) NuGet package:
 
    ```console
    dotnet add package DataTableQueryBuilder.DataTables
