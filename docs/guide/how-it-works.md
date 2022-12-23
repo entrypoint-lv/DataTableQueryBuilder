@@ -2,24 +2,21 @@
 
 When user does paging, filtering or sorting, the JavaScript datatable sends a request to the server with paging, filtering and ordering clauses.
 
-In any datatable, this request looks something like this:
+In general, this request looks something like this:
 
 ```js
-search: [
-    {'fullName' : 'John'},
-    {'companyName': 'Goo'},
-    {'posts': '5'},
-    {'createDate': '05/15/2020'}
+columns: [
+    { field: 'fullName', search: 'John' },
+    { field: 'companyName', search: 'Goo' },
+    { field: 'posts', search: '5', sort: 'asc' },
+    { field: 'createDate', search: '05/15/2020' }
 ],
-sort: [
-    {'posts' : 'asc'}
-],
-startRecordNumber: 0,
+page: 1,
 pazeSize: 20
 ```
 
 ::: tip Note
-Here, `fullName`, `companyName`, `createDate` and `posts` are fields in a JSON array returned by server.
+Here, `fullName`, `companyName`, `posts` and `createDate` are fields in a JSON array returned by server.
 :::
 
 The task of query builder is to dynamically extend a base LINQ query with an additional `Where`, `OrderBy`, `Skip` and `Take` clauses based on this request by using expression trees.

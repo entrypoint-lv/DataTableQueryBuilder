@@ -4,7 +4,7 @@ Sometimes you may want to filter data in a column based on a value that doesn't 
 
 A common example would be the `CompanyName` column, that needs to be filtered by `companyId` value from `<select>` element that exists on the same page.
 
-In this case, you may add the `CompanyId` property to the projection model:
+One way to achieve this is to add the `CompanyId` property to the projection model:
 
 ::: code-group
 
@@ -47,7 +47,7 @@ public class UserService
 You can use [JsonIgnore] attribute to prevent the property from being sent to the client.
 :::
    
- And then use the `SearchBy` configuration method to specify a custom LINQ expression that should be used when filtering by this field:
+ And then use the `SearchBy` configuration method to specify a custom LINQ expression that should be used when filtering by `companyName` field:
 
 ```c#
 var qb = new DataTableQueryBuilder<UserListData>(request, o =>

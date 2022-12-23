@@ -156,9 +156,9 @@ public class UserListData
 ```
 
 ::: tip Note
-The `CreateDate` property is of type `DateTime`, so it will be returned in a ISO date format.
+The `CreateDate` property is of type `DateTime`, so it will be returned in an ISO date format.
 
-This is intentional, as the formatting will happen in the UI and not in the LINQ query.
+This is intentional, as in our case the formatting will happen in the UI and not in the LINQ query.
 :::
 
 ## Step 3. Create a base query

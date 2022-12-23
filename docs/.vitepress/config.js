@@ -20,6 +20,7 @@
                     { text: 'Basic Usage', link: '/guide/basic-usage.md' },
                     { text: 'How It Works', link: '/guide/how-it-works.md' },
                     { text: 'Value Matching', link: '/guide/value-matching.md' },
+                    { text: 'Request Format', link: '/guide/request-format.md' },
                     
                 ]
             },

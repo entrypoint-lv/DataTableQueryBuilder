@@ -83,24 +83,21 @@ public IActionResult UserList(DataTableRequest request)
 Let's review the same datatable request that we already reviewed before:
 
 ```js
-search: [
-    {'fullName' : 'John'},
-    {'companyName': 'Goo'},
-    {'posts': '5'},
-    {'createDate': '05/15/2020'}
+columns: [
+    { field: 'fullName', search: 'John' },
+    { field: 'companyName', search: 'Goo' },
+    { field: 'posts', search: '5', sort: 'asc' },
+    { field: 'createDate', search: '05/15/2020' }
 ],
-sort: [
-    {'posts' : 'asc'}
-],
-startRecordNumber: 0,
+page: 1,
 pazeSize: 20
 ```
 
 Here, `fullName` and `createDate` fields matches the properties of the source `User` entity, so we don't need to provide an additional configuration for them.
 
-But `companyName` field doesn't match any property of the source `User` entity, so we can explicitly tell the builder which property to use when filtering/sorting by this field.
+The `companyName` field doesn't match any property of the source `User` entity, but we can use `UseSourceProperty` method to explicitly set the property to be used when filtering and sorting.
 
-Also, in order to be able to filter/sort by `posts` field, we need to explicitly set a custom expressions:
+Also, in order to be able to filter/sort by `posts` field, we need to explicitly set custom expressions:
 
 ```c#
 o.ForField(f => f.CompanyName, o => 
@@ -137,13 +134,10 @@ Since we have the full access to the source entity and its navigation properties
 For example, we may want to filter `posts` by their titles instead of count:
   
 ```js
-search: [
-    {'posts': 'some title'}
+columns: [
+    { field: 'posts', search: 'some title', sort: 'asc' },
 ],
-sort: [
-    {'posts' : 'asc'}
-],
-startRecordNumber: 0,
+page: 1,
 pazeSize: 20
 ```
 
@@ -156,9 +150,9 @@ o.ForField(f => f.Posts, o =>
 );
 ```
 
-Another advantage is that we can do data transformation when mapping the source entity to a view model.
+Another advantage is that we can do data transformations when mapping the source entity to a view model.
 
-For example, if we have a `CreateDate` property on the source entity, we need it to be of type `DateTime` in order to be able to perform filtering on it, but we can easily convert it to a formatted string to display it in a datatable:
+For example, if we have a `CreateDate` property of type `DateTime` on the source entity, we can easily convert it to a formatted string to display it in a datatable:
 
 ```c#
 CreateMap<User, UserDataTableFields>()
