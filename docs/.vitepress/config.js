@@ -1,4 +1,13 @@
-﻿export default {
+﻿import { createWriteStream } from 'node:fs';
+import { resolve } from 'node:path';
+import { SitemapStream } from 'sitemap';
+
+const SiteMapConfig = {
+    hostname: 'https://entrypointdev.github.io/DataTableQueryBuilder/',
+    links: []
+};
+
+export default {
     title: 'DataTable Query Builder',
     description: 'Server-side .NET query builder for JavaScript datatables',
     base: '/DataTableQueryBuilder/',
@@ -50,5 +59,29 @@
             message: 'Released under the MIT License.',
             copyright: 'Copyright © 2019 - present <a href="http://entrypoint.lv">Entrypoint</a>'
         }
+    },
+
+    //sitemap generation
+    transformHtml: (_, id, { pageData }) => {
+        if (!/[\\/]404\.html$/.test(id))
+            SiteMapConfig.links.push({
+                // you might need to change this if not using clean urls mode
+                url: pageData.relativePath.replace(/((^|\/)index)?\.md$/, '$2'),
+                lastmod: pageData.lastUpdated
+            })
+    },
+
+    buildEnd: async ({ outDir }) => {
+        const sitemap = new SitemapStream({ hostname: SiteMapConfig.hostname });
+
+        const writeStream = createWriteStream(resolve(outDir, 'sitemap.xml'));
+
+        sitemap.pipe(writeStream);
+
+        SiteMapConfig.links.forEach((link) => sitemap.write(link));
+
+        sitemap.end();
+
+        await new Promise((r) => writeStream.on('finish', r));
     }
 }
