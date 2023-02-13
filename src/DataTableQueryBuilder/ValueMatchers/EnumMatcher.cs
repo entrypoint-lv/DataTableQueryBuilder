@@ -11,14 +11,10 @@ namespace DataTableQueryBuilder.ValueMatchers
         {
             var enumType = Nullable.GetUnderlyingType(Property.Type) ?? Property.Type;
 
-            Enum.TryParse(enumType, ValueToMatch, true, out object? val);
-
-            Enum.Parse(enumType, ValueToMatch);
-
-            if (val == null)
+            if (!Enum.TryParse(enumType, ValueToMatch, true, out object? val))
                 return NoMatch;
 
-            return Expression.Equal(ToNullable(Property), Expression.Constant(val, Property.Type));
+            return Expression.Equal(ToNullable(Property), Expression.Constant(val, typeof(Nullable<>).MakeGenericType(Property.Type)));
         }
     }
 }
