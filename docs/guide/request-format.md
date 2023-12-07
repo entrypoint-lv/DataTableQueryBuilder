@@ -41,4 +41,4 @@ Here:
 
 - `sort` value should be either `asc` or `desc`. Multi-column sorting is supported.
 
-In case you want to use a different format, you can write a custom [ModelBinder](https://github.com/EntryPointDev/DataTableQueryBuilder/tree/master/src/DataTableQueryBuilder.DataTables/ModelBinder) that will bind incoming requests to [DataTableRequest](https://github.com/EntryPointDev/DataTableQueryBuilder/blob/master/src/DataTableQueryBuilder.Generic/Request/DataTableRequest.cs) model that is used by the builder.
+In case you want to use a different format, you can write a custom [ModelBinder](https://github.com/entrypoint-lv/DataTableQueryBuilder/tree/master/src/DataTableQueryBuilder.DataTables/ModelBinder) that will bind incoming requests to [DataTableRequest](https://github.com/entrypoint-lv/DataTableQueryBuilder/blob/master/src/DataTableQueryBuilder.Generic/Request/DataTableRequest.cs) model that is used by the builder.

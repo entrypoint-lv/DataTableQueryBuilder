@@ -11,7 +11,7 @@ hero:
       link: /guide/
     - theme: alt
       text: View on GitHub
-      link: https://github.com/EntryPointDev/DataTableQueryBuilder
+      link: https://github.com/entrypoint-lv/DataTableQueryBuilder
 
 features:
   - icon: ⏱️

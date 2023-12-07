@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import { SitemapStream } from 'sitemap';
 
 const SiteMapConfig = {
-    hostname: 'https://entrypointdev.github.io/DataTableQueryBuilder/',
+    hostname: 'https://entrypoint-lv.github.io/DataTableQueryBuilder/',
     links: []
 };
 
@@ -18,7 +18,7 @@ export default {
         ],
 
         socialLinks: [
-            { icon: 'github', link: 'https://github.com/EntryPointDev/DataTableQueryBuilder' },
+            { icon: 'github', link: 'https://github.com/entrypoint-lv/DataTableQueryBuilder' },
         ],
 
         sidebar: [

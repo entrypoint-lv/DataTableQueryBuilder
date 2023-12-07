@@ -68,7 +68,7 @@ $(document).ready(function () {
 
 Your datatable will send requests to the back-end and expect server to return the correct rows (in form of a JSON array) to display them in the UI.
 
-A `data` property in column configuration contains a property name of a row object in the returned JSON array, for example:
+A `data` property in column configuration points to a property of an element in the returned JSON array, for example:
 
 ```js
 [
@@ -100,7 +100,7 @@ A `data` property in column configuration contains a property name of a row obje
 ```
 
 ::: tip Note
-From now on, we will use a term `field` for a property in the returned JSON array.
+From now on, we will use a term `field` to refer to a property in the returned JSON array.
 :::
 
 ## Step 1. Create an Entity Framework data model

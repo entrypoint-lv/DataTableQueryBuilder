@@ -1,4 +1,12 @@
-﻿@media (min-width: 640px) {
+﻿:root {
+    --vp-c-brand: #714fff;
+    --vp-c-brand-light: #8e73ff;
+    --vp-c-brand-lighter: #a28bff;
+    --vp-c-brand-dark: #5b41c5;
+    --vp-c-brand-darker: #513aac;
+}
+
+@media (min-width: 640px) {
     .VPHomeHero {
         .name {
             line-height: 40px;

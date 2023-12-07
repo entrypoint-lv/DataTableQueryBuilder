@@ -2,7 +2,7 @@
 
 While using projection in base LINQ query is fine for most use cases, you may find yourself in a situation where you don't want to or can't do that.
 
-In such cases, you can return the EF entity from your base LINQ query, but introduce a separate view model that will represent the fields expected by datatable.
+In such cases, you can return the *EF entity* from your base LINQ query, but introduce a separate view model that will represent the fields expected by datatable.
 
 ## Step 1. Create a view model
 
@@ -127,11 +127,11 @@ With this configuration the resulting LINQ query will look like this:
 
 ## Pros and cons of usage without projection
 
-The one adavantage of using builder without projection is more advanced filtering capabilities, as we are not limited just to the properties of projection model.
+The main adavantage of using builder without projection is the advanced filtering capabilities since we are not limited to just the properties of projection model.
 
 Since we have the full access to the source entity and its navigation properties we may easily implement an advanced filtering that is not possible when using projection model.
 
-For example, we may want to filter `posts` by their titles instead of count:
+For example, we may want to filter `posts` by their titles rather than by count:
   
 ```js
 columns: [
@@ -141,7 +141,7 @@ page: 1,
 pazeSize: 20
 ```
 
-This is easily achievable with custom search expression:
+This is easily achievable using a custom search expression:
 
 ```c#
 o.ForField(f => f.Posts, o =>
@@ -150,7 +150,7 @@ o.ForField(f => f.Posts, o =>
 );
 ```
 
-Another advantage is that we can do data transformations when mapping the source entity to a view model.
+Another benefit is that we can perform data transformations when mapping the source entity to the view model.
 
 For example, if we have a `CreateDate` property of type `DateTime` on the source entity, we can easily convert it to a formatted string to display it in a datatable:
 
