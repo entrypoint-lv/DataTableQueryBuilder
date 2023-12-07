@@ -6,7 +6,7 @@ Can be used with ANY JavaScript datatable component that supports server-side pr
 
 ## Docs
 
-The full documentation is available here - https://entrypointdev.github.io/DataTableQueryBuilder/
+The full documentation is available here - https://entrypoint-lv.github.io/DataTableQueryBuilder/
 
 ## Demo and samples
 
@@ -14,7 +14,7 @@ A [live demo](https://codesandbox.io/s/datatablesnet-with-datatablequerybuilder-
 
 A [live demo](https://codesandbox.io/s/vue-good-table-with-datatablequerybuilder-cynse) of using [vue-good-table](https://xaksis.github.io/vue-good-table/) with DataTableQueryBuilder.
 
-A [source code](https://github.com/EntryPointDev/DataTableQueryBuilder/tree/master/samples/SampleAPI) and [OpenAPI specification](https://query-builder-sample-api.entrypointdev.com/swagger/) of server-side API that is used in the above demos.
+A [source code](https://github.com/entrypoint-lv/DataTableQueryBuilder/tree/master/samples/SampleAPI) and [OpenAPI specification](https://query-builder-sample-api.entrypointdev.com/swagger/) of server-side API that is used in the above demos.
 
 ## Install
 
