@@ -4,20 +4,10 @@
     --vp-c-brand-3: #714fff;
 }
 
-@media (min-width: 640px) {
-    .VPHomeHero {
-        .name {
-            line-height: 40px;
-            font-size: 32px;
-        }
-    }
-}
-
-@media (min-width: 960px) {
-    .VPHomeHero {
-        .name,
-        .text {
-            max-width: 600px;
-        }
+.VPHomeHero {
+    .name {
+        line-height: 40px;
+        font-size: 18px;
+        font-weight: 600;
     }
 }
