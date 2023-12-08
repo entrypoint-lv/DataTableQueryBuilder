@@ -6,15 +6,15 @@ In such cases, you can return the *EF entity* from your base LINQ query, but int
 
 ## Step 1. Create a view model
 
-Create a strongly typed view model that represents the fields expected by your JS datatable and returned by server:
+Create a strongly typed view model that represents the fields expected by your JS datatable and returned by the server:
 
 ```c#
 public class UserDataTableFields
 {
     public int Id { get; set; }        
-    public string FullName { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
-    public string CompanyName { get; set; } = string.Empty;
+    public string FullName { get; set; } = "";
+    public string Email { get; set; } = "";
+    public string CompanyName { get; set; } = "";
     public int Posts { get; set; }
     public DateTime CreateDate { get; set; }
 }
@@ -38,12 +38,12 @@ public class UserService
 
 ## Step 3. Create a mapping
 
-Use `AutoMapper` to create a mapping between `User` and `UserDataTableFields` that will be used by builder to map entity returned by query to a view model expected by datatable:
+Use [AutoMapper](https://github.com/AutoMapper/AutoMapper) to create a mapping between `User` and `UserDataTableFields`, which will be used by builder to map entity returned by query to a view model expected by datatable:
 
 ```c#
 CreateMap<User, UserDataTableFields>()
     .ForMember(d => d.CompanyName, o => 
-        o.MapFrom(s => s.Company != null ? s.Company.Name : string.Empty)
+        o.MapFrom(s => s.Company != null ? s.Company.Name : "")
     )
     .ForMember(d => d.Posts, o => 
         o.MapFrom(s => s.Posts.Count())
@@ -111,25 +111,25 @@ o.ForField(f => f.Posts, o =>
 
 With this configuration the resulting LINQ query will look like this:
 
-  ```c#
-  //IQueryable<User> users = userService.GetAllWithCompaniesAndPosts();
-
-  return dataContext.Users
-      .Include(u => u.Company)
-      .Include(u => u.Posts)
-      .Where(u => u.FullName.ToLower().Contains("John".ToLower()))
-      .Where(u => u.Company!.Name.ToLower().Contains("Goo".ToLower()))
-      .Where(p => p.Posts.Count() == int.Parse("5"))
-      .Where(u => u.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture))
-      .OrderBy(u => u.Posts.Count())
-      .Skip(0).Take(20);
-  ```
+```c#
+return dataContext.Users
+    //your base query    
+    .Include(u => u.Company)
+    .Include(u => u.Posts)
+    //generated part
+    .Where(u => u.FullName.ToLower().Contains("John".ToLower()))
+    .Where(u => u.Company!.Name.ToLower().Contains("Goo".ToLower()))
+    .Where(p => p.Posts.Count() == int.Parse("5"))
+    .Where(u => u.CreateDate.Date == DateTime.ParseExact("05/15/2020", "MM/dd/yyyy", CultureInfo.InvariantCulture))
+    .OrderBy(u => u.Posts.Count())
+    .Skip(0).Take(20);
+```
 
 ## Pros and cons of usage without projection
 
-The main adavantage of using builder without projection is the advanced filtering capabilities since we are not limited to just the properties of projection model.
+The main adavantage of using builder without projection is the advanced filtering capabilities as we are not limited to just the properties of projection model.
 
-Since we have the full access to the source entity and its navigation properties we may easily implement an advanced filtering that is not possible when using projection model.
+Since we have full access to the source entity and its navigation properties we may easily implement an advanced filtering that is simply not possible when using projection model.
 
 For example, we may want to filter `posts` by their titles rather than by count:
   
@@ -152,7 +152,7 @@ o.ForField(f => f.Posts, o =>
 
 Another benefit is that we can perform data transformations when mapping the source entity to the view model.
 
-For example, if we have a `CreateDate` property of type `DateTime` on the source entity, we can easily convert it to a formatted string to display it in a datatable:
+For example, if we have a `CreateDate` property of type `DateTime` on the source entity, we can easily convert it to a formatted string to display it in the datatable:
 
 ```c#
 CreateMap<User, UserDataTableFields>()

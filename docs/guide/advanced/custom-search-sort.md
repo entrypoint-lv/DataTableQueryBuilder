@@ -12,10 +12,10 @@ One way to achieve this is to add the `CompanyId` property to the projection mod
 public class UserListData
 {
     public int Id { get; set; }
-    public string FullName { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
+    public string FullName { get; set; } = "";
+    public string Email { get; set; } = "";
     public int? CompanyId { get; set; }
-    public string CompanyName { get; set; } = string.Empty;
+    public string CompanyName { get; set; } = "";
     public int Posts { get; set; }
     public DateTime CreateDate { get; set; }
 }
@@ -33,7 +33,7 @@ public class UserService
             FullName = u.FullName,
             Email = u.Email,
             CompanyId = u.CompanyId,
-            CompanyName = u.Company != null ? u.Company.Name : string.Empty,
+            CompanyName = u.Company != null ? u.Company.Name : "",
             Posts = u.Posts.Count(),
             CreateDate = u.CreateDate
         });
@@ -61,15 +61,15 @@ var qb = new DataTableQueryBuilder<UserListData>(request, o =>
 With this configuration the base LINQ query will be extended in the following way:
 
 ```c#
-//IQueryable<UserListData> users = userService.GetAllForUserList();
-
 return dataContext.Users
+    //your base query
     .Select(u => new UserListData()
     {
         //...
         CompanyId = u.CompanyId
         //...
     })
+    //generated part
     //...
     .Where(p => p.CompanyId.HasValue && p.CompanyId == int.Parse("1"))
     //...

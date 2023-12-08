@@ -16,7 +16,7 @@ pazeSize: 20
 ```
 
 ::: tip Note
-Here, `fullName`, `companyName`, `posts` and `createDate` are fields in a JSON array returned by server.
+Here, `fullName`, `companyName`, `posts` and `createDate` are fields in a JSON array returned by the server.
 :::
 
 The task of query builder is to dynamically extend a base LINQ query with an additional `Where`, `OrderBy`, `Skip` and `Take` clauses based on this request by using expression trees.
@@ -43,18 +43,18 @@ As there is no any additional configuration provided, the builder will:
    
    1. Find a match between fields in the request and properties of the source `UserListData` projection model by matching their names (ignoring the case sensitivity).
 
-   2. For each filtering clause in the request, determine the [value matching strategy](value-matching) based on the type of the property in the source `UserListData` projection model.
+   2. For each filtering clause in the request, determine the [value matching mode](value-matching) based on the type of the property in the source `UserListData` model.
 
 As the result, with the above request and configuration, the base LINQ query will be extended in the following way:
 
 ```c#
-//IQueryable<UserListData> users = userService.GetAllForUserList();
-
 return dataContext.Users
+    //your base query
     .Select(u => new UserListData()
     {
         //...
     })
+    //generated part
     .Where(p => p.FullName.ToLower().Contains("John".ToLower()))
     .Where(p => p.CompanyName.ToLower().Contains("Goo".ToLower()))
     .Where(p => p.Posts == 5)
@@ -85,13 +85,13 @@ var qb = new DataTableQueryBuilder<UserListData>(request, o =>
 With above request and this configuration, the base LINQ query will be extended in the following way:
 
 ```c#
-//IQueryable<UserListData> users = userService.GetAllForUserList();
-
 return dataContext.Users
+    //your base query
     .Select(u => new UserListData()
     {
         //...
     })
+    //generated part
     .Where(p => p.FullName.ToLower().EndsWith("John".ToLower()))
     .Where(p => p.CompanyName.ToLower().StartsWith("Goo".ToLower()))
     .Where(p => p.Posts.ToString().ToLower().Contains("5".ToLower()))

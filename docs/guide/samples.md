@@ -2,7 +2,7 @@
 
 ## DataTables demo
 
-A [live demo](https://codesandbox.io/s/datatablesnet-with-datatablequerybuilder-hgpg2) of using [DataTables](https://datatables.net) with DataTableQueryBuilder:
+A [sandbox demo](https://codesandbox.io/s/datatablesnet-with-datatablequerybuilder-hgpg2) of using [DataTables](https://datatables.net) with DataTableQueryBuilder:
 
 <iframe src="https://codesandbox.io/embed/datatablesnet-with-datatablequerybuilder-hgpg2?fontsize=14&hidenavigation=1&theme=dark"
      style="width:100%; height:800px; border:0; border-radius: 4px; overflow:hidden;"
@@ -13,7 +13,7 @@ A [live demo](https://codesandbox.io/s/datatablesnet-with-datatablequerybuilder-
 
 ## vue-good-table demo
 
-A [live demo](https://codesandbox.io/s/vue-good-table-with-datatablequerybuilder-cynse) of using [vue-good-table](https://xaksis.github.io/vue-good-table/) with DataTableQueryBuilder:
+A [sandbox demo](https://codesandbox.io/s/vue-good-table-with-datatablequerybuilder-cynse) of using [vue-good-table](https://xaksis.github.io/vue-good-table/) with DataTableQueryBuilder:
 
 <iframe src="https://codesandbox.io/embed/vue-good-table-with-datatablequerybuilder-cynse?fontsize=14&hidenavigation=1&theme=dark"
      style="width:100%; height:800px; border:0; border-radius: 4px; overflow:hidden;"

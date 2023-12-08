@@ -66,9 +66,9 @@ $(document).ready(function () {
 
 :::
 
-Your datatable will send requests to the back-end and expect server to return the correct rows (in form of a JSON array) to display them in the UI.
+Your datatable will send requests to the back-end and expect the server to return the correct rows (in form of a JSON array) to display them in the UI.
 
-A `data` property in column configuration points to a property of an element in the returned JSON array, for example:
+The `data` property in the column configuration points to a property of an element in the returned JSON array, for example:
 
 ```js
 [
@@ -100,7 +100,7 @@ A `data` property in column configuration points to a property of an element in 
 ```
 
 ::: tip Note
-From now on, we will use a term `field` to refer to a property in the returned JSON array.
+From now on, we will use the term `field` to refer to the property in the returned JSON array.
 :::
 
 ## Step 1. Create an Entity Framework data model
@@ -141,15 +141,15 @@ public class Post
 
 ## Step 2. Create a projection model
 
-Create a strongly typed projection model that represents the fields expected by your JS datatable and returned by server:
+Create a strongly typed projection model that represents the fields expected by your JS datatable and returned by the server:
 
 ```c#
 public class UserListData
 {
     public int Id { get; set; }        
-    public string FullName { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
-    public string CompanyName { get; set; } = string.Empty;
+    public string FullName { get; set; } = "";
+    public string Email { get; set; } = "";
+    public string CompanyName { get; set; } = "";
     public int Posts { get; set; }
     public DateTime CreateDate { get; set; }
 }
@@ -176,7 +176,7 @@ public class UserService
             Id = u.Id,
             FullName = u.FullName,
             Email = u.Email,
-            CompanyName = u.Company != null ? u.Company.Name : string.Empty,
+            CompanyName = u.Company != null ? u.Company.Name : "",
             Posts = u.Posts.Count(),
             CreateDate = u.CreateDate
         });
@@ -210,6 +210,13 @@ The Build method doesn't execute the query - it returns a `BuildResult` object t
 To execute the query and return the data to the datatable, call the `CreateResponse` method.
 :::
 
-## Live Demo
+## Sandbox demo
 
-See a [live demo](https://codesandbox.io/s/datatablesnet-with-datatablequerybuilder-hgpg2) of this example.
+Check out the [sandbox demo](https://codesandbox.io/s/datatablesnet-with-datatablequerybuilder-hgpg2) of the example above:
+
+<iframe src="https://codesandbox.io/embed/datatablesnet-with-datatablequerybuilder-hgpg2?fontsize=14&hidenavigation=1&theme=dark"
+     style="width:100%; height:800px; border:0; border-radius: 4px; overflow:hidden;"
+     title="DataTables with DataTableQueryBuilder"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
