@@ -191,9 +191,9 @@ Create a strongly typed projection model that represents the fields expected by 
 public class UserListData
 {
     public int Id { get; set; }        
-    public string FullName { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
-    public string CompanyName { get; set; } = string.Empty;
+    public string FullName { get; set; } = "";
+    public string Email { get; set; } = "";
+    public string CompanyName { get; set; } = "";
     public int Posts { get; set; }
     public DateTime CreateDate { get; set; }
 }
@@ -214,7 +214,7 @@ public class UserService
             Id = u.Id,
             FullName = u.FullName,
             Email = u.Email,
-            CompanyName = u.Company != null ? u.Company.Name : string.Empty,
+            CompanyName = u.Company != null ? u.Company.Name : "",
             Posts = u.Posts.Count(),
             CreateDate = u.CreateDate
         });
