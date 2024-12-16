@@ -84,22 +84,11 @@ namespace DataTableQueryBuilder.Generic
             AdditionalParameters = additionalParameters;
         }
 
-        private bool IsSuccessResponse()
-        {
-            return Data != null && String.IsNullOrWhiteSpace(Error);
-        }
-
-        private string DataToJson()
-        {
-            var settings = new JsonSerializerSettings() { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver() };
-            return JsonConvert.SerializeObject(Data, settings);
-        }
-
         /// <summary>
         /// Converts this object to a Json compatible response using global naming convention for parameters.
         /// </summary>
         /// <returns></returns>
-        private string ToJson()
+        public string ToJson()
         {
             // When request is null, there should be no response.
             if (Request == null)
@@ -154,6 +143,17 @@ namespace DataTableQueryBuilder.Generic
             var contentBytes = ContentEncoding.GetBytes(ToJson() ?? "");
 
             await httpResponse.Body.WriteAsync(contentBytes, 0, contentBytes.Length);
+        }
+
+        private bool IsSuccessResponse()
+        {
+            return Data != null && String.IsNullOrWhiteSpace(Error);
+        }
+
+        private string DataToJson()
+        {
+            var settings = new JsonSerializerSettings() { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver() };
+            return JsonConvert.SerializeObject(Data, settings);
         }
     }
 }
