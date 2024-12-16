@@ -12,61 +12,39 @@ namespace DataTableQueryBuilder.DataTables
     public class Options
     {
         /// <summary>
-        /// Indicates if model binder is used for request model.
+        /// Gets or sets an indicator if model binder should be used for request model.
         /// </summary>
-        public bool UseRequestModelBinder { get; private set; }
+        public bool UseRequestModelBinder { get; set; }
 
         /// <summary>
-        /// Get's a function to evaluante and parse aditional parameters sent within the request (user-defined parameters).
+        /// Gets or sets a function to evaluante and parse aditional parameters sent within the request (user-defined parameters).
         /// </summary>
-        public Func<HttpContext, IDictionary<string, object>>? ParseRequestAdditionalParameters { get; private set; }
+        public Func<HttpContext, IDictionary<string, object>>? ParseRequestAdditionalParameters { get; set; }
 
         /// <summary>
-        /// Gets default page length when parameter is not set.
+        /// Gets or sets default page length when parameter is not set.
         /// </summary>
-        public int DefaultPageLength { get; private set; }
+        public int DefaultPageLength { get; set; }
 
         /// <summary>
-        /// Gets an indicator if draw parameter should be validated.
+        /// Gets or sets an indicator if draw parameter should be validated.
         /// </summary>
-        public bool IsDrawValidationEnabled { get; private set; }
+        public bool EnableDrawValidation { get; set; }
 
         /// <summary>
-        /// Gets the request name convention to be used when resolving request parameters.
+        /// Gets or sents the request name convention to be used when resolving request parameters.
         /// </summary>
-        public RequestNameConvention RequestNameConvention { get; private set; }
+        public RequestNameConvention RequestNameConvention { get; set; }
 
         /// <summary>
-        /// Gets the response name convention to be used when serializing response elements.
+        /// Gets or sets the response name convention to be used when serializing response elements.
         /// </summary>
-        public ResponseNameConvention ResponseNameConvention { get; private set; }
-
-        /// <summary>
-        /// Sets the default page length to be used when request parameter is not set.
-        /// Page length is set to 20 by default.
-        /// </summary>
-        /// <param name="defaultPageLength">The new default page length to be used.</param>
-        /// <returns></returns>
-        public Options SetDefaultPageLength(int defaultPageLength) { DefaultPageLength = defaultPageLength; return this; }
-
-        /// <summary>
-        /// Enables draw validation.
-        /// Draw validation is enabled by default.
-        /// </summary>
-        /// <returns></returns>
-        public Options EnableDrawValidation() { IsDrawValidationEnabled = true; return this; }
-
-        /// <summary>
-        /// Disables draw validation.
-        /// As stated by jQuery DataTables, draw validation should not be disabled unless explicitly required.
-        /// </summary>
-        /// <returns></returns>
-        public Options DisableDrawValidation() { IsDrawValidationEnabled = false; return this; }
+        public ResponseNameConvention ResponseNameConvention { get; set; }
 
         /// <summary>
         /// Creates a new 'Option' instance.
         /// </summary>
-        public Options(bool useModelBinder) : this (20, true, useModelBinder)
+        public Options() : this (20, true, true)
         { }
 
         /// <summary>
@@ -78,7 +56,7 @@ namespace DataTableQueryBuilder.DataTables
         public Options(int defaultPageLength, bool enableDrawValidation, bool useRequestModelBinder)
         {
             DefaultPageLength = defaultPageLength;
-            IsDrawValidationEnabled = enableDrawValidation;
+            EnableDrawValidation = enableDrawValidation;
             UseRequestModelBinder = useRequestModelBinder;
 
             RequestNameConvention = new RequestNameConvention();

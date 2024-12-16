@@ -105,7 +105,7 @@ namespace DataTableQueryBuilder.DataTables
             if (Request == null)
                 return "";
 
-            if (Configuration.Options.IsDrawValidationEnabled)
+            if (Configuration.Options.EnableDrawValidation)
             {
                 // When draw validation is in place, response must have a draw value equals to or greater than 1.
                 // Any other value besides that represents an invalid draw request and response should be empty.
