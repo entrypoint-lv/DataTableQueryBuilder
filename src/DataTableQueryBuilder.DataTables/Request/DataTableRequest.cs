@@ -89,7 +89,7 @@ namespace DataTableQueryBuilder.DataTables
 
             // Accordingly to DataTables docs, it is recommended to receive/return draw casted as int for security reasons.
             int draw = 0;
-            if (options.IsDrawValidationEnabled && !Parse(values[names.Draw], out draw))
+            if (options.EnableDrawValidation && !Parse(values[names.Draw], out draw))
             {
                 return ValueTask.FromResult<DataTableRequest?>(null);
             }

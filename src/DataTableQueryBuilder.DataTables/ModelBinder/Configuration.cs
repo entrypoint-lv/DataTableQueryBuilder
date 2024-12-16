@@ -20,22 +20,28 @@ namespace DataTableQueryBuilder.DataTables
         /// Adds DataTableQueryBuilder.DataTables registration.
         /// </summary>
         /// <param name="services">Service collection for dependency injection.</param>
-        public static void AddDataTables(this IServiceCollection services) { services.AddDataTables(true); }
+        public static void AddDataTables(this IServiceCollection services) { services.AddDataTables(new Options()); }
 
         /// <summary>
         /// Adds DataTableQueryBuilder.DataTables registration.
         /// </summary>
         /// <param name="services">Service collection for dependency injection.</param>
-        public static void AddDataTables(this IServiceCollection services, bool useModelBinder) { services.AddDataTables(new Options(useModelBinder)); }
+        /// <param name="configureOptions">An action to configure the provided options.</param>
+        public static void AddDataTables(this IServiceCollection services, Action<Options> configureOptions)
+        {
+            var options = new Options();
+
+            configureOptions(options);
+
+            services.AddDataTables(options);
+        }
 
         /// <summary>
         /// Adds DataTableQueryBuilder.DataTables registration.
         /// </summary>
         /// <param name="services">Service collection for dependency injection.</param>
         /// <param name="options">DataTableQueryBuilder.DataTables options.</param>
-        /// <param name="requestModelBinder">Request model binder to use when resolving 'DataTablesRequest' models.</param>
-        /// <param name="parseRequestAdditionalParameters">Function to evaluate and parse aditional parameters sent within the request (user-defined parameters).</param>
-        public static void AddDataTables(this IServiceCollection services, Options options)
+        private static void AddDataTables(this IServiceCollection services, Options options)
         {
             Options = options ?? throw new ArgumentNullException(nameof(options), "Options for DataTableQueryBuilder.DataTables cannot be null.");
 
