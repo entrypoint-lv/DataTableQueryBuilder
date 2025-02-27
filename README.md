@@ -242,4 +242,4 @@ public IActionResult UserList(DataTableRequest request)
 
 That's all!
 
-Please refer to [the documentation](https://entrypointdev.github.io/DataTableQueryBuilder/) for available configuration options and detailed information.
+Please refer to [the documentation](https://entrypoint-lv.github.io/DataTableQueryBuilder/) for available configuration options and detailed information.
