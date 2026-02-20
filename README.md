@@ -1,10 +1,12 @@
-# Server-side .NET query builder for JavaScript data tables
+# .NET LINQ query builder for JavaScript data tables
 
 With this builder, you can implement server-side paging, filtering and sorting for any JavaScript datatable with just a few lines of code.
 
-The builder automatically transforms an AJAX request coming from a JavaScript datatable into a LINQ query against the Entity Framework data model according to the provided configuration.
+The builder dynamically transforms an AJAX request coming from a JavaScript datatable into a LINQ query against the Entity Framework data model according to the provided configuration.
 
-It can be used with any JavaScript datatable component that supports server-side processing (currently tested on [datatables.net](https://datatables.net) and [vue-good-table](https://xaksis.github.io/vue-good-table/) only).
+It can be used with ANY JavaScript datatable component that supports server-side processing.
+
+Currently tested on [TanStack Table](https://tanstack.com/table), [datatables.net](https://datatables.net) and [vue-good-table](https://xaksis.github.io/vue-good-table/).
 
 ## Docs
 
