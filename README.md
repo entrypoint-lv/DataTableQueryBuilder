@@ -4,7 +4,7 @@ With this builder, you can implement server-side paging, filtering and sorting f
 
 The builder dynamically transforms an AJAX request coming from a JavaScript datatable into a LINQ query against the Entity Framework data model according to the provided configuration.
 
-It can be used with ANY JavaScript datatable component that supports server-side processing.
+It can be used with any JavaScript datatable component that supports server-side processing.
 
 Currently tested on [TanStack Table](https://tanstack.com/table), [datatables.net](https://datatables.net) and [vue-good-table](https://xaksis.github.io/vue-good-table/).
 
