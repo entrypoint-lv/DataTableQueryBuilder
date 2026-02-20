@@ -4,7 +4,7 @@ layout: home
 hero:
   name: DataTable Query Builder
   text: .NET LINQ query builder for JavaScript data tables
-  tagline: Implement server-side paging, filtering and sorting for any JavaScript datatable with just a few lines of code. Works with Tanstack Table, Ag Grid, Shadcn Table, Datatables.net and so on.
+  tagline: Implement server-side paging, filtering and sorting for any JavaScript datatable with just a few lines of code. Works with Tanstack Table, Ag Grid, Shadcn Table, DataTables.net - you name it
   actions:
     - theme: brand
       text: Get Started
