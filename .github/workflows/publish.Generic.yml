@@ -25,10 +25,9 @@ jobs:
       
     - name: Test
       run: dotnet test --no-restore --verbosity normal
-      
-    - name: Publish DataTableQueryBuilder.Generic
-      uses: rohith/publish-nuget@v2
-      with:
-        PROJECT_FILE_PATH: src/DataTableQueryBuilder.Generic/DataTableQueryBuilder.Generic.csproj
-        PACKAGE_NAME: DataTableQueryBuilder.Generic
-        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+
+    - name: Pack nugets
+      run: dotnet pack -c Release --no-build --output .
+    
+    - name: Push to NuGet
+      run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
