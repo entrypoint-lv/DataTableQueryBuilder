@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
         
@@ -24,10 +24,9 @@ jobs:
       
     - name: Test
       run: dotnet test --no-restore --verbosity normal
-      
-    - name: Publish DataTableQueryBuilder
-      uses: rohith/publish-nuget@v2
-      with:
-        PROJECT_FILE_PATH: src/DataTableQueryBuilder/DataTableQueryBuilder.csproj
-        PACKAGE_NAME: DataTableQueryBuilder
-        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+
+    - name: Pack nugets
+      run: dotnet pack src/DataTableQueryBuilder/DataTableQueryBuilder.csproj -c Release --no-build --output .
+
+    - name: Push to NuGet
+      run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json --skip-duplicate
