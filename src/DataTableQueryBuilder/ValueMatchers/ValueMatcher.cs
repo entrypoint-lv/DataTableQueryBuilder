@@ -54,6 +54,9 @@ namespace DataTableQueryBuilder.ValueMatchers
             if (TypeHelper.IsDateTime(type))
                 return new DateMatcher(property, valueToMatch, dateFormat);
 
+            if (TypeHelper.IsDateOnly(type))
+                return new DateOnlyMatcher(property, valueToMatch, dateFormat);
+
             var stringMatchMode = StringMatchMode.Contains;
 
             if (valueMatchMode != null)

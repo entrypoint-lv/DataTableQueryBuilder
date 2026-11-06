@@ -9,12 +9,13 @@
             Represents a DataTable build result.
             </summary>
         </member>
-        <member name="M:DataTableQueryBuilder.Generic.DataTableBuildResult`2.#ctor(System.Int32,System.Int32,System.Linq.IQueryable{`1},DataTableQueryBuilder.Generic.DataTableRequest)">
+        <member name="M:DataTableQueryBuilder.Generic.DataTableBuildResult`2.#ctor(System.Int32,System.Int32,System.Linq.IQueryable{`1},System.Linq.IQueryable{`1},DataTableQueryBuilder.Generic.DataTableRequest)">
             <summary>
             Creates a new DataTable build result.
             </summary>
             <param name="totalRecords">Total records in the data source.</param>
             <param name="totalRecordsFiltered">Total records filtered from the data source.</param>
+            /// <param name="buildedQueryWithoutPagination">Builded LINQ query without pagination.</param>
             <param name="buildedQuery">Builded LINQ query.</param>
             <param name="request">DataTables request.</param>
         </member>
@@ -55,12 +56,13 @@
             Represents a DataTable build result.
             </summary>
         </member>
-        <member name="M:DataTableQueryBuilder.Generic.DataTableBuildResult`1.#ctor(System.Int32,System.Int32,System.Linq.IQueryable{`0},DataTableQueryBuilder.Generic.DataTableRequest)">
+        <member name="M:DataTableQueryBuilder.Generic.DataTableBuildResult`1.#ctor(System.Int32,System.Int32,System.Linq.IQueryable{`0},System.Linq.IQueryable{`0},DataTableQueryBuilder.Generic.DataTableRequest)">
             <summary>
             Creates a new DataTable build result.
             </summary>
             <param name="totalRecords">Total records in the data source.</param>
             <param name="totalRecordsFiltered">Total records filtered from the data source.</param>
+            <param name="buildedQueryWithoutPagination">Builded LINQ query without pagination.</param>
             <param name="buildedQuery">Builded LINQ query.</param>
             <param name="request">DataTables request.</param>
         </member>
@@ -97,19 +99,19 @@
             <param name="request">DataTable request.</param>
             <param name="optionsAction">An action to configure the QueryBuilderOptions.</param>
         </member>
-        <member name="T:DataTableQueryBuilder.Generic.DataTablesQueryBuilder`1">
+        <member name="T:DataTableQueryBuilder.Generic.DataTableQueryBuilder`1">
             <summary>
             Builds a query according to the specific DataTable request.
             </summary>
             <typeparam name="TSource">The type of the data returned from the data source.</typeparam>
         </member>
-        <member name="M:DataTableQueryBuilder.Generic.DataTablesQueryBuilder`1.#ctor(DataTableQueryBuilder.Generic.DataTableRequest)">
+        <member name="M:DataTableQueryBuilder.Generic.DataTableQueryBuilder`1.#ctor(DataTableQueryBuilder.Generic.DataTableRequest)">
             <summary>
             Creates a new query builder to be used for specific DataTable request.
             </summary>
             <param name="request">DataTable request.</param>
         </member>
-        <member name="M:DataTableQueryBuilder.Generic.DataTablesQueryBuilder`1.#ctor(DataTableQueryBuilder.Generic.DataTableRequest,System.Action{DataTableQueryBuilder.QueryBuilderOptions{`0,`0}})">
+        <member name="M:DataTableQueryBuilder.Generic.DataTableQueryBuilder`1.#ctor(DataTableQueryBuilder.Generic.DataTableRequest,System.Action{DataTableQueryBuilder.QueryBuilderOptions{`0,`0}})">
             <summary>
             Creates a new query builder to be used on specific DataTable request.
             </summary>
