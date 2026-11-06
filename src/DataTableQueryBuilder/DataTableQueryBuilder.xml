@@ -330,17 +330,23 @@
             Gets the total number of records with filtering applied.
             </summary>
         </member>
-        <member name="P:DataTableQueryBuilder.QueryBuildResult`2.BuildedQuery">
+        <member name="P:DataTableQueryBuilder.QueryBuildResult`2.BuildedQueryWithoutPagination">
             <summary>
-            Gets the builded query with specified searching and sorting configuration applied.
+            Gets the builded query without pagination with specified searching and sorting configuration applied.
             </summary>
         </member>
-        <member name="M:DataTableQueryBuilder.QueryBuildResult`2.#ctor(System.Int32,System.Int32,System.Linq.IQueryable{`1})">
+        <member name="P:DataTableQueryBuilder.QueryBuildResult`2.BuildedQuery">
+            <summary>
+            Gets the builded query with pagination and specified searching and sorting configuration applied.
+            </summary>
+        </member>
+        <member name="M:DataTableQueryBuilder.QueryBuildResult`2.#ctor(System.Int32,System.Int32,System.Linq.IQueryable{`1},System.Linq.IQueryable{`1})">
             <summary>
             Creates a new build result.
             </summary>
             <param name="totalRecords">Total records in the data source.</param>
             <param name="totalRecordsFiltered">Total records filtered from the data source.</param>
+            <param name="buildedQueryWithoutPagination">Builded LINQ query without pagination.</param>
             <param name="buildedQuery">Builded LINQ query.</param>
         </member>
         <member name="T:DataTableQueryBuilder.Sort">

@@ -38,6 +38,11 @@ namespace DataTableQueryBuilder
             return type == typeof(DateTime) || Nullable.GetUnderlyingType(type) == typeof(DateTime);
         }
 
+        public static bool IsDateOnly(Type type)
+        {
+            return type == typeof(DateOnly) || Nullable.GetUnderlyingType(type) == typeof(DateOnly);
+        }
+
         public static bool IsEnum(Type type)
         {
             var t = Nullable.GetUnderlyingType(type) ?? type;
